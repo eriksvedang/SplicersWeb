@@ -5,6 +5,7 @@ module Database where
 import Database.PostgreSQL.Simple
 import Data.Text (Text(..), unpack)
 import Control.Monad (forM_)
+import Card
 
 friendsNames :: Connection -> IO [(Only Text)]
 friendsNames conn = do
@@ -32,3 +33,12 @@ temp = do
   ages <- (friendsAges conn)
   forM_ ages $ \(name,age) ->
     putStrLn $ unpack name ++ " is " ++ show (age :: Int)
+
+getCards :: IO [Card]
+getCards = do
+  conn <- connectPostgreSQL "dbname=splicers user=erik"
+
+  execute_ conn "CREATE TABLE IF NOT EXISTS card (title varchar(80), rules text);"
+
+  return []
+
