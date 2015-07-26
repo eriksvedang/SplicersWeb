@@ -37,8 +37,7 @@ temp = do
 getCards :: IO [Card]
 getCards = do
   conn <- connectPostgreSQL "dbname=splicers user=erik"
+  cards <- query_ conn "SELECT title,rules FROM card;"
+  return $ map (\(t,r) -> Card t r) cards
 
-  execute_ conn "CREATE TABLE IF NOT EXISTS card (title varchar(80), rules text);"
-
-  return []
 
