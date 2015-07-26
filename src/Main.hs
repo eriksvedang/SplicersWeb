@@ -33,3 +33,4 @@ renderCards cards = do
 renderCard :: Card -> Text
 renderCard card = "<h1>" <> title card <> "</h1>"
 
+
