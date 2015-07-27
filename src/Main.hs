@@ -14,7 +14,9 @@ import System.Environment (getArgs)
 
 main :: IO ()
 main = do
-  [port] <- getArgs
+  args <- getArgs
+  putStrLn $ "Nr of args: " ++ show (length args)
+  let [_, port] = args
   runSpock (read port) $ spockT id $ do
     get root $ html "<h1>Splicers</h1>"
     get ("hello" <//> var) hello
