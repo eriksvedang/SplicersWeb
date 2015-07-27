@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ExtendedDefaultRules #-}
 
 module Main where
 
@@ -7,11 +8,13 @@ import Control.Monad.IO.Class (liftIO, MonadIO)
 import Control.Monad (foldM, mapM)
 import Data.Text.Internal (Text)
 import Data.Text (unpack, pack)
+import Data.Text.Lazy (toStrict)
 import qualified Data.Text as Text
 import Data.Monoid ((<>))
 import Database (temp, getCards, addCard)
 import Card
 import System.Environment (getArgs)
+import Lucid
 
 -- export DATABASE_URL="dbname=splicers user=erik"
 -- cabal run _ 8080
@@ -22,7 +25,8 @@ main = do
   putStrLn $ "Nr of args: " ++ show (length args)
   let [_, port] = args
   runSpock (read port) $ spockT id $ do
-    get root $ html "<h1>Splicers</h1>"
+    get root $ html $ toStrict $ renderText $ do h1_ "Splicers"
+                                                 h2_ "An open source collectible card game"
     get ("hello" <//> var) hello
     get "db" $ do
       liftIO temp
