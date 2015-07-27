@@ -10,18 +10,20 @@ import Data.Text (unpack, pack)
 import Data.Monoid ((<>))
 import Database (temp, getCards)
 import Card
+import System.Environment (getArgs)
 
 main :: IO ()
-main = 
-    runSpock 8080 $ spockT id $
-    do get root $ html "<h1>Splicers</h1>"
-       get ("hello" <//> var) hello
-       get "db" $ do
-         liftIO temp
-         (text "performed db stuff")
-       get "cards" $ do
-         cards <- liftIO getCards
-         renderCards cards
+main = do
+  [port] <- getArgs
+  runSpock (read port) $ spockT id $ do
+    get root $ html "<h1>Splicers</h1>"
+    get ("hello" <//> var) hello
+    get "db" $ do
+      liftIO temp
+      (text "performed db stuff")
+    get "cards" $ do
+      cards <- liftIO getCards
+      renderCards cards
          
 hello :: MonadIO m => Text -> ActionT m a
 hello name = html ("Hejsan <a href=\"#\">" <> name <> "</a>.")
