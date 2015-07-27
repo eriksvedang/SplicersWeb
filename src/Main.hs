@@ -7,6 +7,7 @@ import Control.Monad.IO.Class (liftIO, MonadIO)
 import Control.Monad (foldM, mapM)
 import Data.Text.Internal (Text)
 import Data.Text (unpack, pack)
+import qualified Data.Text as Text
 import Data.Monoid ((<>))
 import Database (temp, getCards)
 import Card
@@ -35,9 +36,54 @@ hello name = html ("Hejsan <a href=\"#\">" <> name <> "</a>.")
 
 renderCards :: MonadIO m => [Card] -> ActionT m a
 renderCards cards = do
-  html $ pack (show (map renderCard cards))
+  html $ css <> (Text.unlines (map renderCard cards))
 
 renderCard :: Card -> Text
-renderCard card = "<h1>" <> title card <> "</h1>"
+renderCard card = "<ul>" <> title card <> " - " <> rules card <> "</ul>"
 
-
+css = "<style> body { \
+      \ background-color: gray; \
+      \ color: black; \
+      \ margin-top: 100px; \
+      \ font-family: Karla, monospace; \
+      \ line-height: 18px; \
+      \ word-spacing: 2px; \
+      \ } \
+      \ div { \
+      \ margin-left: auto; \
+      \ margin-right: auto; \
+      \ width: 500px; \
+      \ padding: 50px; \
+      \ background-color: white; \
+      \ -moz-box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5); \
+      \ -webkit-box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5); \
+      \ box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5); \
+      \ margin-bottom: 50px; \
+      \ } \
+      \ .title { \
+      \ background-color: pink; \
+      \ font-weight: bolder; \
+      \ font-size: 30px; \
+      \ } \
+      \ .headline { \
+      \ font-weight: bold; \
+      \ font-size: 16px; \
+      \ background-color: pink; \
+      \ } \
+      \ .text { \
+      \ text-indent: 10px; \
+      \ font-size: 14px; \
+      \ } \
+      \ li { \
+      \ font-style: italic; \
+      \ } \
+      \ #background { \
+      \ width: 100%; \
+      \ height: 100%; \
+      \ position: fixed; \
+      \ top: 0; \
+      \ bottom: 0; \
+      \ left: 0; \
+      \ right: 0; \
+      \ z-index: -1; \
+      \ } </style>"      
