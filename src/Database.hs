@@ -4,8 +4,10 @@ module Database where
 
 import Database.PostgreSQL.Simple
 import Data.Text (Text(..), unpack)
+import Data.ByteString.Char8 (pack)
 import Control.Monad (forM_)
 import Card
+import System.Environment (lookupEnv)
 
 friendsNames :: Connection -> IO [(Only Text)]
 friendsNames conn = do
@@ -34,9 +36,12 @@ temp = do
   forM_ ages $ \(name,age) ->
     putStrLn $ unpack name ++ " is " ++ show (age :: Int)
 
+-- export DATABASE_URL="dbname=splicers user=erik"
+
 getCards :: IO [Card]
 getCards = do
-  conn <- connectPostgreSQL "dbname=splicers user=erik"
+  (Just db_url) <- lookupEnv "DATABASE_URL"
+  conn <- connectPostgreSQL (pack db_url)
   cards <- query_ conn "SELECT title,rules FROM card;"
   return $ map (\(t,r) -> Card t r) cards
 
