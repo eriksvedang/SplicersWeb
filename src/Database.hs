@@ -44,4 +44,9 @@ getCards = do
   cards <- query_ conn "SELECT title,rules FROM card;"
   return $ map (\(t,r) -> Card t r) cards
 
-
+addCard :: Text -> Text -> IO ()
+addCard title rules = do
+  (Just db_url) <- lookupEnv "DATABASE_URL"
+  conn <- connectPostgreSQL (pack db_url)
+  execute conn "INSERT INTO card VALUES (?, ?)" (title, rules)
+  return ()

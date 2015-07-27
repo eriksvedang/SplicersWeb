@@ -9,7 +9,7 @@ import Data.Text.Internal (Text)
 import Data.Text (unpack, pack)
 import qualified Data.Text as Text
 import Data.Monoid ((<>))
-import Database (temp, getCards)
+import Database (temp, getCards, addCard)
 import Card
 import System.Environment (getArgs)
 
@@ -30,6 +30,13 @@ main = do
     get "cards" $ do
       cards <- liftIO getCards
       renderCards cards
+    get "add-card" $ do
+      html "<form action='submit-card'>Title: <input type='text' name='title'><br>Rules text: <input type='text' name='rules'><br><input type='submit' value='Submit'></form>"
+    get "submit-card" $ do
+      (Just title) <- param "title"
+      (Just rules) <- param "rules"
+      liftIO (addCard title rules)
+      html $ "Added card '" <> title <> "'<br><a href='/cards'>Card list</a>"
          
 hello :: MonadIO m => Text -> ActionT m a
 hello name = html ("Hejsan <a href=\"#\">" <> name <> "</a>.")
