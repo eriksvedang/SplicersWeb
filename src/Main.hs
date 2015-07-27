@@ -12,6 +12,9 @@ import Database (temp, getCards)
 import Card
 import System.Environment (getArgs)
 
+-- export DATABASE_URL="dbname=splicers user=erik"
+-- cabal run _ 8080
+
 main :: IO ()
 main = do
   args <- getArgs

@@ -23,21 +23,19 @@ temp = do
   (Just db_url) <- lookupEnv "DATABASE_URL"
   conn <- connectPostgreSQL (pack db_url)
 
-  execute_ conn "CREATE TABLE IF NOT EXISTS friends (name varchar(80), age int);"
-  execute_ conn "INSERT INTO friends VALUES ('Erik', 27);"
-  execute_ conn "INSERT INTO friends VALUES ('Niklas', 32);"
+  execute_ conn "CREATE TABLE IF NOT EXISTS card (title varchar(80), rules text);"
+  execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2');"
+  execute_ conn "INSERT INTO card VALUES ('Nice Blizzard', 'Crunch all seeds. Players gain $1 for each seed lost.');"
 
-  putStrLn "\nOnly names:"
-  names <- (friendsNames conn)
-  forM_ names $ \(Only name) ->
-    putStrLn $ unpack name
+  -- putStrLn "\nOnly names:"
+  -- names <- (friendsNames conn)
+  -- forM_ names $ \(Only name) ->
+  --   putStrLn $ unpack name
 
-  putStrLn "\nNames and ages:"
-  ages <- (friendsAges conn)
-  forM_ ages $ \(name,age) ->
-    putStrLn $ unpack name ++ " is " ++ show (age :: Int)
-
--- export DATABASE_URL="dbname=splicers user=erik"
+  -- putStrLn "\nNames and ages:"
+  -- ages <- (friendsAges conn)
+  -- forM_ ages $ \(name,age) ->
+  --   putStrLn $ unpack name ++ " is " ++ show (age :: Int)
 
 getCards :: IO [Card]
 getCards = do
