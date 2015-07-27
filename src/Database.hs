@@ -21,7 +21,7 @@ friendsAges conn = do
 
 temp = do
   (Just db_url) <- lookupEnv "DATABASE_URL"
-  conn <- connectPostgreSQL db_url
+  conn <- connectPostgreSQL (pack db_url)
 
   execute_ conn "CREATE TABLE IF NOT EXISTS friends (name varchar(80), age int);"
   execute_ conn "INSERT INTO friends VALUES ('Erik', 27);"
