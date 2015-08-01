@@ -58,23 +58,23 @@ cardsRoute = do cards <- liftIO getCards
 renderCards :: [Card] -> Html ()
 renderCards cards = renderPage $ mapM_ renderCard cards
 
+svg path = embed_ [src_ path, type_ "image/svg+xml"]
+
 renderCard :: Card -> Html ()
 renderCard card = 
   do div_ [class_ "card ting"] $ do
        div_ [class_ "title"] $ toHtml (title card)
-       div_ [class_ "windom"] $ do
-         span_ "3"
        div_ [class_ "cost"] $ do
-         img_ [src_ "/files/cost.svg"]
-         span_ "5"
-       div_ [class_ "illustration"] $ toHtml "1"
+         svg "/files/cost.svg"
+         span_ $ toHtml (show (cost card))
+       div_ [class_ "illustration"] ""
        div_ [class_ "types"] $ do
          div_ [class_ "dominance"] $ do
-           span_ "3"
+           span_ $ toHtml (show (dominance card))
          span_ "ting -animal"
        div_ [class_ "ability"] $ do
-         img_ [src_ "/files/gen_artificial.svg", class_ "gene1"]
-         img_ [src_ "/files/gen_plant.svg", class_ "gene2"]
+         embed_ [src_ "/files/gen_artificial.svg", type_ "image/svg+xml", class_ "gene1"]
+         embed_ [src_ "/files/gen_plant.svg", type_ "image/svg+xml", class_ "gene2"]
          span_ $ toHtml (rules card)
 
 -- <div class="card ting">
