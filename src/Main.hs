@@ -11,7 +11,7 @@ import Data.Text (unpack, pack)
 import Data.Text.Lazy (toStrict)
 import qualified Data.Text as Text
 import Data.Monoid ((<>))
-import Database (temp, getCards, addCard)
+import Database (migrate, getCards, addCard, addFakeData)
 import Card
 import System.Environment (getArgs)
 import System.Environment (lookupEnv)
@@ -19,6 +19,7 @@ import Lucid
 
 main :: IO ()
 main = do
+  migrate
   (Just port) <- lookupEnv "PORT"
   runSpock (read port) $ spockT id $ do
     get root $              renderFrontPage
@@ -26,6 +27,7 @@ main = do
     get "cards" $           cardsRoute
     get "add-card" $        renderAddCard
     get "submit-card" $     submitCardRoute
+    get "add-fake-data" $   addFakeDataRoute
 
 getFile :: MonadIO m => String -> ActionT m a
 getFile name = file (pack name) ("./files/" ++ name)
@@ -119,4 +121,8 @@ renderSubmitCard :: Text -> Text -> Html ()
 renderSubmitCard title rules = renderPage $ do p_ $ toHtml $ "Title: " <> title
                                                p_ $ toHtml $ "Rules: " <> rules
                                                a_ [href_ "/cards"] "Cards"
+
+addFakeDataRoute = do
+  liftIO addFakeData
+  lucidToSpock $ renderPage $ p_ "Added fake data!"
 
