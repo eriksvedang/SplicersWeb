@@ -1,0 +1,299 @@
+body {
+	background-color: gray;
+}
+
+b {
+	font-weight: bolder;
+}
+
+.card {
+	font-family: Karla;
+	width: 63mm;
+	height: 88mm;
+	border-style: solid;
+	background-color: white;
+	border-width: 0.5pt;
+	border-radius: 2mm;
+	-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
+	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
+	display: inline-block;
+	float: left;
+	margin: 5mm;
+}
+.title {
+	font-weight: bolder;
+	font-size: 14pt;
+	margin-left: 3.5mm;
+	margin-bottom: 1mm;
+	margin-top: 3mm;
+	max-width: 45mm;
+	display: inline-block;
+}
+.types {
+	font-weight: bolder;
+	text-transform: uppercase;
+	font-size: 9pt;
+	width: 54mm;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: white;
+	border: 2pt solid black;
+	text-indent: 1.5mm;
+	border-top-style: none;
+	-moz-box-shadow: 3pt 3pt rgba(0, 0, 0, 0.5);
+	box-shadow: 3pt 3pt rgba(0, 0, 0, 0.5);
+	padding-top: 1pt;
+	padding-bottom: 1pt;
+}
+
+.illustration {
+	width: 54mm;
+	height: 35mm;
+	border-style: solid;
+	border-width: 2pt;
+	-moz-box-shadow: 3pt 3pt rgba(0, 0, 0, 0.5);
+	box-shadow: 3pt 3pt rgba(0, 0, 0, 0.5);
+	margin-left: auto;
+	margin-right: auto;
+	background-color: yellow;
+}
+
+
+
+.ability {
+	width: 54mm;
+	height: 30mm;
+	margin-top: 3mm;
+	margin-right: auto;
+	margin-left: auto;
+	font-size: 10pt;
+}
+
+.cost {
+	display: none;
+}
+.windom {
+	display: none;
+}
+
+.dominance {
+	display: none;
+}
+
+.gene1 {
+	display: none;
+}
+
+.gene2 {
+	display: none;
+}
+
+.matter {
+	display: none;
+}
+
+.carddraw {
+	display: none;
+}
+
+.mutation .title {
+transform: rotate (90deg);
+-webkit-transform: rotate(90deg); 
+-moz-transform: rotate(90deg);
+	float: right;
+	position: relative;
+	top: 38pt;
+	left: 31pt;
+}
+
+
+.mutation .illustration {
+	margin-top: 3.5mm;
+	margin-left: 3.5mm;
+	width: 48mm;
+	height: 41mm;
+}
+
+.mutation .types {
+	margin-left: 3.5mm;
+	width: 48mm;
+}
+
+.mutation .ability {
+	margin-left: 3.5mm;
+	width: 49mm;
+}
+
+.event .title {
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+	text-decoration: underline;
+	margin-bottom: 2mm;
+}
+.event .illustration {
+	border-radius: 50%;
+}
+.event .types {
+	background: none;
+	display: block;
+	text-align: center;
+	margin: 2mm auto -2mm;
+	border-style: none;
+	text-indent: 0;
+	box-shadow: none;
+	-moz-box-shadow:none;
+}
+
+.ting .cost {
+	font-weight: bolder;
+	font-size: 18pt;
+	margin-right: 4mm;
+	display: inline-block;
+	float: right;
+	margin-top: 2mm;
+	padding-left: 4mm;
+	background-repeat: no-repeat;
+	text-align: right;
+}
+.ting .cost img {
+	height: 12pt;
+}
+.ting .dominance {
+	font-weight: bolder;
+	background-color: white;
+	width: 9.5mm;
+	height: 9.5mm;
+	vertical-align: text-bottom;
+	text-align: center;
+	font-size: 27pt;
+	float: left;
+	border: 2px solid black;
+	text-indent: 0;
+	display: inline;
+	margin-top: -17pt;
+	margin-left: -2pt;
+}
+.ting .dominance span {
+	position: relative;
+	bottom: 3px;
+	
+}
+
+.ting .gene1 {
+	background: #dadada;
+	border-radius: 50%;
+	float: right;
+	margin-bottom: 1mm;
+	width: 5mm;
+	height: 5mm;
+	padding: 1pt;
+	display: inline;
+}
+
+.ting .gene2 {
+	background-color: #dadada;
+	width: 5mm;
+	height: 5mm;
+	padding: 1pt;
+	border-radius: 50%;
+	float: right;
+	clear: right;
+	margin-bottom: 15mm;
+	display: inline;
+}
+
+.splicer .title {
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+	margin-bottom: 2mm;
+}
+.splicer .illustration {
+	border-radius: 50%;
+	width: 35mm;
+	height: 47mm;
+}
+.splicer .types {
+background: none;
+display: block;
+text-align: center;
+margin: 2mm auto -7mm;
+border-style: none;
+text-indent: 0;
+box-shadow: none;
+-moz-box-shadow:none;
+	position: relative;
+	top: 21mm;
+}
+.splicer .ability {
+	height: 17mm;
+}
+
+.splicer .carddraw {
+	display: block;
+	float: right;
+	position: relative;
+	bottom: 6mm;
+	right: 5mm;
+	font-size: 18pt;
+	text-align: center;
+	font-weight: bold;
+}
+
+.splicer .carddraw img {
+	height: 16pt;
+	margin-bottom: -2px;
+}
+
+.splicer .matter {
+	display: inline;
+	position: relative;
+	bottom: 6mm;
+	font-size: 18pt;
+	text-align: center;
+	left: 5mm;
+	float: left;
+	margin-right: -100pt;
+	font-weight: bold;
+}
+
+.splicer .matter img {
+	height: 12pt;
+}
+
+.biom {
+	height: 63mm;
+	width: 88mm;
+}
+
+.biom .title {
+	margin-top: 4pt;
+}
+
+.biom .illustration {
+	height: 35mm;
+	width: 80mm;
+}
+
+.biom .types {
+	width: 80mm;
+}
+
+.biom .ability {
+	width: 80mm;
+	height: 9mm;
+	margin-top: 6pt;
+}
+
+.biom .windom {
+	display: inline;
+	float: right;
+	font-size: 18pt;
+	font-weight: bold;
+	margin-top: 2pt;
+	margin-right: 9pt;
+	text-align: center;
+}
