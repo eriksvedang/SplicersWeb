@@ -21,17 +21,13 @@ main :: IO ()
 main = do
   (Just port) <- lookupEnv "PORT"
   runSpock (read port) $ spockT id $ do
-    get root $ lucidToSpock renderFrontPage
-    get ("files" <//> var) getFile
-    get "cards" $ do cards <- liftIO getCards
-                     lucidToSpock $ renderCards cards
-    get "add-card" $ lucidToSpock renderAddCard
-    get "submit-card" $ do
-      (Just title) <- param "title"
-      (Just rules) <- param "rules"
-      liftIO (addCard title rules)
-      lucidToSpock (renderSubmitCard title rules)
+    get root $              renderFrontPage
+    get ("files" <//> var)  getFile
+    get "cards" $           cardsRoute
+    get "add-card" $        renderAddCard
+    get "submit-card" $     submitCardRoute
 
+getFile :: MonadIO m => String -> ActionT m a
 getFile name = file (pack name) ("./files/" ++ name)
 
 lucidToSpock :: MonadIO m => Html () -> ActionT m a
@@ -49,29 +45,45 @@ renderPage :: Html () -> Html ()
 renderPage body = do head_ $ allCSS
                      body_ $ body
 
-renderFrontPage :: Html ()
-renderFrontPage = renderPage $ do h1_ "Splicers"
-                                  h2_ "An open source collectible card game"
-                                  p_ "Yeah, it's pretty cool."
-                                  a_ [href_ "/cards"] "Cards"
+renderFrontPage :: ActionT IO a
+renderFrontPage = lucidToSpock $ renderPage $ do h1_ "Splicers"
+                                                 h2_ "An open source collectible card game"
+                                                 p_ "Yeah, it's pretty cool."
+                                                 a_ [href_ "/cards"] "Cards"
 
+cardsRoute :: ActionT IO a
+cardsRoute = do cards <- liftIO getCards
+                lucidToSpock $ renderCards cards
+
+renderCards :: [Card] -> Html ()
 renderCards cards = mapM_ renderCard cards
 
 renderCard :: Card -> Html ()
 renderCard card = do div_ $ do p_ $ toHtml (title card)
                                p_ $ toHtml (rules card)
 
+input name = input_ [type_ "text", name_ name]
+
+renderAddCard :: ActionT IO a
 renderAddCard =
-  renderPage $ do
+  lucidToSpock $ renderPage $ do
     form_ [action_ "submit-card"] $ do
-      div_ "Title:"
-      input_ [type_ "text", name_ "title"]
-      div_ "Rules text:"
-      input_ [type_ "text", name_ "rules"]
+      div_ $ do span_ "Title:"
+                input "title"
+      div_ $ do span_ "Rules text:"
+                input "rules"
       br_ []
       input_ [type_ "submit", value_ "Submit"]
+
+submitCardRoute :: ActionT IO a
+submitCardRoute = do
+  (Just title) <- param "title"
+  (Just rules) <- param "rules"
+  liftIO (addCard title rules)
+  lucidToSpock (renderSubmitCard title rules)
 
 renderSubmitCard :: Text -> Text -> Html ()
 renderSubmitCard title rules = renderPage $ do p_ $ toHtml $ "Title: " <> title
                                                p_ $ toHtml $ "Rules: " <> rules
+                                               a_ [href_ "/cards"] "Cards"
 
