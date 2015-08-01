@@ -56,11 +56,44 @@ cardsRoute = do cards <- liftIO getCards
                 lucidToSpock $ renderCards cards
 
 renderCards :: [Card] -> Html ()
-renderCards cards = mapM_ renderCard cards
+renderCards cards = renderPage $ mapM_ renderCard cards
 
 renderCard :: Card -> Html ()
-renderCard card = do div_ $ do p_ $ toHtml (title card)
-                               p_ $ toHtml (rules card)
+renderCard card = 
+  do div_ [class_ "card ting"] $ do
+       div_ [class_ "title"] $ toHtml (title card)
+       div_ [class_ "windom"] $ do
+         span_ "3"
+       div_ [class_ "cost"] $ do
+         img_ [src_ "/files/cost.svg"]
+         span_ "5"
+       div_ [class_ "illustration"] $ toHtml "1"
+       div_ [class_ "types"] $ do
+         div_ [class_ "dominance"] $ do
+           span_ "3"
+         span_ "ting -animal"
+       div_ [class_ "ability"] $ do
+         img_ [src_ "/files/gen_artificial.svg", class_ "gene1"]
+         img_ [src_ "/files/gen_plant.svg", class_ "gene2"]
+         span_ $ toHtml (rules card)
+
+-- <div class="card ting">
+-- 	<div class="title">Raptorsquad</div>
+-- 	<div class="windom">1</div>
+-- 	<div class="cost"><img src="img/cost.svg"/>5</div>
+-- 	<div class="illustration"></div>
+-- 	<div class="types">
+-- 		<div class="dominance"><span>3</span></div>
+-- 		ting - animal
+-- 	</div>
+-- 	<div class="matter"><img src="img/cost.svg"/>4</div>
+-- 	<div class="carddraw"><img src="img/carddraw.svg"/>4</div>
+-- 	<div class="ability"> 
+-- 		<img src="img/gen_artificial.svg" class="gene1"/>
+-- 		<img src="img/gen_plant.svg" class="gene2"/>
+-- 		You may <b>evolve</b> one card.<br/>You may <b>evolve</b> one card.<br/>
+-- 	</div>
+-- </div>
 
 input name = input_ [type_ "text", name_ name]
 
