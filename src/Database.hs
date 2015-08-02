@@ -20,7 +20,11 @@ migrate = do
 addFakeData = do
   conn <- getConnection
   execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2', 1, 2, 'ting', 'animal', 'feather', 'small');"
+  execute_ conn "INSERT INTO card VALUES ('Tulip', 'When tulip evolves, gain $1 for each close ting with [leaf]', 1, 1, 'ting', 'plant', 'leaf', 'small');"
   execute_ conn "INSERT INTO card VALUES ('Nice Blizzard', 'Crunch all seeds. Players gain $1 for each seed lost.', 0, 0, 'event', '', '', '');"
+  execute_ conn "INSERT INTO card VALUES ('Ingvar Karlsson', 'When a friendly ting hunts, gain $1.', 0, 0, 'splicer', 'politician', '', '');"
+  execute_ conn "INSERT INTO card VALUES ('Djungle', 'Seeds enter play unexhausted here.', 0, 0, 'biom', 'terran', '', '');"
+  execute_ conn "INSERT INTO card VALUES ('Crown', '+1', 0, 0, 'mutation', '', '', '');"
 
 getCards :: IO [Card]
 getCards = do
