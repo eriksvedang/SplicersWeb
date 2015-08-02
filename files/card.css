@@ -297,3 +297,8 @@ box-shadow: none;
 	margin-right: 9pt;
 	text-align: center;
 }
+
+.flavor {
+    font-style: italic;
+    color: #bbb;
+}

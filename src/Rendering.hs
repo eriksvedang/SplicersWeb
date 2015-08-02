@@ -55,6 +55,9 @@ typesDiv cardType subType dominance = do
               "" -> ""
               _ -> " - " <> subType
 
+flavorText :: Card -> Html ()
+flavorText card = p_ [class_ "flavor"] $ toHtml (flavor card)
+
 renderTing :: Card -> Html ()
 renderTing card = 
   do div_ [class_ "card ting"] $ do
@@ -68,6 +71,7 @@ renderTing card =
          with (svg "/files/gen_artificial.svg") [class_ "gene1"]
          with (svg "/files/gen_plant.svg") [class_ "gene1"]
          span_ $ toHtml (rules card)
+         flavorText card 
 
 renderEvent :: Card -> Html ()
 renderEvent card = 
@@ -80,6 +84,7 @@ renderEvent card =
        typesDiv "event" (subType card) 0
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
+         flavorText card 
 
 renderBiom :: Card -> Html ()
 renderBiom card = 
@@ -93,6 +98,7 @@ renderBiom card =
        typesDiv "biom" (subType card) 0
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
+         --flavorText card 
 
 renderMutation :: Card -> Html ()
 renderMutation card = 
@@ -102,6 +108,7 @@ renderMutation card =
        typesDiv "mutation" (subType card) 0
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
+         flavorText card 
 
 renderSplicer :: Card -> Html ()
 renderSplicer card = 
@@ -114,12 +121,13 @@ renderSplicer card =
        typesDiv "splicer" (subType card) 0
        div_ [class_ "matter"] $ do
          svg "/files/cost.svg"
-         span_ "4"
+         span_ $ toHtml (show (startMatter card))
        div_ [class_ "carddraw"] $ do
          svg "/files/carddraw.svg"
-         span_ "4"
+         span_ $ toHtml (show (startCards card))
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
+         flavorText card
 
 field name helpText inputType defaultValue =
   div_ $ do span_ (toHtml name)
@@ -135,14 +143,14 @@ renderAddCard =
     form_ [action_ "submit-card"] $ do
       field "title" "" "text" ""
       field "rules" "" "text" ""
-      field "domination" "" "number" "1"
-      field "cost" "" "number" "1"
-      field "cardType" " (Ting, Biom, Event, Mutation, Splicer)" "text" "ting"
+      field "domination" "" "number" "0"
+      field "cost" "" "number" "0"
+      field "cardType" " (Ting, Biom, Event, Mutation, Splicer)" "text" "Ting"
       field "subType" " (i.e. Animal, Plant...)" "text" ""
       field "gene1" "" "text" ""
       field "gene2" "" "text" ""
-      field "startMatter" "" "number" ""
-      field "startCards" "" "number" ""
+      field "startMatter" "" "number" "4"
+      field "startCards" "" "number" "4"
       field "flavor" "" "text" ""
       field "designer" "" "text" ""
       br_ []
