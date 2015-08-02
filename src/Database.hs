@@ -19,6 +19,7 @@ getConnection = do
   (Just db_url) <- lookupEnv "DATABASE_URL"
   connectPostgreSQL (pack db_url)
 
+migrate :: IO ()
 migrate = do
   conn <- getConnection
   execute_ conn "CREATE TABLE IF NOT EXISTS card (\
@@ -36,7 +37,10 @@ migrate = do
 \ designer varchar(80), \
 \ key SERIAL PRIMARY KEY \
 \);"
-  
+  cards <- getCards
+  if (length cards) == 0 then addFakeData else return ()
+
+addFakeData :: IO ()
 addFakeData = do
   conn <- getConnection
   execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2', 1, 2, 'Ting', 'animal', 'Feather', 'Small', 0, 0, 'Xuuuuu!', 'Erik');"
@@ -45,6 +49,7 @@ addFakeData = do
   execute_ conn "INSERT INTO card VALUES ('Ingvar Karlsson', 'When a friendly ting hunts, gain $1.', 0, 0, 'Splicer', 'politician', '', '', 0, 0, 'Warm and cozy', 'Erik');"
   execute_ conn "INSERT INTO card VALUES ('Djungle', 'Seeds enter play unexhausted here.', 0, 0, 'Biom', 'terran', '', '', 5, 3, 'Ruling with an iron fist', 'Erik');"
   execute_ conn "INSERT INTO card VALUES ('Crown', '+1', 0, 0, 'Mutation', '', '', '', 0, 0, 'You will be the queen', 'Erik');"
+  return ()
 
 instance FromField Gene where
   fromField f bs = case bs of

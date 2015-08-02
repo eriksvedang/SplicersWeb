@@ -1,9 +1,3 @@
-# Fields to add
-- primary key
-- designer
-- flavor text
-- starting money / cards for splicers
-
 # Misc todos
 - login
 - sessions
