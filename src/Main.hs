@@ -63,7 +63,13 @@ renderCards cards = renderPage $ mapM_ renderCard cards
 svg path = embed_ [src_ path, type_ "image/svg+xml"]
 
 renderCard :: Card -> Html ()
-renderCard card = 
+renderCard card =
+  case (cardType card) of
+  Ting -> renderTing card
+  Event -> renderEvent card
+
+renderTing :: Card -> Html ()
+renderTing card = 
   do div_ [class_ "card ting"] $ do
        div_ [class_ "title"] $ toHtml (title card)
        div_ [class_ "cost"] $ do
@@ -78,6 +84,22 @@ renderCard card =
          with (svg "/files/gen_artificial.svg") [class_ "gene1"]
          with (svg "/files/gen_plant.svg") [class_ "gene1"]
          span_ $ toHtml (rules card)
+
+renderEvent :: Card -> Html ()
+renderEvent card = 
+  do div_ [class_ "card event"] $ do
+       div_ [class_ "title"] $ toHtml (title card)
+       div_ [class_ "cost"] $ do
+         svg "/files/cost.svg"
+         span_ $ toHtml (show (cost card))
+       div_ [class_ "illustration"] ""
+       div_ [class_ "types"] $ do
+         div_ [class_ "dominance"] $ do
+           span_ $ toHtml (show (dominance card))
+         span_ "event"
+       div_ [class_ "ability"] $ do
+         span_ $ toHtml (rules card)
+
 
 input name = input_ [type_ "text", name_ name]
 

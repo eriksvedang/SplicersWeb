@@ -15,18 +15,18 @@ getConnection = do
 
 migrate = do
   conn <- getConnection
-  execute_ conn "CREATE TABLE IF NOT EXISTS card (title varchar(80), rules text, dominance int, cost int);"
+  execute_ conn "CREATE TABLE IF NOT EXISTS card (title varchar(80), rules text, dominance int, cost int, cardType varchar(20), subType varchar(80), gene1 varchar(20), gene2 varchar(20));"
   
 addFakeData = do
   conn <- getConnection
-  execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2', 1, 2);"
-  execute_ conn "INSERT INTO card VALUES ('Nice Blizzard', 'Crunch all seeds. Players gain $1 for each seed lost.', 0, 0);"
+  execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2', 1, 2, 'ting', 'animal', 'feather', 'small');"
+  execute_ conn "INSERT INTO card VALUES ('Nice Blizzard', 'Crunch all seeds. Players gain $1 for each seed lost.', 0, 0, 'event', '', '', '');"
 
 getCards :: IO [Card]
 getCards = do
   conn <- getConnection
-  cards <- query_ conn "SELECT title,rules,dominance,cost FROM card;"
-  return $ map (\(t,r,d,c) -> mkTing t r d c) cards
+  cards <- query_ conn "SELECT title,rules,dominance,cost,cardType,subType,gene1,gene2 FROM card;"
+  return $ map (\(t,r,d,c,ct,st,g1,g2) -> mkCard t r d c ct st g1 g2) cards
 
 addCard :: Text -> Text -> IO ()
 addCard title rules = do
