@@ -54,7 +54,12 @@ submitCardRoute = do
   subType <- paramOrDefault "subType" ""
   gene1 <- paramOrDefault "gene1" ""
   gene2 <- paramOrDefault "gene2" ""
-  liftIO (addCard title rules (read domination) (read cost) cardType subType gene1 gene2)
+  startMatter <- paramOrDefault "startMatter" "0"
+  startCards <- paramOrDefault "startCards" "0"
+  flavor <- paramOrDefault "flavor" ""
+  designer <- paramOrDefault "designer" "unknown"
+  let card = mkCard title rules (read domination) (read cost) cardType subType gene1 gene2 (read startMatter) (read startCards) flavor designer
+  liftIO (addCard card)
   lucidToSpock (renderSubmittedCard title)
 
 addFakeDataRoute = do

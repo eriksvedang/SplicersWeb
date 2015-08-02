@@ -12,7 +12,12 @@ data Card = Card { title :: Text
                  , cost :: Int
                  , cardType :: CardType
                  , subType :: Text
-                 , genes :: (Gene, Gene)
+                 , gene1 :: Gene
+                 , gene2 :: Gene
+                 , startMatter :: Int
+                 , startCards :: Int
+                 , flavor :: Text
+                 , designer :: Text
                  } deriving (Show)
 
 data CardType = Ting
@@ -20,7 +25,7 @@ data CardType = Ting
               | Biom
               | Mutation
               | Splicer
-                deriving (Show)
+                deriving (Show, Read)
 
 data Gene = Sinister
           | Artificial
@@ -33,16 +38,17 @@ data Gene = Sinister
           | NoGene
             deriving (Show)
 
-mkCard ::  Text -> Text -> Int -> Int -> Text -> Text -> Text -> Text -> Card
-mkCard title rules dominance cost cardType subType gene1 gene2 =
+mkCard ::  Text -> Text -> Int -> Int -> Text -> Text -> Text -> Text -> Int -> Int -> Text -> Text -> Card
+mkCard title rules dominance cost cardType subType gene1 gene2 startMatter startCards flavor designer =
   case cardType of
-  "ting" -> mkTing title rules dominance cost subType gene1 gene2
-  "event" -> mkEvent title rules subType
-  "biom" -> mkBiom title rules dominance subType
-  "mutation" -> mkMutation title rules subType
-  "splicer" -> mkSplicer title rules subType
+  "Ting" -> mkTing title rules dominance cost subType gene1 gene2 flavor designer
+  "Event" -> mkEvent title rules subType flavor designer
+  "Biom" -> mkBiom title rules dominance subType flavor designer
+  "Mutation" -> mkMutation title rules subType flavor designer
+  "Splicer" -> mkSplicer title rules subType startMatter startCards flavor designer
   _ -> error $ unpack ("Unknown card type '" <> cardType <> "'") 
 
+textToGene :: Text -> Gene
 textToGene geneText =
   case geneText of
   "artificial" -> Artificial
@@ -53,52 +59,77 @@ textToGene geneText =
   "feather" -> Feather
   x -> Other x
 
-mkTing title rules dominance cost subType gene1 gene2 =
+mkTing title rules dominance cost subType gene1 gene2 flavor designer =
   Card { title = title
        , rules = rules
        , dominance = dominance
        , cost = cost
        , cardType = Ting
        , subType = subType
-       , genes = (textToGene gene1, textToGene gene2)
+       , gene1 = textToGene gene1
+       , gene2 = textToGene gene2
+       , startMatter = 0
+       , startCards = 0
+       , flavor = flavor
+       , designer = designer
        }
 
-mkEvent title rules subType =
+mkEvent title rules subType flavor designer =
   Card { title = title
        , rules = rules
        , dominance = 0
        , cost = 0
        , cardType = Event
        , subType = subType
-       , genes = (NoGene, NoGene)
+       , gene1 = NoGene
+       , gene2 = NoGene
+       , startMatter = 0
+       , startCards = 0
+       , flavor = flavor
+       , designer = designer
        }
 
-mkBiom title rules domination subType =
+mkBiom title rules domination subType flavor designer =
   Card { title = title
        , rules = rules
        , dominance = 0
        , cost = 0
        , cardType = Biom
        , subType = subType
-       , genes = (NoGene, NoGene)
+       , gene1 = NoGene
+       , gene2 = NoGene
+       , startMatter = 0
+       , startCards = 0
+       , flavor = flavor
+       , designer = designer                 
        }
 
-mkMutation title rules subType =
+mkMutation title rules subType flavor designer =
   Card { title = title
        , rules = rules
        , dominance = 0
        , cost = 0
        , cardType = Mutation
        , subType = subType
-       , genes = (NoGene, NoGene)
+       , gene1 = NoGene
+       , gene2 = NoGene
+       , startMatter = 0
+       , startCards = 0
+       , flavor = flavor
+       , designer = designer
        }
 
-mkSplicer title rules subType =
+mkSplicer title rules subType startMatter startCards flavor designer =
   Card { title = title
        , rules = rules
        , dominance = 0
        , cost = 0
        , cardType = Splicer
        , subType = subType
-       , genes = (NoGene, NoGene)
+       , gene1 = NoGene
+       , gene2 = NoGene
+       , startMatter = startMatter
+       , startCards = startCards
+       , flavor = flavor
+       , designer = designer
        }
