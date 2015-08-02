@@ -32,7 +32,7 @@ getCards = do
   cards <- query_ conn "SELECT title,rules,dominance,cost,cardType,subType,gene1,gene2 FROM card;"
   return $ map (\(t,r,d,c,ct,st,g1,g2) -> mkCard t r d c ct st g1 g2) cards
 
-addCard :: Text -> Text -> Int -> Int -> Text -> Text -> Text -> Text -> IO ()?,
+addCard :: Text -> Text -> Int -> Int -> Text -> Text -> Text -> Text -> IO ()
 addCard title rules domination cost cardType subType gene1 gene2 = do
   conn <- getConnection
   execute conn "INSERT INTO card VALUES (?,?,?,?,?,?,?,?)" (title, rules, domination, cost, cardType, subType, gene1, gene2)
