@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 module Main where
 
@@ -37,12 +38,24 @@ cardsRoute = do
 addCardRoute =
   lucidToSpock $ renderAddCard
 
+paramOrDefault name defaultValue = do
+  maybeValue <- param name
+  case maybeValue of
+    Just value -> return value
+    Nothing -> return defaultValue
+
 submitCardRoute :: ActionT IO a
 submitCardRoute = do
-  (Just title) <- param "title"
-  (Just rules) <- param "rules"
-  liftIO (addCard title rules)
-  lucidToSpock (renderSubmitCard title rules)
+  title <- paramOrDefault "title" "untitled"
+  rules <- paramOrDefault "rules" ""
+  domination <- paramOrDefault "domination" "0"
+  cost <- paramOrDefault "cost" "0"
+  cardType <- paramOrDefault "cardType" ""
+  subType <- paramOrDefault "subType" ""
+  gene1 <- paramOrDefault "gene1" ""
+  gene2 <- paramOrDefault "gene2" ""
+  liftIO (addCard title rules (read domination) (read cost) cardType subType gene1 gene2)
+  lucidToSpock (renderSubmittedCard title)
 
 addFakeDataRoute = do
   liftIO addFakeData

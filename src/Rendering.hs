@@ -25,8 +25,9 @@ renderPage body = do head_ $ allCSS
 renderFrontPage :: Html ()
 renderFrontPage = renderPage $ do h1_ "Splicers"
                                   h2_ "An open source collectible card game"
-                                  p_ "Yeah, it's pretty cool."
-                                  a_ [href_ "/cards"] "Cards"
+                                  ul_ $ do
+                                    li_ $ a_ [href_ "/cards"] "Cards"
+                                    li_ $ a_ [href_ "/add-card"] "Add a card"
 
 renderCards :: [Card] -> Html ()
 renderCards cards = renderPage $ mapM_ renderCard cards
@@ -120,23 +121,34 @@ renderSplicer card =
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
 
-input name = input_ [type_ "text", name_ name]
+field name helpText inputType defaultValue =
+  div_ $ do span_ (toHtml name)
+            input_ [ type_ inputType
+                   , name_ name
+                   , value_ defaultValue
+                   ]
+            span_ (toHtml helpText)
 
 renderAddCard :: Html ()
 renderAddCard =
   renderPage $ do
     form_ [action_ "submit-card"] $ do
-      div_ $ do span_ "Title:"
-                input "title"
-      div_ $ do span_ "Rules text:"
-                input "rules"
+      field "title" "" "text" ""
+      field "rules" "" "text" ""
+      field "domination" "" "number" "1"
+      field "cost" "" "number" "1"
+      field "cardType" " (ting, biom, event, mutation, splicer)" "text" "ting"
+      field "subType" " (i.e. animal, plant...)" "text" ""
+      field "gene1" "" "text" ""
+      field "gene2" "" "text" ""
       br_ []
       input_ [type_ "submit", value_ "Submit"]
 
-renderSubmitCard :: Text -> Text -> Html ()
-renderSubmitCard title rules = renderPage $ do p_ $ toHtml $ "Title: " <> title
-                                               p_ $ toHtml $ "Rules: " <> rules
-                                               a_ [href_ "/cards"] "Cards"
+renderSubmittedCard :: Text -> Html ()
+renderSubmittedCard title =
+  renderPage $ do
+    p_ $ toHtml $ "The card " <> title <> " was added!"
+    a_ [href_ "/cards"] "Cards"
 
 renderAddFakeData :: Html ()
 renderAddFakeData = do
