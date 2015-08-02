@@ -73,29 +73,11 @@ renderCard card =
        div_ [class_ "types"] $ do
          div_ [class_ "dominance"] $ do
            span_ $ toHtml (show (dominance card))
-         span_ "ting -animal"
+         span_ "ting - animal"
        div_ [class_ "ability"] $ do
          embed_ [src_ "/files/gen_artificial.svg", type_ "image/svg+xml", class_ "gene1"]
          embed_ [src_ "/files/gen_plant.svg", type_ "image/svg+xml", class_ "gene2"]
          span_ $ toHtml (rules card)
-
--- <div class="card ting">
--- 	<div class="title">Raptorsquad</div>
--- 	<div class="windom">1</div>
--- 	<div class="cost"><img src="img/cost.svg"/>5</div>
--- 	<div class="illustration"></div>
--- 	<div class="types">
--- 		<div class="dominance"><span>3</span></div>
--- 		ting - animal
--- 	</div>
--- 	<div class="matter"><img src="img/cost.svg"/>4</div>
--- 	<div class="carddraw"><img src="img/carddraw.svg"/>4</div>
--- 	<div class="ability"> 
--- 		<img src="img/gen_artificial.svg" class="gene1"/>
--- 		<img src="img/gen_plant.svg" class="gene2"/>
--- 		You may <b>evolve</b> one card.<br/>You may <b>evolve</b> one card.<br/>
--- 	</div>
--- </div>
 
 input name = input_ [type_ "text", name_ name]
 
