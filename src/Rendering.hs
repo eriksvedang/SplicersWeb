@@ -137,7 +137,7 @@ renderAddCard =
       field "rules" "" "text" ""
       field "domination" "" "number" "1"
       field "cost" "" "number" "1"
-      field "cardType" " (ting, biom, event, mutation, splicer)" "text" "ting"
+      field "cardType" " (Ting, Biom, Event, Mutation, Splicer)" "text" "ting"
       field "subType" " (i.e. animal, plant...)" "text" ""
       field "gene1" "" "text" ""
       field "gene2" "" "text" ""

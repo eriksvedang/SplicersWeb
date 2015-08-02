@@ -34,6 +34,7 @@ data Gene = Sinister
           | Bug
           | Land
           | Feather
+          | Small
           | Other Text
           | NoGene
             deriving (Show)
@@ -51,12 +52,13 @@ mkCard title rules dominance cost cardType subType gene1 gene2 startMatter start
 textToGene :: Text -> Gene
 textToGene geneText =
   case geneText of
-  "artificial" -> Artificial
-  "nautic" -> Nautic
-  "leaf" -> Leaf
-  "bug" -> Bug
-  "land" -> Land
-  "feather" -> Feather
+  "Artificial" -> Artificial
+  "Nautic" -> Nautic
+  "Leaf" -> Leaf
+  "Bug" -> Bug
+  "Land" -> Land
+  "Feather" -> Feather
+  "Small" -> Small
   x -> Other x
 
 mkTing title rules dominance cost subType gene1 gene2 flavor designer =

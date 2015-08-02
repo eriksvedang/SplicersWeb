@@ -33,13 +33,14 @@ migrate = do
 \ startMatter int, \
 \ startCards int, \
 \ flavor text, \
-\ designer varchar(80) \
+\ designer varchar(80), \
+\ key SERIAL PRIMARY KEY \
 \);"
   
 addFakeData = do
   conn <- getConnection
-  execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2', 1, 2, 'Ting', 'animal', 'feather', 'small', 0, 0, 'Xuuuuu!', 'Erik');"
-  execute_ conn "INSERT INTO card VALUES ('Tulip', 'When tulip evolves, gain $1 for each close ting with [leaf]', 1, 1, 'Ting', 'plant', 'leaf', 'small', 0, 0, 'What a nice flower.', 'Erik');"
+  execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2', 1, 2, 'Ting', 'animal', 'Feather', 'Small', 0, 0, 'Xuuuuu!', 'Erik');"
+  execute_ conn "INSERT INTO card VALUES ('Tulip', 'When tulip evolves, gain $1 for each close ting with [leaf]', 1, 1, 'Ting', 'plant', 'Leaf', 'Small', 0, 0, 'What a nice flower.', 'Erik');"
   execute_ conn "INSERT INTO card VALUES ('Nice Blizzard', 'Crunch all seeds. Players gain $1 for each seed lost.', 0, 0, 'Event', '', '', '', 0, 0, 'Damnit...', 'Erik');"
   execute_ conn "INSERT INTO card VALUES ('Ingvar Karlsson', 'When a friendly ting hunts, gain $1.', 0, 0, 'Splicer', 'politician', '', '', 0, 0, 'Warm and cozy', 'Erik');"
   execute_ conn "INSERT INTO card VALUES ('Djungle', 'Seeds enter play unexhausted here.', 0, 0, 'Biom', 'terran', '', '', 5, 3, 'Ruling with an iron fist', 'Erik');"
