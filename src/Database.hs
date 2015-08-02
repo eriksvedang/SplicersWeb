@@ -26,7 +26,7 @@ getCards :: IO [Card]
 getCards = do
   conn <- getConnection
   cards <- query_ conn "SELECT title,rules,dominance,cost FROM card;"
-  return $ map (\(t,r,d,c) -> Card t r d c) cards
+  return $ map (\(t,r,d,c) -> mkTing t r d c) cards
 
 addCard :: Text -> Text -> IO ()
 addCard title rules = do

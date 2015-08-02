@@ -75,8 +75,8 @@ renderCard card =
            span_ $ toHtml (show (dominance card))
          span_ "ting - animal"
        div_ [class_ "ability"] $ do
-         embed_ [src_ "/files/gen_artificial.svg", type_ "image/svg+xml", class_ "gene1"]
-         embed_ [src_ "/files/gen_plant.svg", type_ "image/svg+xml", class_ "gene2"]
+         with (svg "/files/gen_artificial.svg") [class_ "gene1"]
+         with (svg "/files/gen_plant.svg") [class_ "gene1"]
          span_ $ toHtml (rules card)
 
 input name = input_ [type_ "text", name_ name]
