@@ -51,6 +51,9 @@ addFakeData = do
   execute_ conn "INSERT INTO card VALUES ('Crown', '+1', 0, 0, 'Mutation', '', '', '', 0, 0, 'You will be the queen', 'Erik');"
   return ()
 
+instance FromRow Card where
+  fromRow = Card <$> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field
+
 instance FromField Gene where
   fromField f bs = case bs of
     Just x -> return $ textToGene (decodeUtf8 x)
@@ -61,8 +64,11 @@ instance FromField CardType where
     Just x -> return $ read (unpack (decodeUtf8 x))
     Nothing -> error "Can't parse card type"
 
-instance FromRow Card where
-  fromRow = Card <$> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field
+getCards :: IO [Card]
+getCards = do
+  conn <- getConnection
+  cards <- query_ conn "SELECT title, rules, dominance, cost, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer FROM card;"
+  return cards
 
 instance ToRow Card where
   toRow card =
@@ -86,14 +92,8 @@ instance ToField Gene where
 instance ToField CardType where
   toField cardType = toField $ show cardType
 
-getCards :: IO [Card]
-getCards = do
-  conn <- getConnection
-  cards <- query_ conn "SELECT title,rules,dominance,cost,cardType,subType,gene1,gene2,startMatter,startCards,flavor,designer FROM card;"
-  return cards
-
 addCard :: Card -> IO ()
 addCard card = do
   conn <- getConnection
-  execute conn "INSERT INTO card VALUES (?,?,?,?,?,?,?,?,?,?,?,?)" card
+  execute conn "INSERT INTO card VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" card
   return ()

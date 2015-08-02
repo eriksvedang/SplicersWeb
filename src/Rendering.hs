@@ -138,9 +138,13 @@ renderAddCard =
       field "domination" "" "number" "1"
       field "cost" "" "number" "1"
       field "cardType" " (Ting, Biom, Event, Mutation, Splicer)" "text" "ting"
-      field "subType" " (i.e. animal, plant...)" "text" ""
+      field "subType" " (i.e. Animal, Plant...)" "text" ""
       field "gene1" "" "text" ""
       field "gene2" "" "text" ""
+      field "startMatter" "" "number" ""
+      field "startCards" "" "number" ""
+      field "flavor" "" "text" ""
+      field "designer" "" "text" ""
       br_ []
       input_ [type_ "submit", value_ "Submit"]
 
