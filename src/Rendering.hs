@@ -43,7 +43,10 @@ renderCard card =
   Mutation -> renderMutation card
   Splicer -> renderSplicer card
 
-illustrationDiv = div_ [class_ "illustration"] ""
+illustrationDiv :: Card -> Html ()
+illustrationDiv card =
+  div_ [class_ "illustration"] $ do
+    img_ [src_ (illustration card)]
 
 typesDiv :: Text -> Text -> Int -> Html ()
 typesDiv cardType subType dominance = do
@@ -65,7 +68,7 @@ renderTing card =
        div_ [class_ "cost"] $ do
          svg "/files/cost.svg"
          span_ $ toHtml (show (cost card))
-       illustrationDiv
+       illustrationDiv card
        typesDiv "ting" (subType card) (dominance card)
        div_ [class_ "ability"] $ do
          with (svg "/files/gen_artificial.svg") [class_ "gene1"]
@@ -80,7 +83,7 @@ renderEvent card =
        div_ [class_ "cost"] $ do
          svg "/files/cost.svg"
          span_ $ toHtml (show (cost card))
-       illustrationDiv
+       illustrationDiv card
        typesDiv "event" (subType card) 0
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
@@ -94,7 +97,7 @@ renderBiom card =
        div_ [class_ "cost"] $ do
          svg "/files/cost.svg"
          span_ $ toHtml (show (cost card))
-       illustrationDiv
+       illustrationDiv card
        typesDiv "biom" (subType card) 0
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
@@ -104,7 +107,7 @@ renderMutation :: Card -> Html ()
 renderMutation card = 
   do div_ [class_ "card mutation"] $ do
        div_ [class_ "title"] $ toHtml (title card)
-       illustrationDiv
+       illustrationDiv card
        typesDiv "mutation" (subType card) 0
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
@@ -117,7 +120,7 @@ renderSplicer card =
        div_ [class_ "cost"] $ do
          svg "/files/cost.svg"
          span_ $ toHtml (show (cost card))
-       illustrationDiv
+       illustrationDiv card
        typesDiv "splicer" (subType card) 0
        div_ [class_ "matter"] $ do
          svg "/files/cost.svg"
@@ -153,6 +156,7 @@ renderAddCard =
       field "startCards" "" "number" "4"
       field "flavor" "" "text" ""
       field "designer" "" "text" ""
+      field "illustration" " (URL)" "text" ""
       br_ []
       input_ [type_ "submit", value_ "Submit"]
 
@@ -165,4 +169,5 @@ renderSubmittedCard title =
 renderAddFakeData :: Html ()
 renderAddFakeData = do
   renderPage $ p_ "Added fake data!"
+
 

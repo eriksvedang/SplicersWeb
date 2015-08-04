@@ -18,6 +18,7 @@ data Card = Card { title :: Text
                  , startCards :: Int
                  , flavor :: Text
                  , designer :: Text
+                 , illustration :: Text
                  } deriving (Show)
 
 data CardType = Ting
@@ -39,14 +40,14 @@ data Gene = Sinister
           | NoGene
             deriving (Show)
 
-mkCard ::  Text -> Text -> Int -> Int -> Text -> Text -> Text -> Text -> Int -> Int -> Text -> Text -> Card
-mkCard title rules dominance cost cardType subType gene1 gene2 startMatter startCards flavor designer =
+mkCard ::  Text -> Text -> Int -> Int -> Text -> Text -> Text -> Text -> Int -> Int -> Text -> Text -> Text -> Card
+mkCard title rules dominance cost cardType subType gene1 gene2 startMatter startCards flavor designer illustration =
   case cardType of
-  "Ting" -> mkTing title rules dominance cost subType gene1 gene2 flavor designer
-  "Event" -> mkEvent title rules subType flavor designer
-  "Biom" -> mkBiom title rules dominance subType flavor designer
-  "Mutation" -> mkMutation title rules subType flavor designer
-  "Splicer" -> mkSplicer title rules subType startMatter startCards flavor designer
+  "Ting" -> mkTing title rules dominance cost subType gene1 gene2 flavor designer illustration
+  "Event" -> mkEvent title rules subType flavor designer illustration
+  "Biom" -> mkBiom title rules dominance subType flavor designer illustration
+  "Mutation" -> mkMutation title rules subType flavor designer illustration
+  "Splicer" -> mkSplicer title rules subType startMatter startCards flavor designer illustration
   _ -> error $ unpack ("Unknown card type '" <> cardType <> "'") 
 
 textToGene :: Text -> Gene
@@ -61,7 +62,7 @@ textToGene geneText =
   "Small" -> Small
   x -> Other x
 
-mkTing title rules dominance cost subType gene1 gene2 flavor designer =
+mkTing title rules dominance cost subType gene1 gene2 flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = dominance
@@ -74,9 +75,10 @@ mkTing title rules dominance cost subType gene1 gene2 flavor designer =
        , startCards = 0
        , flavor = flavor
        , designer = designer
+       , illustration = illustration
        }
 
-mkEvent title rules subType flavor designer =
+mkEvent title rules subType flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = 0
@@ -89,9 +91,10 @@ mkEvent title rules subType flavor designer =
        , startCards = 0
        , flavor = flavor
        , designer = designer
+       , illustration = illustration
        }
 
-mkBiom title rules domination subType flavor designer =
+mkBiom title rules domination subType flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = 0
@@ -103,10 +106,11 @@ mkBiom title rules domination subType flavor designer =
        , startMatter = 0
        , startCards = 0
        , flavor = flavor
-       , designer = designer                 
+       , designer = designer
+       , illustration = illustration
        }
 
-mkMutation title rules subType flavor designer =
+mkMutation title rules subType flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = 0
@@ -119,9 +123,10 @@ mkMutation title rules subType flavor designer =
        , startCards = 0
        , flavor = flavor
        , designer = designer
+       , illustration = illustration
        }
 
-mkSplicer title rules subType startMatter startCards flavor designer =
+mkSplicer title rules subType startMatter startCards flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = 0
@@ -134,4 +139,5 @@ mkSplicer title rules subType startMatter startCards flavor designer =
        , startCards = startCards
        , flavor = flavor
        , designer = designer
+       , illustration = illustration
        }

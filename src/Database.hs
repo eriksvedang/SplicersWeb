@@ -35,6 +35,7 @@ migrate = do
 \ startCards int, \
 \ flavor text, \
 \ designer varchar(80), \
+\ illustration text, \
 \ key SERIAL PRIMARY KEY \
 \);"
   cards <- getCards
@@ -43,16 +44,17 @@ migrate = do
 addFakeData :: IO ()
 addFakeData = do
   conn <- getConnection
-  execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2', 1, 2, 'Ting', 'animal', 'Feather', 'Small', 0, 0, 'Xuuuuu!', 'Erik');"
-  execute_ conn "INSERT INTO card VALUES ('Tulip', 'When tulip evolves, gain $1 for each close ting with [leaf]', 1, 1, 'Ting', 'plant', 'Leaf', 'Small', 0, 0, 'What a nice flower.', 'Erik');"
-  execute_ conn "INSERT INTO card VALUES ('Nice Blizzard', 'Crunch all seeds. Players gain $1 for each seed lost.', 0, 0, 'Event', '', '', '', 0, 0, 'Damnit...', 'Erik');"
-  execute_ conn "INSERT INTO card VALUES ('Ingvar Karlsson', 'When a friendly ting hunts, gain $1.', 0, 0, 'Splicer', 'politician', '', '', 0, 0, 'Warm and cozy', 'Erik');"
-  execute_ conn "INSERT INTO card VALUES ('Djungle', 'Seeds enter play unexhausted here.', 0, 0, 'Biom', 'terran', '', '', 5, 3, 'Ruling with an iron fist', 'Erik');"
-  execute_ conn "INSERT INTO card VALUES ('Crown', '+1', 0, 0, 'Mutation', '', '', '', 0, 0, 'You will be the queen', 'Erik');"
+  execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +1', 1, 2, 'Ting', 'animal', 'Feather', 'Small', 0, 0, 'Xuuuuu!', 'Erik', 'https://c1.staticflickr.com/1/85/209708058_b5a5fb07a6_z.jpg?zz=1');"
+  execute_ conn "INSERT INTO card VALUES ('Tulip', 'When tulip evolves, gain $1 for each close ting with [leaf]', 1, 1, 'Ting', 'plant', 'Leaf', 'Small', 0, 0, 'What a nice flower.', 'Erik', 'https://c1.staticflickr.com/1/85/209708058_b5a5fb07a6_z.jpg?zz=1');"
+  execute_ conn "INSERT INTO card VALUES ('Nice Blizzard', 'Crunch all seeds. Players gain $1 for each seed lost.', 0, 0, 'Event', '', '', '', 0, 0, 'Damnit...', 'Erik', 'https://c1.staticflickr.com/1/85/209708058_b5a5fb07a6_z.jpg?zz=1');"
+  execute_ conn "INSERT INTO card VALUES ('Ingvar Karlsson', 'When a friendly ting hunts, gain $1.', 0, 0, 'Splicer', 'politician', '', '', 0, 0, 'Warm and cozy', 'Erik', 'https://c1.staticflickr.com/1/85/209708058_b5a5fb07a6_z.jpg?zz=1');"
+  execute_ conn "INSERT INTO card VALUES ('Djungle', 'Seeds enter play unexhausted here.', 0, 0, 'Biom', 'terran', '', '', 5, 3, 'Ruling with an iron fist', 'Erik', 'https://c1.staticflickr.com/1/85/209708058_b5a5fb07a6_z.jpg?zz=1');"
+  execute_ conn "INSERT INTO card VALUES ('Crown', '+1', 0, 0, 'Mutation', '', '', '', 0, 0, 'You will be the queen', 'Erik', 'https://c1.staticflickr.com/1/85/209708058_b5a5fb07a6_z.jpg?zz=1');"
+  execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2', 1, 2, 'Ting', 'animal', 'Feather', 'Small', 0, 0, 'Better Xuuuuu!', 'Erik', 'https://c1.staticflickr.com/1/85/209708058_b5a5fb07a6_z.jpg?zz=1');"
   return ()
 
 instance FromRow Card where
-  fromRow = Card <$> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field
+  fromRow = Card <$> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field <*> field
 
 instance FromField Gene where
   fromField f bs = case bs of
@@ -67,7 +69,7 @@ instance FromField CardType where
 getCards :: IO [Card]
 getCards = do
   conn <- getConnection
-  cards <- query_ conn "SELECT title, rules, dominance, cost, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer FROM card;"
+  cards <- query_ conn "SELECT title, rules, dominance, cost, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM card;"
   return cards
 
 instance ToRow Card where
@@ -84,6 +86,7 @@ instance ToRow Card where
     , toField (startCards card)
     , toField (flavor card)
     , toField (designer card)
+    , toField (illustration card)
     ]
 
 instance ToField Gene where
@@ -95,5 +98,5 @@ instance ToField CardType where
 addCard :: Card -> IO ()
 addCard card = do
   conn <- getConnection
-  execute conn "INSERT INTO card VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" card
+  execute conn "INSERT INTO card VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" card
   return ()

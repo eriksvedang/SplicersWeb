@@ -58,7 +58,8 @@ submitCardRoute = do
   startCards <- paramOrDefault "startCards" "0"
   flavor <- paramOrDefault "flavor" ""
   designer <- paramOrDefault "designer" "unknown"
-  let card = mkCard title rules (read domination) (read cost) cardType subType gene1 gene2 (read startMatter) (read startCards) flavor designer
+  illustration <- paramOrDefault "illustration" ""
+  let card = mkCard title rules (read domination) (read cost) cardType subType gene1 gene2 (read startMatter) (read startCards) flavor designer illustration
   liftIO (addCard card)
   lucidToSpock (renderSubmittedCard title)
 
