@@ -19,13 +19,14 @@ executable SplicersWeb
   main-is:             Main.hs
   -- other-modules:       
   -- other-extensions:    
-  build-depends:       base >=4.7 && <4.8
-                     , text
-                     , transformers
-                     , postgresql-simple
-                     , Spock
+  build-depends:       Spock
+                     , base >=4.7 && <4.8
                      , bytestring
                      , lucid
+                     , path-pieces >= 0.2.0
+                     , postgresql-simple
+                     , text
+                     , transformers
                                               
   hs-source-dirs:      src
   default-language:    Haskell2010

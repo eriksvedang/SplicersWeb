@@ -4,10 +4,12 @@
 module Main where
 
 import Web.Spock.Safe
+import Web.PathPieces (PathPiece)
 import Control.Monad.IO.Class (MonadIO, liftIO)
 import System.Environment (getArgs)
 import System.Environment (lookupEnv)
 import Data.Text (unpack, pack)
+import Data.Text.Internal (Text)
 import Data.Text.Lazy (toStrict)
 import Database (migrate, getCards, addCard, addFakeData)
 import Card
@@ -35,9 +37,11 @@ cardsRoute = do
   cards <- liftIO getCards
   lucidToSpock $ renderCards cards
 
+addCardRoute :: ActionT IO a
 addCardRoute =
   lucidToSpock $ renderAddCard
 
+paramOrDefault :: (PathPiece p, MonadIO m) => Text -> p -> ActionT m p
 paramOrDefault name defaultValue = do
   maybeValue <- param name
   case maybeValue of
@@ -75,6 +79,7 @@ submitCardRoute = do
   liftIO (addCard card)
   lucidToSpock (renderSubmittedCard title)
 
+addFakeDataRoute :: ActionT IO b
 addFakeDataRoute = do
   liftIO addFakeData
   lucidToSpock renderAddFakeData
