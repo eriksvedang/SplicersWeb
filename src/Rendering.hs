@@ -32,6 +32,7 @@ renderFrontPage = renderPage $ do h1_ "Splicers"
 renderCards :: [Card] -> Html ()
 renderCards cards = renderPage $ mapM_ renderCard cards
 
+svg :: Text -> Html ()
 svg path = embed_ [src_ path, type_ "image/svg+xml"]
 
 renderCard :: Card -> Html ()
@@ -132,6 +133,7 @@ renderSplicer card =
          span_ $ toHtml (rules card)
          flavorText card
 
+field :: Text -> Text -> Text -> Text -> Html ()
 field name helpText inputType defaultValue =
   div_ $ do span_ (toHtml name)
             input_ [ type_ inputType

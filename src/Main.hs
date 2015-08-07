@@ -16,6 +16,8 @@ import Card
 import Rendering
 import Lucid
 
+type Route = ActionT IO ()
+
 main :: IO ()
 main = do
   migrate
@@ -28,16 +30,16 @@ main = do
     get "add-fake-data" $   addFakeDataRoute
     get ("files" <//> var)  getFile
 
-frontPageRoute :: ActionT IO a
+frontPageRoute :: Route
 frontPageRoute = do
   lucidToSpock renderFrontPage
 
-cardsRoute :: ActionT IO a
+cardsRoute :: Route
 cardsRoute = do
   cards <- liftIO getCards
   lucidToSpock $ renderCards cards
 
-addCardRoute :: ActionT IO a
+addCardRoute :: Route
 addCardRoute =
   lucidToSpock $ renderAddCard
 
@@ -48,7 +50,7 @@ paramOrDefault name defaultValue = do
     Just value -> return value
     Nothing -> return defaultValue
 
-submitCardRoute :: ActionT IO a
+submitCardRoute :: Route
 submitCardRoute = do
   title <- paramOrDefault "title" "untitled"
   rules <- paramOrDefault "rules" ""
@@ -79,16 +81,16 @@ submitCardRoute = do
   liftIO (addCard card)
   lucidToSpock (renderSubmittedCard title)
 
-addFakeDataRoute :: ActionT IO b
+addFakeDataRoute :: Route
 addFakeDataRoute = do
   liftIO addFakeData
   lucidToSpock renderAddFakeData
 
-getFile :: MonadIO m => String -> ActionT m a
+getFile :: String -> Route
 getFile name = file (pack name) ("./files/" ++ name)
 
-lucidToSpock :: MonadIO m => Html () -> ActionT m a
-lucidToSpock t = html $ toStrict $ renderText t
+lucidToSpock :: Html () -> Route
+lucidToSpock t = (html . toStrict . renderText) t
 
 defaultPort :: String
 defaultPort = "8080"
