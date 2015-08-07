@@ -17,7 +17,7 @@ import Lucid
 main :: IO ()
 main = do
   migrate
-  (Just port) <- lookupEnv "PORT"
+  port <- getPort
   runSpock (read port) $ spockT id $ do
     get root $              frontPageRoute
     get "cards" $           cardsRoute
@@ -59,7 +59,19 @@ submitCardRoute = do
   flavor <- paramOrDefault "flavor" ""
   designer <- paramOrDefault "designer" "unknown"
   illustration <- paramOrDefault "illustration" ""
-  let card = mkCard title rules (read domination) (read cost) cardType subType gene1 gene2 (read startMatter) (read startCards) flavor designer illustration
+  let card = mkCard title
+                    rules
+                    (read domination)
+                    (read cost)
+                    cardType
+                    subType
+                    gene1
+                    gene2
+                    (read startMatter)
+                    (read startCards)
+                    flavor
+                    designer
+                    illustration
   liftIO (addCard card)
   lucidToSpock (renderSubmittedCard title)
 
@@ -72,3 +84,16 @@ getFile name = file (pack name) ("./files/" ++ name)
 
 lucidToSpock :: MonadIO m => Html () -> ActionT m a
 lucidToSpock t = html $ toStrict $ renderText t
+
+defaultPort :: String
+defaultPort = "8080"
+
+getPort :: IO String
+getPort = do
+  maybePort <- lookupEnv "PORT"
+  port <- case maybePort of
+    (Just port) -> return port
+    Nothing -> do
+      putStrLn $ "No PORT string found in environment, using default (" ++ defaultPort ++ ")."
+      return defaultPort
+  return port

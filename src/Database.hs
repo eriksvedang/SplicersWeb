@@ -7,6 +7,7 @@ import Database.PostgreSQL.Simple.FromRow
 import Database.PostgreSQL.Simple.FromField
 import Database.PostgreSQL.Simple.ToRow
 import Database.PostgreSQL.Simple.ToField
+import Database.PostgreSQL.Simple.Internal (Connection)
 import Control.Applicative ((<*>), (<$>))
 import Data.Text (Text(..), unpack)
 import Data.ByteString.Char8 (pack)
@@ -15,9 +16,15 @@ import Card
 import System.Environment (lookupEnv)
 import Data.Text.Encoding
 
+getConnection :: IO Connection
 getConnection = do
-  (Just db_url) <- lookupEnv "DATABASE_URL"
-  connectPostgreSQL (pack db_url)
+  maybeDbUrl <- lookupEnv "DATABASE_URL"
+  dbUrl <- case maybeDbUrl of
+    (Just dbUrl) -> return dbUrl
+    Nothing -> do
+      putStrLn "No DATABASE_URL string found in environment, using default one."
+      return "dbname=splicers user=erik"
+  connectPostgreSQL (pack dbUrl)
 
 migrate :: IO ()
 migrate = do
