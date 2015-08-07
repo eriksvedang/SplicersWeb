@@ -11,7 +11,8 @@ import System.Environment (lookupEnv)
 import Data.Text (unpack, pack)
 import Data.Text.Internal (Text)
 import Data.Text.Lazy (toStrict)
-import Database (migrate, getCards, addCard, addFakeData)
+import Data.Monoid ((<>))
+import Database (migrate, getCards, addCard, addFakeData, authorize, getSecret)
 import Card
 import Rendering
 import Lucid
@@ -28,6 +29,9 @@ main = do
     get "add-card" $        addCardRoute
     get "submit-card" $     submitCardRoute
     get "add-fake-data" $   addFakeDataRoute
+    get "login" $           loginRoute
+    get "foo" $             foo
+    get "user" $            userPageRoute
     get ("files" <//> var)  getFile
 
 frontPageRoute :: Route
@@ -40,8 +44,12 @@ cardsRoute = do
   lucidToSpock $ renderCards cards
 
 addCardRoute :: Route
-addCardRoute =
-  lucidToSpock $ renderAddCard
+addCardRoute = do
+  maybeUsername <- cookie "username"
+  liftIO $ putStrLn $ "maybeUsername = " ++ show maybeUsername
+  case maybeUsername of
+    Just username -> lucidToSpock $ renderAddCard username
+    Nothing -> lucidToSpock $ renderMustLogIn "Can't add card, please log in first." "add-card"
 
 paramOrDefault :: (PathPiece p, MonadIO m) => Text -> p -> ActionT m p
 paramOrDefault name defaultValue = do
@@ -85,6 +93,40 @@ addFakeDataRoute :: Route
 addFakeDataRoute = do
   liftIO addFakeData
   lucidToSpock renderAddFakeData
+
+loginRoute :: Route
+loginRoute = do
+  Just username <- param "username"
+  --setCookie "username" username 3600 -- ONLY WORKS WHEN IT IS PUT HERE
+  Just password <- param "password"
+  maybeSecret <- liftIO $ authorize username password
+  case maybeSecret of
+    Just secret -> do
+      setCookie "username" username 3600
+      setCookie "secret" secret 3600
+      html $ "You have been logged in! username = " <> username <> ", password = " <> password
+      --lucidToSpock renderSucceededToLogin
+      -- maybeNextPage <- param "next"
+      -- case maybeNextPage of
+      --   Just nextPage -> redirect $ "/" <> nextPage
+      --   Nothing -> lucidToSpock renderSucceededToLogin
+    Nothing -> do
+      lucidToSpock renderFailedToLogin
+
+foo :: Route
+foo = do
+  --requireBasicAuth "Secret Page" (\user pass -> return (user == "admin" && pass == "1234")) $ do
+  Just username <- param "username"
+  setCookie "username" username 1000
+  html $ "Foo " <> username
+
+userPageRoute :: Route
+userPageRoute = do
+  maybeUsername <- cookie "username"
+  username <- case maybeUsername of
+    Just name -> return name
+    Nothing -> return "noname"
+  lucidToSpock (renderUserPage username)
 
 getFile :: String -> Route
 getFile name = file (pack name) ("./files/" ++ name)

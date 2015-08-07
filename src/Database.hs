@@ -107,3 +107,17 @@ addCard card = do
   conn <- getConnection
   execute conn "INSERT INTO card VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" card
   return ()
+
+authorize :: Text -> Text -> IO (Maybe Text)
+authorize username password = do
+  return $ case (username, password) of
+    ("Erik", "kaka") -> Just "kanelbulle"
+    ("Ossian", "hihi") -> Just "kanelbulle"
+    _ -> Nothing
+
+getSecret :: Text -> IO (Maybe Text)
+getSecret username = do
+  return $ case username of
+    "Erik" -> Just "kanelbulle"
+    "Ossian" -> Just "kanelbulle"
+    _ -> Nothing

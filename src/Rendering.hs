@@ -142,8 +142,8 @@ field name helpText inputType defaultValue =
                    ]
             span_ (toHtml helpText)
 
-renderAddCard :: Html ()
-renderAddCard =
+renderAddCard :: Text -> Html ()
+renderAddCard username =
   renderPage $ do
     form_ [action_ "submit-card"] $ do
       field "title" "" "text" ""
@@ -157,7 +157,8 @@ renderAddCard =
       field "startMatter" "" "number" "4"
       field "startCards" "" "number" "4"
       field "flavor" "" "text" ""
-      field "designer" "" "text" ""
+      span_ "designer"
+      input_ [type_ "text", name_ "designer", value_ username, readonly_ ""]
       field "illustration" " (URL)" "text" ""
       br_ []
       input_ [type_ "submit", value_ "Submit"]
@@ -172,4 +173,33 @@ renderAddFakeData :: Html ()
 renderAddFakeData = do
   renderPage $ p_ "Added fake data!"
 
+renderUserPage :: Text -> Html ()
+renderUserPage username = do
+  renderPage $ p_ (toHtml username)
 
+renderLoginForm :: Text -> Html ()
+renderLoginForm nextPage = do
+  form_ [action_ "login"] $ do
+    span_ "Username "
+    input_ [type_ "text", name_ "username"]
+    br_ []
+    span_ "Password "
+    input_ [type_ "password", name_ "password"]
+    input_ [type_ "text", name_ "next", value_ nextPage]
+    input_ [type_ "submit", value_ "Login"]
+
+renderMustLogIn :: Text -> Text -> Html ()
+renderMustLogIn helpText nextPage = do
+  renderPage $ do
+    p_ (toHtml helpText)
+    renderLoginForm nextPage
+
+renderSucceededToLogin :: Html ()
+renderSucceededToLogin = do
+  renderPage $ do
+    p_ "You are logged in!"
+
+renderFailedToLogin :: Html ()
+renderFailedToLogin = do
+  renderPage $ do
+    p_ "Failed to login, invalid password or username."
