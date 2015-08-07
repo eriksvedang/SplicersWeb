@@ -30,7 +30,8 @@ main = do
     get "submit-card" $     submitCardRoute
     get "add-fake-data" $   addFakeDataRoute
     get "login" $           loginRoute
-    get "foo" $             foo
+    get "submit-login" $    submitLoginRoute
+    get "logout" $          logoutRoute
     get "user" $            userPageRoute
     get ("files" <//> var)  getFile
 
@@ -96,29 +97,42 @@ addFakeDataRoute = do
 
 loginRoute :: Route
 loginRoute = do
+  lucidToSpock renderLoginFormFull
+
+submitLoginRoute = do
   Just username <- param "username"
-  --setCookie "username" username 3600 -- ONLY WORKS WHEN IT IS PUT HERE
   Just password <- param "password"
   maybeSecret <- liftIO $ authorize username password
-  case maybeSecret of
-    Just secret -> do
-      setCookie "username" username 3600
-      setCookie "secret" secret 3600
-      html $ "You have been logged in! username = " <> username <> ", password = " <> password
-      --lucidToSpock renderSucceededToLogin
-      -- maybeNextPage <- param "next"
-      -- case maybeNextPage of
-      --   Just nextPage -> redirect $ "/" <> nextPage
-      --   Nothing -> lucidToSpock renderSucceededToLogin
-    Nothing -> do
-      lucidToSpock renderFailedToLogin
+  if maybeSecret == Nothing then lucidToSpock renderFailedToLogin else do
+    setCookie "username" username 3600
+    -- let (Just secret) = maybeSecret
+    -- setCookie "secret" secret 3600
+    html "yup"
 
-foo :: Route
-foo = do
-  --requireBasicAuth "Secret Page" (\user pass -> return (user == "admin" && pass == "1234")) $ do
-  Just username <- param "username"
-  setCookie "username" username 1000
-  html $ "Foo " <> username
+    -- maybeNextPage <- param "next"
+    -- case maybeNextPage of
+    --   Just nextPage -> redirect $ "/" <> nextPage
+    --   Nothing -> lucidToSpock renderSucceededToLogin
+
+
+-- THIS CODE DOESN'T WORK -- WHY?!
+  -- case maybeSecret of
+  --   Just secret -> do
+  --     setCookie "username" username 3600
+  --     setCookie "secret" secret 3600
+  --     html $ "You have been logged in! username = " <> username <> ", password = " <> password
+  --     --lucidToSpock renderSucceededToLogin
+  --     -- maybeNextPage <- param "next"
+  --     -- case maybeNextPage of
+  --     --   Just nextPage -> redirect $ "/" <> nextPage
+  --     --   Nothing -> lucidToSpock renderSucceededToLogin
+  --   Nothing -> do
+  --     lucidToSpock renderFailedToLogin
+
+logoutRoute = do
+  deleteCookie "username"
+  deleteCookie "secret"
+  html "You have been logged out."
 
 userPageRoute :: Route
 userPageRoute = do

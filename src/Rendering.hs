@@ -177,9 +177,14 @@ renderUserPage :: Text -> Html ()
 renderUserPage username = do
   renderPage $ p_ (toHtml username)
 
+renderLoginFormFull :: Html ()
+renderLoginFormFull = do
+  renderPage $ do
+    renderLoginForm ""
+
 renderLoginForm :: Text -> Html ()
 renderLoginForm nextPage = do
-  form_ [action_ "login"] $ do
+  form_ [action_ "submit-login"] $ do
     span_ "Username "
     input_ [type_ "text", name_ "username"]
     br_ []
