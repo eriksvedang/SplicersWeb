@@ -46,11 +46,7 @@ cardsRoute = do
 
 addCardRoute :: Route
 addCardRoute = do
-  maybeUsername <- cookie "username"
-  liftIO $ putStrLn $ "maybeUsername = " ++ show maybeUsername
-  case maybeUsername of
-    Just username -> lucidToSpock $ renderAddCard username
-    Nothing -> lucidToSpock $ renderMustLogIn "Can't add card, please log in first." "add-card"
+  withAuth renderAddCard "add-card"
 
 paramOrDefault :: (PathPiece p, MonadIO m) => Text -> p -> ActionT m p
 paramOrDefault name defaultValue = do
@@ -103,31 +99,16 @@ submitLoginRoute = do
   Just username <- param "username"
   Just password <- param "password"
   maybeSecret <- liftIO $ authorize username password
-  if maybeSecret == Nothing then lucidToSpock renderFailedToLogin else do
-    setCookie "username" username 3600
-    -- let (Just secret) = maybeSecret
-    -- setCookie "secret" secret 3600
-    html "yup"
-
-    -- maybeNextPage <- param "next"
-    -- case maybeNextPage of
-    --   Just nextPage -> redirect $ "/" <> nextPage
-    --   Nothing -> lucidToSpock renderSucceededToLogin
-
-
--- THIS CODE DOESN'T WORK -- WHY?!
-  -- case maybeSecret of
-  --   Just secret -> do
-  --     setCookie "username" username 3600
-  --     setCookie "secret" secret 3600
-  --     html $ "You have been logged in! username = " <> username <> ", password = " <> password
-  --     --lucidToSpock renderSucceededToLogin
-  --     -- maybeNextPage <- param "next"
-  --     -- case maybeNextPage of
-  --     --   Just nextPage -> redirect $ "/" <> nextPage
-  --     --   Nothing -> lucidToSpock renderSucceededToLogin
-  --   Nothing -> do
-  --     lucidToSpock renderFailedToLogin
+  case maybeSecret of
+    Just secret -> do
+      setCookie "username" username 3600
+      setCookie "secret" secret 3600
+      maybeNextPage <- param "next"
+      case maybeNextPage of
+        Just nextPage -> redirect $ "/" <> nextPage
+        Nothing -> lucidToSpock renderSucceededToLogin
+    Nothing -> do
+      lucidToSpock renderFailedToLogin
 
 logoutRoute = do
   deleteCookie "username"
@@ -160,3 +141,10 @@ getPort = do
       putStrLn $ "No PORT string found in environment, using default (" ++ defaultPort ++ ")."
       return defaultPort
   return port
+
+withAuth :: (Text -> Html ()) -> Text -> ActionT IO ()
+withAuth authenticatedRoute goHereAfterLogin = do
+  maybeUsername <- cookie "username"
+  case maybeUsername of
+    Just username -> lucidToSpock (authenticatedRoute username)
+    Nothing -> lucidToSpock $ renderMustLogIn "Please log in first." goHereAfterLogin

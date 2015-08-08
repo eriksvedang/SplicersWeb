@@ -19,7 +19,7 @@ executable SplicersWeb
   main-is:             Main.hs
   -- other-modules:       
   -- other-extensions:    
-  build-depends:       Spock
+  build-depends:       Spock == 0.8.0.0
                      , base >=4.7 && <4.8
                      , bytestring
                      , lucid
