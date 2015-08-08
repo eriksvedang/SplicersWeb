@@ -190,7 +190,7 @@ renderLoginForm nextPage = do
     br_ []
     span_ "Password "
     input_ [type_ "password", name_ "password"]
-    input_ [type_ "text", name_ "next", value_ nextPage]
+    input_ [type_ "hidden", name_ "next", value_ nextPage]
     input_ [type_ "submit", value_ "Login"]
 
 renderMustLogIn :: Text -> Text -> Html ()
@@ -208,3 +208,8 @@ renderFailedToLogin :: Html ()
 renderFailedToLogin = do
   renderPage $ do
     p_ "Failed to login, invalid password or username."
+
+renderLogout :: Html ()
+renderLogout = do
+  renderPage $ do
+    p_ "You have been logged out."

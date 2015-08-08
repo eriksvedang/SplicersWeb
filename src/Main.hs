@@ -113,15 +113,11 @@ submitLoginRoute = do
 logoutRoute = do
   deleteCookie "username"
   deleteCookie "secret"
-  html "You have been logged out."
+  lucidToSpock renderLogout
 
 userPageRoute :: Route
 userPageRoute = do
-  maybeUsername <- cookie "username"
-  username <- case maybeUsername of
-    Just name -> return name
-    Nothing -> return "noname"
-  lucidToSpock (renderUserPage username)
+  withAuth renderUserPage "user"
 
 getFile :: String -> Route
 getFile name = file (pack name) ("./files/" ++ name)

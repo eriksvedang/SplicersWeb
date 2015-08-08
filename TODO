@@ -1,4 +1,5 @@
 # Misc todos
-- login
-- sessions
 - comments
+
+
+Kan submitta kort även om man inte är authensierad. submit-card checkar inte auth
