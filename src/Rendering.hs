@@ -28,21 +28,40 @@ renderFrontPage = renderPage $ do h1_ "Splicers"
                                   ul_ $ do
                                     li_ $ a_ [href_ "/cards"] "Cards"
                                     li_ $ a_ [href_ "/add-card"] "Add a card"
+                                    li_ $ a_ [href_ "/user"] "User page"
 
 renderCards :: [Card] -> Html ()
-renderCards cards = renderPage $ mapM_ renderCard cards
+renderCards cards = renderPage $ mapM_ (renderCard AsLink) cards
+
+data RenderCardMode = AsLink | NoLink
+
+renderSingleCardPage :: Text -> [Card] -> Html ()
+renderSingleCardPage title cards =
+  renderPage $ do
+    h1_ [] (toHtml title)
+    h2_ [] (toHtml $ "Designed by " <> (designer (head cards)))
+    div_ [] $ do
+      mapM_ (\card -> p_ [] (renderCard NoLink card)) cards
+    a_ [href_ "/cards"] "Cards"
 
 svg :: Text -> Html ()
 svg path = embed_ [src_ path, type_ "image/svg+xml"]
 
-renderCard :: Card -> Html ()
-renderCard card =
-  case (cardType card) of
-  Ting -> renderTing card
-  Event -> renderEvent card
-  Biom -> renderBiom card
-  Mutation -> renderMutation card
-  Splicer -> renderSplicer card
+renderCard :: RenderCardMode -> Card -> Html ()
+renderCard cardMode card =
+  case cardMode of
+  AsLink -> do
+    a_ [href_ $ "card/" <> (title card)] renderedCard
+  NoLink -> do
+    p_ [] renderedCard
+  where
+    renderedCard = 
+      case (cardType card) of
+      Ting -> renderTing card
+      Event -> renderEvent card
+      Biom -> renderBiom card
+      Mutation -> renderMutation card
+      Splicer -> renderSplicer card
 
 illustrationDiv :: Card -> Html ()
 illustrationDiv card =
@@ -175,7 +194,10 @@ renderAddFakeData = do
 
 renderUserPage :: Text -> Html ()
 renderUserPage username = do
-  renderPage $ p_ (toHtml username)
+  renderPage $ do
+    h1_ (toHtml username)
+    a_ [href_ "/"] "Front page"
+    a_ [href_ "/logout"] "Log out"
 
 renderLoginFormFull :: Html ()
 renderLoginFormFull = do

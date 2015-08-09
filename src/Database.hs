@@ -58,6 +58,7 @@ addFakeData = do
   execute_ conn "INSERT INTO card VALUES ('Djungle', 'Seeds enter play unexhausted here.', 0, 0, 'Biom', 'terran', '', '', 5, 3, 'Ruling with an iron fist', 'Erik', 'https://c1.staticflickr.com/1/85/209708058_b5a5fb07a6_z.jpg?zz=1');"
   execute_ conn "INSERT INTO card VALUES ('Crown', '+1', 0, 0, 'Mutation', '', '', '', 0, 0, 'You will be the queen', 'Erik', 'https://c1.staticflickr.com/1/85/209708058_b5a5fb07a6_z.jpg?zz=1');"
   execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2', 1, 2, 'Ting', 'animal', 'Feather', 'Small', 0, 0, 'Better Xuuuuu!', 'Erik', 'https://c1.staticflickr.com/1/85/209708058_b5a5fb07a6_z.jpg?zz=1');"
+  execute_ conn "INSERT INTO card VALUES ('Xuukuu', 'Roam: +2', 1, 2, 'Ting', 'animal', 'Feather', 'Small', 0, 0, 'Final Xuuuuu?!', 'Erik', 'https://pbs.twimg.com/profile_images/80734130/blbw.jpg');"
   return ()
 
 instance FromRow Card where
@@ -76,7 +77,13 @@ instance FromField CardType where
 getCards :: IO [Card]
 getCards = do
   conn <- getConnection
-  cards <- query_ conn "SELECT title, rules, dominance, cost, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM card;"
+  cards <- query_ conn "SELECT DISTINCT ON (title) title, rules, dominance, cost, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM card;"
+  return cards
+
+getCardsWithTitle :: Text -> IO [Card]
+getCardsWithTitle title = do
+  conn <- getConnection
+  cards <- query conn "SELECT title, rules, dominance, cost, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM card WHERE title = ? ORDER BY key DESC;" (Only title)
   return cards
 
 instance ToRow Card where

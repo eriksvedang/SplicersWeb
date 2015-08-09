@@ -12,7 +12,7 @@ import Data.Text (unpack, pack)
 import Data.Text.Internal (Text)
 import Data.Text.Lazy (toStrict)
 import Data.Monoid ((<>))
-import Database (migrate, getCards, addCard, addFakeData, authorize, getSecret)
+import Database (migrate, getCards, addCard, addFakeData, authorize, getSecret, getCardsWithTitle)
 import Card
 import Rendering
 import Lucid
@@ -26,6 +26,7 @@ main = do
   runSpock (read port) $ spockT id $ do
     get root $              frontPageRoute
     get "cards" $           cardsRoute
+    get ("card" <//> var) $ singleCardRoute
     get "add-card" $        addCardRoute
     get "submit-card" $     submitCardRoute
     get "add-fake-data" $   addFakeDataRoute
@@ -43,6 +44,11 @@ cardsRoute :: Route
 cardsRoute = do
   cards <- liftIO getCards
   lucidToSpock $ renderCards cards
+
+singleCardRoute :: Text -> Route
+singleCardRoute title = do
+  cards <- liftIO (getCardsWithTitle title)
+  lucidToSpock (renderSingleCardPage title cards)
 
 addCardRoute :: Route
 addCardRoute = do
