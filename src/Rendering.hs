@@ -23,7 +23,7 @@ renderPage body = do head_ $ allCSS
                      body_ $ body
 
 renderFrontPage :: Html ()
-renderFrontPage = renderPage $ do h1_ "Splicers"
+renderFrontPage = renderPage $ do div_ [id_ "logo"] $ return ()
                                   h2_ "An open source collectible card game"
                                   ul_ $ do
                                     li_ $ a_ [href_ "/cards"] "Cards"

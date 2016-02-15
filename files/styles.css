@@ -3,4 +3,32 @@ body { font-family: Karla, sans-serif; }
 .illustration { overflow: hidden; }
 .illustration img { }
 
+#star {
+	animation-name: spinning;
+	animation-duration: 20s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	animation-name
+	z-index: 2;
+	position: relative;
+	left: 38%;
+	height: auto;
+	width: 11%;
+	top: 4.5%;
+}
 
+#logo {
+	background: url(/files/logo.png) no-repeat yellow;
+	background-size: 90%;
+	width: 600px;
+	margin-right: auto;
+	margin-left: auto;
+	z-index: 1;
+	overflow: hidden;
+	height: 138px;
+	text-shadow: 0 0;
+	-moz-box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5);
+	box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5);
+	background-position: center;
+}
