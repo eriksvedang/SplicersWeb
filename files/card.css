@@ -55,10 +55,13 @@ b {
 	box-shadow: 3pt 3pt rgba(0, 0, 0, 0.5);
 	margin-left: auto;
 	margin-right: auto;
-	background-color: yellow;
+	background-color: white;
 }
 
-
+.illustration img {
+    height: 100%;
+    min-width: 100%;
+}
 
 .ability {
 	width: 54mm;
@@ -69,9 +72,6 @@ b {
 	font-size: 10pt;
 }
 
-.cost {
-	display: none;
-}
 .windom {
 	display: none;
 }
@@ -98,12 +98,19 @@ b {
 
 .mutation .title {
 transform: rotate (90deg);
--webkit-transform: rotate(90deg); 
+-webkit-transform: rotate(90deg);
 -moz-transform: rotate(90deg);
-	float: right;
-	position: relative;
-	top: 38pt;
-	left: 31pt;
+    float: right;
+    margin: 0;
+    display: block;
+    position: relative;
+    top: 7pt;
+    clear: none;
+    left: -5pt;
+    /* background-color: red; */
+    width: 50mm;
+    max-width: 50mm;
+    transform-origin: 100% 0px;
 }
 
 
@@ -160,6 +167,7 @@ transform: rotate (90deg);
 .ting .cost img {
 	height: 12pt;
 }
+
 .ting .dominance {
 	font-weight: bolder;
 	background-color: white;
@@ -172,13 +180,16 @@ transform: rotate (90deg);
 	border: 2px solid black;
 	text-indent: 0;
 	display: inline;
-	margin-top: -17pt;
-	margin-left: -2pt;
+	position: relative;
+	top: -10pt;
+	left: -7pt;
+	border-radius: 50%;
+	margin-bottom: -10pt;
 }
+
 .ting .dominance span {
 	position: relative;
 	bottom: 3px;
-	
 }
 
 .ting .gene1 {
@@ -190,6 +201,7 @@ transform: rotate (90deg);
 	height: 5mm;
 	padding: 1pt;
 	display: inline;
+	clear: both;
 }
 
 .ting .gene2 {
@@ -301,4 +313,34 @@ box-shadow: none;
 .flavor {
     font-style: italic;
     color: #bbb;
+}
+
+a {
+    color: inherit;
+}
+
+@media print {
+    .card {
+    page-break-inside: avoid;
+    border-radius: 0;
+    margin: 0;
+	border: 1pt solid gray;
+	box-shadow: none;
+	}
+	.biom {
+		transform: rotate(90deg);
+		position: relative;
+		top: 35pt;
+		right: 36pt;
+		margin-right: -71pt;
+		margin-bottom: 71pt;
+	}
+}
+
+@page  
+{ 
+    size: A4;   /* auto is the initial value */ 
+
+    /* this affects the margin in the printer settings */ 
+    margin: 0mm 0mm 0mm 0mm;  
 }

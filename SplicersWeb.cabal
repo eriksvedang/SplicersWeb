@@ -20,7 +20,7 @@ executable SplicersWeb
   -- other-modules:       
   -- other-extensions:    
   build-depends:       Spock == 0.8.0.0
-                     , base >=4.7 && <4.8
+                     , base >=4.7
                      , bytestring
                      , lucid
                      , path-pieces >= 0.2.0

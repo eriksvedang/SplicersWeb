@@ -85,14 +85,11 @@ renderTing :: Card -> Html ()
 renderTing card = 
   do div_ [class_ "card ting"] $ do
        div_ [class_ "title"] $ toHtml (title card)
-       div_ [class_ "cost"] $ do
-         svg "/files/cost.svg"
-         span_ $ toHtml (show (cost card))
        illustrationDiv card
        typesDiv "ting" (subType card) (dominance card)
        div_ [class_ "ability"] $ do
-         with (svg "/files/gen_artificial.svg") [class_ "gene1"]
-         with (svg "/files/gen_plant.svg") [class_ "gene1"]
+         img_ [src_ "/files/gen_artificial.png", class_ "gene1"]
+         img_ [src_ "/files/gen_artificial.png", class_ "gene1"]
          span_ $ toHtml (rules card)
          flavorText card 
 
@@ -100,9 +97,6 @@ renderEvent :: Card -> Html ()
 renderEvent card = 
   do div_ [class_ "card event"] $ do
        div_ [class_ "title"] $ toHtml (title card)
-       div_ [class_ "cost"] $ do
-         svg "/files/cost.svg"
-         span_ $ toHtml (show (cost card))
        illustrationDiv card
        typesDiv "event" (subType card) 0
        div_ [class_ "ability"] $ do
@@ -114,9 +108,6 @@ renderBiom card =
   do div_ [class_ "card biom"] $ do
        div_ [class_ "title"] $ toHtml (title card)
        div_ [class_ "windom"] $ toHtml (show (dominance card))
-       div_ [class_ "cost"] $ do
-         svg "/files/cost.svg"
-         span_ $ toHtml (show (cost card))
        illustrationDiv card
        typesDiv "biom" (subType card) 0
        div_ [class_ "ability"] $ do
@@ -126,9 +117,9 @@ renderBiom card =
 renderMutation :: Card -> Html ()
 renderMutation card = 
   do div_ [class_ "card mutation"] $ do
-       div_ [class_ "title"] $ toHtml (title card)
        illustrationDiv card
        typesDiv "mutation" (subType card) 0
+       div_ [class_ "title"] $ toHtml (title card)
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
          flavorText card 
@@ -137,14 +128,8 @@ renderSplicer :: Card -> Html ()
 renderSplicer card = 
   do div_ [class_ "card splicer"] $ do
        div_ [class_ "title"] $ toHtml (title card)
-       div_ [class_ "cost"] $ do
-         svg "/files/cost.svg"
-         span_ $ toHtml (show (cost card))
        illustrationDiv card
        typesDiv "splicer" (subType card) 0
-       div_ [class_ "matter"] $ do
-         svg "/files/cost.svg"
-         span_ $ toHtml (show (startMatter card))
        div_ [class_ "carddraw"] $ do
          svg "/files/carddraw.svg"
          span_ $ toHtml (show (startCards card))
