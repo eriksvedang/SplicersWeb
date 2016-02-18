@@ -9,7 +9,6 @@ import Data.Monoid ((<>))
 data Card = Card { title :: Text
                  , rules :: Text
                  , dominance :: Int
-                 , cost :: Int
                  , cardType :: CardType
                  , subType :: Text
                  , gene1 :: Gene
@@ -40,10 +39,10 @@ data Gene = Sinister
           | NoGene
             deriving (Show)
 
-mkCard ::  Text -> Text -> Int -> Int -> Text -> Text -> Text -> Text -> Int -> Int -> Text -> Text -> Text -> Card
-mkCard title rules dominance cost cardType subType gene1 gene2 startMatter startCards flavor designer illustration =
+mkCard ::  Text -> Text -> Int -> Text -> Text -> Text -> Text -> Int -> Int -> Text -> Text -> Text -> Card
+mkCard title rules dominance cardType subType gene1 gene2 startMatter startCards flavor designer illustration =
   case cardType of
-  "Ting" -> mkTing title rules dominance cost subType gene1 gene2 flavor designer illustration
+  "Ting" -> mkTing title rules dominance subType gene1 gene2 flavor designer illustration
   "Event" -> mkEvent title rules subType flavor designer illustration
   "Biom" -> mkBiom title rules dominance subType flavor designer illustration
   "Mutation" -> mkMutation title rules subType flavor designer illustration
@@ -62,11 +61,10 @@ textToGene geneText =
   "Small" -> Small
   x -> Other x
 
-mkTing title rules dominance cost subType gene1 gene2 flavor designer illustration =
+mkTing title rules dominance subType gene1 gene2 flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = dominance
-       , cost = cost
        , cardType = Ting
        , subType = subType
        , gene1 = textToGene gene1
@@ -82,7 +80,6 @@ mkEvent title rules subType flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = 0
-       , cost = 0
        , cardType = Event
        , subType = subType
        , gene1 = NoGene
@@ -98,7 +95,6 @@ mkBiom title rules domination subType flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = 0
-       , cost = 0
        , cardType = Biom
        , subType = subType
        , gene1 = NoGene
@@ -114,7 +110,6 @@ mkMutation title rules subType flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = 0
-       , cost = 0
        , cardType = Mutation
        , subType = subType
        , gene1 = NoGene
@@ -130,7 +125,6 @@ mkSplicer title rules subType startMatter startCards flavor designer illustratio
   Card { title = title
        , rules = rules
        , dominance = 0
-       , cost = 0
        , cardType = Splicer
        , subType = subType
        , gene1 = NoGene

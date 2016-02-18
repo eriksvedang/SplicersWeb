@@ -66,7 +66,6 @@ submitCardRoute = do
   title <- paramOrDefault "title" "untitled"
   rules <- paramOrDefault "rules" ""
   domination <- paramOrDefault "domination" "0"
-  cost <- paramOrDefault "cost" "0"
   cardType <- paramOrDefault "cardType" ""
   subType <- paramOrDefault "subType" ""
   gene1 <- paramOrDefault "gene1" ""
@@ -79,7 +78,6 @@ submitCardRoute = do
   let card = mkCard title
                     rules
                     (read domination)
-                    (read cost)
                     cardType
                     subType
                     gene1
