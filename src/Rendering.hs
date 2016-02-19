@@ -68,8 +68,16 @@ illustrationDiv card =
   div_ [class_ "illustration"] $ do
     img_ [src_ (illustration card)]
 
-typesDiv :: Text -> Text -> Int -> Html ()
-typesDiv cardType subType dominance = do
+typesDiv :: Text -> Text -> Html ()
+typesDiv cardType subType = do
+  div_ [class_ "types"] $ do
+    span_ $ toHtml $ cardType <> subPart
+      where subPart = case subType of
+              "" -> ""
+              _ -> " - " <> subType
+              
+typesDivWithDomination :: Text -> Text -> Int -> Html ()
+typesDivWithDomination cardType subType dominance = do
   div_ [class_ "types"] $ do
     div_ [class_ "dominance"] $ do
       span_ $ toHtml (show dominance)
@@ -86,7 +94,7 @@ renderTing card =
   do div_ [class_ "card ting"] $ do
        div_ [class_ "title"] $ toHtml (title card)
        illustrationDiv card
-       typesDiv "ting" (subType card) (dominance card)
+       typesDivWithDomination "ting" (subType card) (dominance card)
        div_ [class_ "ability"] $ do
          img_ [src_ "/files/gen_artificial.png", class_ "gene1"]
          img_ [src_ "/files/gen_artificial.png", class_ "gene1"]
@@ -98,7 +106,7 @@ renderEvent card =
   do div_ [class_ "card event"] $ do
        div_ [class_ "title"] $ toHtml (title card)
        illustrationDiv card
-       typesDiv "event" (subType card) 0
+       typesDiv "event" (subType card)
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
          flavorText card 
@@ -107,9 +115,8 @@ renderBiom :: Card -> Html ()
 renderBiom card = 
   do div_ [class_ "card biom"] $ do
        div_ [class_ "title"] $ toHtml (title card)
-       div_ [class_ "windom"] $ toHtml (show (dominance card))
        illustrationDiv card
-       typesDiv "biom" (subType card) 0
+       typesDivWithDomination "biom" (subType card) (dominance card)
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
          --flavorText card 
@@ -118,7 +125,7 @@ renderMutation :: Card -> Html ()
 renderMutation card = 
   do div_ [class_ "card mutation"] $ do
        illustrationDiv card
-       typesDiv "mutation" (subType card) 0
+       typesDiv "mutation" (subType card)
        div_ [class_ "title"] $ toHtml (title card)
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
@@ -127,12 +134,12 @@ renderMutation card =
 renderSplicer :: Card -> Html ()
 renderSplicer card = 
   do div_ [class_ "card splicer"] $ do
-       div_ [class_ "title"] $ toHtml (title card)
-       illustrationDiv card
-       typesDiv "splicer" (subType card) 0
        div_ [class_ "carddraw"] $ do
          svg "/files/carddraw.svg"
          span_ $ toHtml (show (startCards card))
+       div_ [class_ "title"] $ toHtml (title card)
+       illustrationDiv card
+       typesDiv "splicer" (subType card)
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
          flavorText card
