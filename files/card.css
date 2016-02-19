@@ -1,5 +1,5 @@
 body {
-	background: url(img/logobg.png) fixed #dadada;
+	background: url(logobg.png) fixed #dadada;
 	background-position: center;
 	background-size: 1000px;
 }
@@ -32,7 +32,7 @@ b {
 	display: inline-block;
 }
 .dominance {
-	background: url(img/dom_star.png) #dadada;
+	background: url(dom_star.png) #dadada;
 	background-size: cover;
 	width: 34px;
 	height: 34px;
