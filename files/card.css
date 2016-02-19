@@ -1,5 +1,7 @@
 body {
-	background-color: #eed;
+	background: url(img/logobg.png) fixed #dadada;
+	background-position: center;
+	background-size: 1000px;
 }
 
 b {
@@ -8,127 +10,137 @@ b {
 
 .card {
 	font-family: Karla;
-	width: 63mm;
-	height: 88mm;
-	border-style: solid;
-	background-color: white;
-	border-width: 0.5pt;
-	border-radius: 2mm;
+	width: 224px;
+	height: 308px;
+	background: white;
+	border-radius: 8px;
 	-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	display: inline-block;
 	float: left;
-	margin: 5mm;
+	margin: 20px;
 }
+
+
 .title {
 	font-weight: bolder;
-	font-size: 14pt;
-	margin-left: 3.5mm;
-	margin-bottom: 1mm;
-	margin-top: 3mm;
-	max-width: 45mm;
+	font-size: 18px;
+	margin-left: 13px;
+	margin-bottom: 4px;
+	margin-top: 8px;
+	max-width: 170px;
 	display: inline-block;
+}
+.dominance {
+	background: url(img/dom_star.png) #dadada;
+	background-size: cover;
+	width: 34px;
+	height: 34px;
+	vertical-align: text-bottom;
+	text-align: center;
+	font-size: 35px;
+	float: left;
+	border: 1px solid black;
+	text-indent: 0;
+	display: inline;
+	position: relative;
+	bottom: 19px;
+	left: 0px;
+	margin-bottom: -19px;
+	margin-left:-1px;
+	border-radius: 0px 5px 0px 5px;
+}
+
+.dominance span {
+	position: relative;
+	top: -3px;
 }
 .types {
 	font-weight: bolder;
 	text-transform: uppercase;
-	font-size: 9pt;
-	width: 54mm;
+	font-size: 12px; /* 9/0.75 */
+	width: 200px;
 	margin-right: auto;
 	margin-left: auto;
-	background-color: white;
-	border: 2pt solid black;
-	text-indent: 1.5mm;
+	border: 1px solid black;
+	text-indent: 6px;
+	padding-top: 1.3px; /* 1/0.75 */
+	padding-bottom: 1.3px; /* 1/0.75 */
 	border-top-style: none;
-	-moz-box-shadow: 3pt 3pt rgba(0, 0, 0, 0.5);
-	box-shadow: 3pt 3pt rgba(0, 0, 0, 0.5);
-	padding-top: 1pt;
-	padding-bottom: 1pt;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-radius: 0 0 5px 5px;
+	background-color: white;
+	-moz-box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
+	box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 }
 
 .illustration {
-	width: 54mm;
-	height: 35mm;
+	width: 200px;
+	height: 130px;
 	border-style: solid;
-	border-width: 2pt;
-	-moz-box-shadow: 3pt 3pt rgba(0, 0, 0, 0.5);
-	box-shadow: 3pt 3pt rgba(0, 0, 0, 0.5);
+-moz-box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
+box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	margin-left: auto;
 	margin-right: auto;
 	background-color: white;
+	border-width: 1px;
+	border-style: solid;;
+	border-color: black;
+	border-radius: 5px 5px 0 0;
+	overflow: hidden;
 }
 
 .illustration img {
     height: 100%;
     min-width: 100%;
+    opacity: 0.2;
 }
 
 .ability {
-	width: 54mm;
-	height: 30mm;
-	margin-top: 3mm;
+	width: 200px;
+	height: 100px;
+	margin-top: 10px;
 	margin-right: auto;
 	margin-left: auto;
-	font-size: 10pt;
-}
-
-.windom {
-	display: none;
-}
-
-.dominance {
-	display: none;
-}
-
-.gene1 {
-	display: none;
-}
-
-.gene2 {
-	display: none;
-}
-
-.matter {
-	display: none;
-}
-
-.carddraw {
-	display: none;
+	z-index: -10;
+	font-size: 14px;
 }
 
 .mutation .title {
-transform: rotate (90deg);
--webkit-transform: rotate(90deg);
--moz-transform: rotate(90deg);
-    float: right;
-    margin: 0;
-    display: block;
-    position: relative;
-    top: 7pt;
-    clear: none;
-    left: -5pt;
-    /* background-color: red; */
-    width: 50mm;
-    max-width: 50mm;
-    transform-origin: 100% 0px;
+	transform: rotate (90deg);
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+  float: right;
+	display: block;
+  position: relative;
+	clear: none;
+  width: 300px;
+  max-width: 300px;
+	overflow: hidden;
+  transform-origin: 100% 0px;
+	margin: 0 0 -25px;
+	left: -7px;
+	top: 130px;
 }
 
 
 .mutation .illustration {
-	margin-top: 3.5mm;
-	margin-left: 3.5mm;
-	width: 48mm;
-	height: 41mm;
+	margin-top: 14px;
+	margin-left: 14px;
+	width: 170px;
+	height: 150px;
 }
 
 .mutation .types {
-	margin-left: 3.5mm;
-	width: 48mm;
+	margin-left: 14px;
+	width: 170px;
 }
 
 .mutation .ability {
-	margin-left: 3.5mm;
-	width: 49mm;
+	margin-left: 15px;
+	width: 170px;
 }
 
 .event .title {
@@ -136,178 +148,121 @@ transform: rotate (90deg);
 	margin-right: auto;
 	margin-left: auto;
 	display: block;
-	text-decoration: underline;
-	margin-bottom: 2mm;
 }
+
+.event .ability {
+	height: 90px;
+}
+
 .event .illustration {
 	border-radius: 50%;
+	height: 150px;
+	margin-bottom: -5px;
 }
 .event .types {
 	background: none;
 	display: block;
 	text-align: center;
-	margin: 2mm auto -2mm;
+	margin: 8px auto -8px;
 	border-style: none;
 	text-indent: 0;
 	box-shadow: none;
 	-moz-box-shadow:none;
 }
 
-.ting .cost {
-	font-weight: bolder;
-	font-size: 18pt;
-	margin-right: 4mm;
-	display: inline-block;
-	float: right;
-	margin-top: 2mm;
-	padding-left: 4mm;
-	background-repeat: no-repeat;
-	text-align: right;
-}
-.ting .cost img {
-	height: 12pt;
-}
-
-.ting .dominance {
-	font-weight: bolder;
-	background-color: white;
-	width: 9.5mm;
-	height: 9.5mm;
-	vertical-align: text-bottom;
-	text-align: center;
-	font-size: 27pt;
-	float: left;
-	border: 2px solid black;
-	text-indent: 0;
-	display: inline;
-	position: relative;
-	top: -10pt;
-	left: -7pt;
-	border-radius: 50%;
-	margin-bottom: -10pt;
-}
-
-.ting .dominance span {
-	position: relative;
-	bottom: 3px;
-}
-
-.ting .gene1 {
+.gene1 {
 	background: #dadada;
-	border-radius: 50%;
+	border-radius: 5px;
 	float: right;
-	margin-bottom: 1mm;
-	width: 5mm;
-	height: 5mm;
-	padding: 1pt;
+	margin-bottom: 5px;
+	width: 20px;
+	height: 20px;
+	padding: 2px;
 	display: inline;
 	clear: both;
 }
 
-.ting .gene2 {
+.gene2 {
 	background-color: #dadada;
-	width: 5mm;
-	height: 5mm;
-	padding: 1pt;
-	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	padding: 2px;
+	border-radius: 5px;
 	float: right;
 	clear: right;
-	margin-bottom: 15mm;
+	margin-bottom: 60pxpx;
 	display: inline;
 }
 
 .splicer .title {
-	text-align: center;
-	margin-right: auto;
-	margin-left: auto;
+	text-align: left;
 	display: block;
-	margin-bottom: 2mm;
 }
 .splicer .illustration {
 	border-radius: 50%;
-	width: 35mm;
-	height: 47mm;
+	width: 135px;
+	height: 170px;
+	margin-bottom: 0;
 }
 .splicer .types {
-background: none;
-display: block;
-text-align: center;
-margin: 2mm auto -7mm;
-border-style: none;
-text-indent: 0;
-box-shadow: none;
--moz-box-shadow:none;
+	background: none;
+	display: block;
+	text-align: center;
+	margin: 8px auto -27px;
+	border-style: none;
+	text-indent: 0;
+	box-shadow: none;
+	-moz-box-shadow:none;
 	position: relative;
-	top: 21mm;
+	top: 70px;
 }
 .splicer .ability {
-	height: 17mm;
+	height: 65px;
 }
 
 .splicer .carddraw {
 	display: block;
 	float: right;
-	position: relative;
-	bottom: 6mm;
-	right: 5mm;
-	font-size: 18pt;
+	margin-top: 6px;
+	margin-right: 14px;
+	font-size: 24px; /* 18/0.75 */
 	text-align: center;
 	font-weight: bold;
 }
 
 .splicer .carddraw img {
-	height: 16pt;
+	height: 22px;
 	margin-bottom: -2px;
 }
 
-.splicer .matter {
-	display: inline;
-	position: relative;
-	bottom: 6mm;
-	font-size: 18pt;
-	text-align: center;
-	left: 5mm;
-	float: left;
-	margin-right: -100pt;
-	font-weight: bold;
-}
-
-.splicer .matter img {
-	height: 12pt;
-}
-
 .biom {
-	height: 63mm;
-	width: 88mm;
+	height: 224px;
+	width: 308px;
 }
 
 .biom .title {
-	margin-top: 4pt;
+	margin-top: 5px;
 }
 
 .biom .illustration {
-	height: 35mm;
-	width: 80mm;
+	height: 120px;
+	width: 280px;
+}
+
+.biom .dominance {
+	float: right;
+	margin-right: -1px;
+	border-radius: 5px 0px 5px 0px;
 }
 
 .biom .types {
-	width: 80mm;
+	width: 280px;
 }
 
 .biom .ability {
-	width: 80mm;
-	height: 9mm;
-	margin-top: 6pt;
-}
-
-.biom .windom {
-	display: inline;
-	float: right;
-	font-size: 18pt;
-	font-weight: bold;
-	margin-top: 2pt;
-	margin-right: 9pt;
-	text-align: center;
+	width: 280px;
+	height: 36px;
+	margin-top: 8px;
 }
 
 .flavor {
@@ -320,27 +275,31 @@ a {
 }
 
 @media print {
+		body {
+			background: none;
+			margin: auto;
+		}
     .card {
-    page-break-inside: avoid;
-    border-radius: 0;
-    margin: 0;
-	border: 1pt solid gray;
-	box-shadow: none;
-	}
-	.biom {
-		transform: rotate(90deg);
-		position: relative;
-		top: 35pt;
-		right: 36pt;
-		margin-right: -71pt;
-		margin-bottom: 71pt;
-	}
+	    border-radius: 0;
+	    margin: 0 0 -1px -1px;
+			border: 1px dashed gray;
+			box-shadow: none;
+			page-break-inside: avoid;
+		}
+		.biom {
+			transform: rotate(90deg);
+			position: relative;
+			top: 42px;
+			right: 42px;
+			margin-right: -84px;
+			margin-bottom: 80px;
+		}
 }
 
-@page  
-{ 
-    size: A4;   /* auto is the initial value */ 
+@page
+{
+    size: A4;   /* auto is the initial value */
 
-    /* this affects the margin in the printer settings */ 
-    margin: 0mm 0mm 0mm 0mm;  
+    /* this affects the margin in the printer settings */
+    margin: 0mm 0mm 0mm 0mm;
 }
