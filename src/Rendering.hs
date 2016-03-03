@@ -19,7 +19,9 @@ allCSS = do (css "/files/styles.css")
             (css "http://fonts.googleapis.com/css?family=Karla:400,700,400italic,700italic")
 
 renderPage :: Html () -> Html ()
-renderPage body = do head_ $ allCSS
+renderPage body = do head_ $ do
+                      (script_ [src_ "/files/randomcolor.js"] "")
+                      allCSS
                      body_ $ body
 
 renderFrontPage :: Html ()
@@ -27,10 +29,10 @@ renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
                                     div_ [id_ "logo"] $ return ()
                                     h2_ "An open source collectible card game"
                                     div_ [id_ "menu"] $ do
-                                      div_ [class_ "menu-link"] $ a_ [href_ "#"] $ toHtml "START"
-                                      div_ [class_ "menu-link"] $ a_ [href_ "#"] $ toHtml "RULES"
-                                      div_ [class_ "menu-link"] $ a_ [href_ "#"] $ toHtml "CARDS"
-                                      div_ [class_ "menu-link"] $ a_ [href_ "#"] $ toHtml "USER"
+                                      a_ [class_ "menu-link", href_ "#"] $ toHtml "Start"
+                                      a_ [class_ "menu-link", href_ "#"] $ toHtml "Rules"
+                                      a_ [class_ "menu-link", href_ "#"] $ toHtml "Cards"
+                                      a_ [class_ "menu-link", href_ "#"] $ toHtml "User"
                                     div_ [] $ do
                                       article_ (toHtml "Welcome to this page.")
 
@@ -59,7 +61,7 @@ renderCard cardMode card =
   NoLink -> do
     p_ [] renderedCard
   where
-    renderedCard = 
+    renderedCard =
       case (cardType card) of
       Ting -> renderTing card
       Event -> renderEvent card
@@ -79,7 +81,7 @@ typesDiv cardType subType = do
       where subPart = case subType of
               "" -> ""
               _ -> " - " <> subType
-              
+
 typesDivWithDomination :: Text -> Text -> Int -> Html ()
 typesDivWithDomination cardType subType dominance = do
   div_ [class_ "types"] $ do
@@ -94,7 +96,7 @@ flavorText :: Card -> Html ()
 flavorText card = p_ [class_ "flavor"] $ toHtml (flavor card)
 
 renderTing :: Card -> Html ()
-renderTing card = 
+renderTing card =
   do div_ [class_ "card ting"] $ do
        div_ [class_ "title"] $ toHtml (title card)
        illustrationDiv card
@@ -103,40 +105,40 @@ renderTing card =
          img_ [src_ "/files/gen_artificial.png", class_ "gene1"]
          img_ [src_ "/files/gen_artificial.png", class_ "gene1"]
          span_ $ toHtml (rules card)
-         flavorText card 
+         flavorText card
 
 renderEvent :: Card -> Html ()
-renderEvent card = 
+renderEvent card =
   do div_ [class_ "card event"] $ do
        div_ [class_ "title"] $ toHtml (title card)
        illustrationDiv card
        typesDiv "event" (subType card)
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
-         flavorText card 
+         flavorText card
 
 renderBiom :: Card -> Html ()
-renderBiom card = 
+renderBiom card =
   do div_ [class_ "card biom"] $ do
        div_ [class_ "title"] $ toHtml (title card)
        illustrationDiv card
        typesDivWithDomination "biom" (subType card) (dominance card)
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
-         --flavorText card 
+         --flavorText card
 
 renderMutation :: Card -> Html ()
-renderMutation card = 
+renderMutation card =
   do div_ [class_ "card mutation"] $ do
        illustrationDiv card
        typesDiv "mutation" (subType card)
        div_ [class_ "title"] $ toHtml (title card)
        div_ [class_ "ability"] $ do
          span_ $ toHtml (rules card)
-         flavorText card 
+         flavorText card
 
 renderSplicer :: Card -> Html ()
-renderSplicer card = 
+renderSplicer card =
   do div_ [class_ "card splicer"] $ do
        div_ [class_ "carddraw"] $ do
          svg "/files/carddraw.svg"
@@ -231,4 +233,3 @@ renderLogout :: Html ()
 renderLogout = do
   renderPage $ do
     p_ "You have been logged out."
-
