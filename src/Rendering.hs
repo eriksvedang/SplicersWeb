@@ -23,12 +23,20 @@ renderPage body = do head_ $ allCSS
                      body_ $ body
 
 renderFrontPage :: Html ()
-renderFrontPage = renderPage $ do div_ [id_ "logo"] $ return ()
-                                  h2_ "An open source collectible card game"
-                                  ul_ $ do
-                                    li_ $ a_ [href_ "/cards"] "Cards"
-                                    li_ $ a_ [href_ "/add-card"] "Add a card"
-                                    li_ $ a_ [href_ "/user"] "User page"
+renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
+                                    div_ [id_ "logo"] $ return ()
+                                    h2_ "An open source collectible card game"
+                                    div_ [id_ "menu"] $ do
+                                      div_ [class_ "menu-link"] toHtml "START"
+                                      div_ [class_ "menu-link"] toHtml "RULES"
+                                      div_ [class_ "menu-link"] toHtml "CARDS"
+                                      div_ [class_ "menu-link"] toHtml "USER"
+                                    div_
+                                      article_ (toHtml rules)
+                                    ul_ $ do
+                                      li_ $ a_ [href_ "/cards"] "Cards"
+                                      li_ $ a_ [href_ "/add-card"] "Add a card"
+                                      li_ $ a_ [href_ "/user"] "User page"
 
 renderCards :: [Card] -> Html ()
 renderCards cards = renderPage $ mapM_ (renderCard AsLink) cards
@@ -227,3 +235,5 @@ renderLogout :: Html ()
 renderLogout = do
   renderPage $ do
     p_ "You have been logged out."
+
+rules = 
