@@ -27,10 +27,10 @@ renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
                                     div_ [id_ "logo"] $ return ()
                                     h2_ "An open source collectible card game"
                                     div_ [id_ "menu"] $ do
-                                      div_ [class_ "menu-link"] $ toHtml "START"
-                                      div_ [class_ "menu-link"] $ toHtml "RULES"
-                                      div_ [class_ "menu-link"] $ toHtml "CARDS"
-                                      div_ [class_ "menu-link"] $ toHtml "USER"
+                                      div_ [class_ "menu-link"] $ a_ [href_ "#"] $ toHtml "START"
+                                      div_ [class_ "menu-link"] $ a_ [href_ "#"] $ toHtml "RULES"
+                                      div_ [class_ "menu-link"] $ a_ [href_ "#"] $ toHtml "CARDS"
+                                      div_ [class_ "menu-link"] $ a_ [href_ "#"] $ toHtml "USER"
                                     div_ [] $ do
                                       article_ (toHtml "Welcome to this page.")
 
