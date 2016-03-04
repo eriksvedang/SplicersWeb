@@ -26,13 +26,13 @@ renderPage body = do head_ $ do
 
 renderFrontPage :: Html ()
 renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
-                                    div_ [id_ "logo"] $ return ()
-                                    h2_ "An open source collectible card game"
+                                    div_ [id_ "logo", class_ "randomcolor"] $ return ()
+                                    h2_ [class_ "randomcolor"] "An open source collectible card game"
                                     div_ [id_ "menu"] $ do
-                                      a_ [class_ "menu-link", href_ "#"] $ toHtml "Start"
-                                      a_ [class_ "menu-link", href_ "#"] $ toHtml "Rules"
-                                      a_ [class_ "menu-link", href_ "#"] $ toHtml "Cards"
-                                      a_ [class_ "menu-link", href_ "#"] $ toHtml "User"
+                                      a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Start"
+                                      a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Rules"
+                                      a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Cards"
+                                      a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "User"
                                     div_ [] $ do
                                       article_ (toHtml "Welcome to this page.")
 
@@ -71,7 +71,7 @@ renderCard cardMode card =
 
 illustrationDiv :: Card -> Html ()
 illustrationDiv card =
-  div_ [class_ "illustration"] $ do
+  div_ [class_ "illustration randomcolor"] $ do
     img_ [src_ (illustration card)]
 
 typesDiv :: Text -> Text -> Html ()

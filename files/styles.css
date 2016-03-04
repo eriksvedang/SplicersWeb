@@ -6,7 +6,7 @@ body { font-family: Karla, sans-serif;
 .illustration img { }
 
 #page {
-	background-color: rainbow(10,10);
+	background-color: ;
 	width: 600px;
 	position: absolute;
 	top: 0;
@@ -39,7 +39,7 @@ body { font-family: Karla, sans-serif;
 }
 
 article {
-
+	background-color: white;
 }
 
 #menu {
