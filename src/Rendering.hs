@@ -26,7 +26,9 @@ renderPage body = do head_ $ do
 
 renderFrontPage :: Html ()
 renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
-                                    div_ [id_ "logo", class_ "randomcolor"] $ return ()
+                                    div_ [id_ "logo", class_ "randomcolor"] $ do
+                                      img_ [src_ "/files/logo.png", id_ "logobg"]
+                                      img_ [src_ "/files/logo_star.png", id_ "star"]
                                     h2_ [class_ "randomcolor"] "An open source collectible card game"
                                     div_ [id_ "menu"] $ do
                                       a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Start"
