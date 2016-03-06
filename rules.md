@@ -1,8 +1,22 @@
-# Rules 0.2
+# Rules 0.2a
 
 ---
 
 ### Game Objective
+_add presentation text here_
+
+#### End of game
+The game ends when a player dominates at least 3 biom cards at the end of a round.
+Alternitavely, if a player cannot draw a card at the start of a round, that round is the last one. At the end of the round, the player with the most dominated biom cards win the game. In case of a tie, the player with biggest sum of printed dominance value on dominated biom cards win the game.
+
+### Set-up
+Each player does the following:
+1. Prepare your deck by shuffling your cards (except your splicer and biom cards) and place them face down in front of you. Make room for a "discard pile" to place discarded cards.
+2. Place the splicer card face up next to the deck and the biom cards face up in a row between the players.
+3. Draw a number of cards (indicated on your splicer card) to form a hand of cards.
+4. Randomly determine first player.
+
+Now, in turn order starting with the first player, each player may perform a mulligan. The game then starts with the first round, skipping the start of round phase (see turn structure below).
 
 ### Card Types
 There are 5 card types in Splicers:
@@ -12,7 +26,7 @@ There are 5 card types in Splicers:
 - **Biom**
 - **Splicer**
 
-Every deck consists of at least 18 cards, including 1 Splicer card and 2 Biom cards. There can only be one copy of each card in the deck. In the beginning of the game, the Splicer card is placed face up next to the deck and the Biom cards are placed face up in a row between the players.
+Every deck consists of at least 18 cards, including 1 Splicer card and 2 Biom cards. There can only be one copy of each card in the deck.
 
 #### Biom
 Biom cards represent geological spaces that the players control through **domination**. Bioms have 4 areas:
@@ -65,15 +79,17 @@ The splicer card is always in play and is not a ting or a seed. It cannot be dis
 
 ### Turn Structure
 The game is played in rounds consisting of turns. A round ends when a player has passed.
-1. **Start of round.** The player’s cards are unexhausted.
-2. **Action phase.** The players take turns doing actions. The player must do at least one of the following actions:
+1. **Start of round.** The player’s cards are unexhausted. Each player draw a card from their deck.
+2. **Action phase.** The players take turns doing actions, starting with the first player. The player must do at least one of the following actions:
   - Evolve a ting.
   - Play a seed.
   - Use an active ability.
   - Splice.
   - Play an event and pass.
   - Pass.
-3.	**End of round.** The first time each round a player passes the opponent takes one turn and then the round ends. Check win conditions. Any "end of round" effects trigger. Each player draw a card from their deck.
+3.	**End of round.** The first time each round a player passes the opponent takes one turn and then the round ends. Check win conditions. Any "end of round" effects trigger.
+
+The player who passed first is the new first player.
 
 ### Misc. Rules
 
@@ -90,7 +106,7 @@ While any card can be a seed, ting cards can be turned face up as an "evolve" ac
 The ability text may contain both passive abilites and active abilites. Passive abilites trigger depending on the game state. Active abilites are indicated by a colon (example: "@: hunt"). The icon or text before the colon is the **ability cost** which must be fulfilled for the ability to trigger, while the text after the colon is the actual ability. Active abilites can only be triggered on your turn during the action phase. Aside from the ability cost, triggering an active ability consumes one action. You may only use active abilites on your own cards. Abilites can only trigger while the card is in play face up.
 
 #### Exhausted / Unexhausted cards
-Typically, the ability cost of cards are "@" which means that the card must be exhausted for the ability to trigger. When a card is exhausted, the card is turned 90° sideways. An exhausted card cannot be exhausted again. In the beginning of each round, any exhausted cards are unexhausted, meaning that they are no longer exhausted and turned to it's original rotation.
+Typically, the ability cost of cards are "@" which means that the card must be exhausted for the ability to trigger. When a card is exhausted, the card is turned sideways. An exhausted card cannot be exhausted again. In the beginning of each round, any exhausted cards are unexhausted, meaning that they are no longer exhausted and turned to it's original rotation.
 
 #### Genes & Splicing
 Splicing is a way to bring cards into play without having them in your hand! Tings, mutations and events have gene-symbols that are used when splicing.
@@ -100,6 +116,12 @@ When the splice action is done, shuffle your deck.
 
 #### Requirements
 Some tings and bioms have a requirement keyword (**req. [gene] / [type]**). If they do, the indicated requirement must be fulfilled for a ting to be in its biom. If the requirement is not fulfilled, the ting must be devolved. When a ting uses the roam ability, it may not move to a biom where a requirment isn't met. Tings may only require types (bioms have no genes) and bioms may only require genes.
+
+#### Mulligan
+When performing a mulligan, choose any number of cards and discard them, then draw that many cards from your deck.
+
+#### Public Information
+All face up cards (including discard pile) are public information and may be looked at at any time. The number of cards left in a deck, as well as the number of cards in hand is also public inormation. Face down cards in play may only be looked at by their owner.
 
 ---
 
