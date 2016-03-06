@@ -2,14 +2,39 @@
 
 ---
 
-### Game Objective
+## Table of Contents
+1. [Game Objective](#gameobjective)
+  2. End of game
+2. [Set-up](#setup)
+3. [Card Types](#cardtypes)
+  4. Biom
+  5. Ting
+  6. Mutation
+  6. Event
+  7. Splicer
+4. [Turn Structure](#turnstructure)
+5. [Misc. Rules](#miscrules)
+  6. Actions
+  7. Seeds
+  8. Evolving
+  9. Abilities
+  10. Exhausted / Unexhausted cards
+  11. Genes & Splicing
+  12. Requirements
+  13. Mulligan
+  14. Public Information
+6. [Keywords](#keywords)
+
+---
+
+### Game Objective  <a name="gameobjective"></a>
 _add presentation text here_
 
 #### End of game
 The game ends when a player dominates at least 3 biom cards at the end of a round.
 Alternitavely, if a player cannot draw a card at the start of a round, that round is the last one. At the end of the round, the player with the most dominated biom cards win the game. In case of a tie, the player with biggest sum of printed dominance value on dominated biom cards win the game.
 
-### Set-up
+### Set-up <a name="setup"></a>
 Each player does the following:
 1. Prepare your deck by shuffling your cards (except your splicer and biom cards) and place them face down in front of you. Make room for a "discard pile" to place discarded cards.
 2. Place the splicer card face up next to the deck and the biom cards face up in a row between the players.
@@ -18,7 +43,7 @@ Each player does the following:
 
 Now, in turn order starting with the first player, each player may perform a mulligan. The game then starts with the first round, skipping the start of round phase (see turn structure below).
 
-### Card Types
+### Card Types <a name="cardtypes"></a>
 There are 5 card types in Splicers:
 - **Ting**
 - **Mutation**
@@ -53,7 +78,7 @@ Mutations are cards that can be hosted on tings to alter them in different ways.
 - name
 - type(s)
 - genes
-- ability text.
+- ability text
 
 To play a mutation card, put it under a ting card (friendly or enemy) so that it's name is still shown (players may look at it). The ting is the mutation's **host**.
 Playing a mutation is not an action (you may play a mutation when evolving a ting for it to meet a biom requirement, for example). You may however only play mutations during your turn of the action phase. If a ting is devolved while hosting a mutation, it is discarded. Mutations exhaust and unexhaust like their host card. For example, both host and mutation card are exhausted when using an exhaust ability on the mutation card.
@@ -77,7 +102,7 @@ The Splicer card represent the character you play. Splicers have 4 areas:
 
 The splicer card is always in play and is not a ting or a seed. It cannot be discarded and cannot host mutation cards. At the start of the game, the starting hand size number is the number of cards you draw as your opening hand.
 
-### Turn Structure
+### Turn Structure <a name="turnstructure"></a>
 The game is played in rounds consisting of turns. A round ends when a player has passed.
 1. **Start of round.** The player’s cards are unexhausted. Each player draw a card from their deck.
 2. **Action phase.** The players take turns doing actions, starting with the first player. The player must do at least one of the following actions:
@@ -91,10 +116,10 @@ The game is played in rounds consisting of turns. A round ends when a player has
 
 The player who passed first is the new first player.
 
-### Misc. Rules
+### Misc. Rules <a name="miscrules"></a>
 
-### Actions
-At the beginning of each turn during the action phase, the
+#### Actions
+At the beginning of each turn during the action phase, the player who's turn it is gains one action. The player may consume actions to do one or more of the actions listen above (see turn structure). A player may gain more than one action, and in this case, they do not need to consume all their actions. They must however do at least one of the listed actions each turn.
 
 #### Seeds
 Any card type can be played as a **seed**. When you do, place it face down and exhausted in front of a biom. A seed counts as 1 dominance towards that biom.
@@ -125,7 +150,7 @@ All face up cards (including discard pile) are public information and may be loo
 
 ---
 
-### Keywords
+### Keywords <a name="keywords"></a>
 
 #### Common
 - **+X/-X** - change the dominance value by X until the end of the round.
