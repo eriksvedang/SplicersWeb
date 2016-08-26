@@ -180,6 +180,8 @@ All face up cards (including discard pile) are public information and may be loo
 #### Event-related
 - **crunch** - discard a seed.
 - **season** - this event is active and not discarded until another event is played.
+
+
 ---
 #### Advanced Keywords <a name="advanced"></a>
 - **farsight** - +1 until end of round if an event is played.
@@ -188,4 +190,6 @@ All face up cards (including discard pile) are public information and may be loo
 - **willpower** - show a ting from your hand, your opponent may show one or more tings from their hand with a combined higher printed dominance than your card. If they don't, something happens. Example: "@, willpower: draw 1 card"
 - **shockwave** - when this ting evolves, exhaust all close tings.
 - **jumper** - instead of playing this card as a seed, you may play it unexhausted, already evolved. it is returned to your hand at the end of the round, before counting dominance.
+
+
 ---
