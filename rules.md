@@ -24,6 +24,7 @@
   13. Mulligan
   14. Public Information
 6. [Keywords](#keywords)
+7. [Advanced Keywords](#advanced)
 
 ---
 
@@ -170,14 +171,21 @@ All face up cards (including discard pile) are public information and may be loo
 #### Ting-related
 - **hunt** - you may devolve a close animal with the same or lower dominance as this ting.
 - **evade** - you cannot use hunt on this animal.
-- **extinguish** discard a ting.
-- **expensive** - consume one more action to evolved
+- **extinguish** - to discard a ting.
+- **expensive** - consume one more action to evolve.
 - **graze** - exhaust a close plant to gain two actions.
 - **harvest** - discard all tokens on this card and gain as many actions as tokens discarded.
 - **roam** - move card to another biom, if able.
 
 #### Event-related
 - **crunch** - discard a seed.
-- **season** this event is active and not discarded until another event is played.
-
+- **season** - this event is active and not discarded until another event is played.
+---
+#### Advanced Keywords <a name="advanced"></a>
+- **farsight** - +1 until end of round if an event is played.
+- **diminish** - choose a ting, then the owner must search their deck or discard pile for a ting with a printed dominance lower than the chosen ting and replace it (shuffle the deck).
+- **upgrade** - instead of playing this card as a seed, you may play it already evolved if you discard a friendly ting with the same set of genes. this card is played exhausted in the same place as the discarded ting.
+- **willpower** - show a ting from your hand, your opponent may show one or more tings from their hand with a combined higher printed dominance than your card. If they don't, something happens. Example: "@, willpower: draw 1 card"
+- **shockwave** - when this ting evolves, exhaust all close tings.
+- **jumper** - instead of playing this card as a seed, you may play it unexhausted, already evolved. it is returned to your hand at the end of the round, before counting dominance.
 ---
