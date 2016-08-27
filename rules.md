@@ -190,6 +190,7 @@ All face up cards (including discard pile) are public information and may be loo
 - **willpower** - show a ting from your hand, your opponent may show one or more tings from their hand with a combined higher printed dominance than your card. If they don't, something happens. Example: "@, willpower: draw 1 card"
 - **shockwave** - when this ting evolves, exhaust all close tings.
 - **jumper** - instead of playing this card as a seed, you may play it unexhausted, already evolved. it is returned to your hand at the end of the round, before counting dominance.
+- **abomination** - you may not evolve this card.
 
 
 ---
