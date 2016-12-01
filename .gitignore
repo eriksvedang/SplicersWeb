@@ -5,3 +5,11 @@ latest.dump
 /cabal.sandbox.config
 /.stack-work
 .DS_Store
+
+add-card.html
+
+setenv.sh
+
+setenv.sh~
+
+setenv.sh
