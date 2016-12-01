@@ -3,7 +3,7 @@
 
 module Main where
 
-import Web.Spock.Safe
+import Web.Spock.Core
 import Web.PathPieces (PathPiece)
 import Control.Monad.IO.Class (MonadIO, liftIO)
 import System.Environment (getArgs)
@@ -105,8 +105,8 @@ submitLoginRoute = do
   maybeSecret <- liftIO $ authorize username password
   case maybeSecret of
     Just secret -> do
-      setCookie "username" username 3600
-      setCookie "secret" secret 3600
+      setCookie "username" username defaultCookieSettings
+      setCookie "secret" secret defaultCookieSettings
       maybeNextPage <- param "next"
       case maybeNextPage of
         Just nextPage -> redirect $ "/" <> nextPage
