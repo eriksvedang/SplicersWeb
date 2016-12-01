@@ -21,6 +21,8 @@ allCSS = do (css "/files/styles.css")
 renderPage :: Html () -> Html ()
 renderPage body = do head_ $ do
                       (script_ [src_ "/files/randomcolor.js"] "")
+                      (script_ [src_ "/files/jquery.min.js"] "")
+                      (script_ [src_ "/files/cardpreview.js"] "")
                       allCSS
                      body_ $ body
 
@@ -181,6 +183,7 @@ renderAddCard username =
       field "illustration" " (URL)" "text" ""
       br_ []
       input_ [type_ "submit", value_ "Submit"]
+      renderCard NoLink (Card "title" "rules" 0 Ting "type" NoGene NoGene 4 4 "" username "")
 
 renderSubmittedCard :: Text -> Html ()
 renderSubmittedCard title =
