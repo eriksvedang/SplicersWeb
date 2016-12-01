@@ -100,11 +100,13 @@ loginRoute = do
   lucidToSpock renderLoginFormFull
 
 submitLoginRoute = do
+  liftIO $ putStrLn ("Submit login route!")
   Just username <- param "username"
   Just password <- param "password"
   maybeSecret <- liftIO $ authorize username password
   case maybeSecret of
     Just secret -> do
+      liftIO $ putStrLn ("Got secret " ++ show secret)
       setCookie "username" username defaultCookieSettings
       setCookie "secret" secret defaultCookieSettings
       maybeNextPage <- param "next"
@@ -112,6 +114,7 @@ submitLoginRoute = do
         Just nextPage -> redirect $ "/" <> nextPage
         Nothing -> lucidToSpock renderSucceededToLogin
     Nothing -> do
+      liftIO $ putStrLn ("Got no secret for " ++ show username)
       lucidToSpock renderFailedToLogin
 
 logoutRoute = do

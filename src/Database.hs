@@ -12,9 +12,11 @@ import Control.Applicative ((<*>), (<$>))
 import Data.Text (Text(..), unpack)
 import Data.ByteString.Char8 (pack)
 import Control.Monad (forM_)
-import Card
 import System.Environment (lookupEnv)
 import Data.Text.Encoding
+
+import Card
+import Player
 
 getConnection :: IO Connection
 getConnection = do
@@ -46,6 +48,13 @@ migrate = do
 \);"
   cards <- getCards
   if (length cards) == 0 then addFakeData else return ()
+
+  execute_ conn "CREATE TABLE IF NOT EXISTS player (name VARCHAR(128) PRIMARY KEY, email VARCHAR(256), password VARCHAR(128));"
+
+  players <- getPlayers
+  if (length players) == 0 then addAdminPlayers else return ()
+  
+  return ()
 
 addFakeData :: IO ()
 addFakeData = do
@@ -115,14 +124,52 @@ addCard card = do
 
 authorize :: Text -> Text -> IO (Maybe Text)
 authorize username password = do
-  return $ case (username, password) of
-    ("Erik", "kaka") -> Just "kanelbulle"
-    ("Ossian", "hihi") -> Just "kanelbulle"
-    _ -> Nothing
+  player <- getPlayer username
+  case player of
+    Just player -> if playerPassword player == password then
+                     return $ Just "kanelbulle"
+                   else
+                     return Nothing
+    Nothing -> return Nothing
 
 getSecret :: Text -> IO (Maybe Text)
-getSecret username = do
-  return $ case username of
-    "Erik" -> Just "kanelbulle"
-    "Ossian" -> Just "kanelbulle"
-    _ -> Nothing
+getSecret name = do
+  p <- getPlayer name
+  return $ case p of
+    Just player -> Just "pepparkaka"
+    Nothing -> Nothing
+
+-- Player
+
+instance FromRow Player where
+  fromRow = Player <$> field <*> field <*> field
+
+instance ToRow Player where
+  toRow player = [ toField (playerName player)
+                 , toField (playerEmail player)
+                 , toField (playerPassword player) ]
+
+getPlayers :: IO [Player]
+getPlayers = do
+  conn <- getConnection
+  players <- query_ conn "SELECT name, email, password FROM player;"
+  return players
+
+getPlayer :: Text -> IO (Maybe Player)
+getPlayer name = do
+  conn <- getConnection
+  players <- query conn "SELECT name, email, password FROM player WHERE name = ?;" (Only name)
+  if length players > 0 then return $ Just (head players)
+  else return Nothing
+
+addPlayer :: Player -> IO ()
+addPlayer player = do
+  conn <- getConnection
+  execute conn "INSERT INTO player VALUES (?, ?, ?)" player
+  return ()
+
+addAdminPlayers :: IO ()
+addAdminPlayers = do
+  addPlayer (Player "erik" "erik.svedang@gmail.com" "kaka")
+  addPlayer (Player "catnipped" "ossianboren@gmail.com" "hihi")
+
