@@ -4,3 +4,4 @@ latest.dump
 .cabal-sandbox
 /cabal.sandbox.config
 /.stack-work
+.DS_Store
