@@ -12,7 +12,7 @@ import Data.Text (unpack, pack)
 import Data.Text.Internal (Text)
 import Data.Text.Lazy (toStrict)
 import Data.Monoid ((<>))
-import Database (migrate, getCards, addCard, addFakeData, authorize, getSecret, getCardsWithTitle)
+import Database (migrate, getCards, addCard, addFakeData, authorize, getSecret, getCardsWithTitle, getCardsByDesigner)
 import Card
 import Rendering
 import Lucid
@@ -121,7 +121,12 @@ logoutRoute = do
 
 userPageRoute :: Route
 userPageRoute = do
-  withAuth renderUserPage "user"
+  maybeName <- cookie "username"
+  let name = case maybeName of
+               Just n -> n
+               Nothing -> ""
+  myCards <- liftIO $ getCardsByDesigner name
+  withAuth (\username -> renderUserPage username (fmap title myCards)) "user"
 
 getFile :: String -> Route
 getFile name = file (pack name) ("./files/" ++ name)

@@ -94,6 +94,12 @@ getCardsWithTitle title = do
   cards <- query conn "SELECT title, rules, dominance, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM card WHERE title = ? ORDER BY key DESC;" (Only title)
   return cards
 
+getCardsByDesigner :: Text -> IO [Card]
+getCardsByDesigner designer = do
+  conn <- getConnection
+  cards <- query conn "SELECT title, rules, dominance, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM card WHERE designer = ? ORDER BY key DESC;" (Only designer)
+  return cards
+
 instance ToRow Card where
   toRow card =
     [ toField (title card)

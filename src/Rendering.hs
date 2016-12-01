@@ -192,10 +192,12 @@ renderAddFakeData :: Html ()
 renderAddFakeData = do
   renderPage $ p_ "Added fake data!"
 
-renderUserPage :: Text -> Html ()
-renderUserPage username = do
+renderUserPage :: Text -> [Text] -> Html ()
+renderUserPage username myCardTitles = do
   renderPage $ do
     h1_ (toHtml username)
+    h2_ "Cards by me"
+    mapM_ (\cardTitle -> li_ $ a_ [href_ "/#"] (toHtml cardTitle)) myCardTitles
     a_ [href_ "/"] "Front page"
     a_ [href_ "/logout"] "Log out"
 
