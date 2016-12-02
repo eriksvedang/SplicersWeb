@@ -20,6 +20,18 @@ box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	border-right: 340px solid #b9b9b9;
 	max-width: 300px;
 }
+form span {
+	float: left;
+}
+
+form input, form select {
+	margin-bottom: 2px;
+	margin-top: 2px;
+}
+
+form .card span {
+	float: none;
+}
 
 form .card {
 	float: right;
@@ -50,6 +62,12 @@ form .event .dominance {
 	display: none;
 }
 
+form .mutation .title {
+	top: 155px;
+	left: 55px;
+	transform-origin: 50% 50%;
+	position: absolute;
+}
 /* @end */
 
 #page {

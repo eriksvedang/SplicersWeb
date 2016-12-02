@@ -20,6 +20,7 @@ b {
 	float: left;
 	margin: 20px;
 	text-align: left;
+	overflow: hidden;
 }
 
 
@@ -119,7 +120,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
   width: 300px;
   max-width: 300px;
 	overflow: hidden;
-  transform-origin: 100% 0px;
+  transform-origin: 100% 0%;
 	margin: 0 0 -25px;
 	left: -7px;
 	top: 130px;
