@@ -163,15 +163,24 @@ field name helpText inputType defaultValue =
                    ]
             span_ (toHtml helpText)
 
+
 renderAddCard :: Text -> Html ()
 renderAddCard username =
   renderPage $ do
     form_ [action_ "submit-card"] $ do
+      renderCard NoLink (Card "title" "rules" 0 Ting "type" NoGene NoGene 4 4 "" username "")
+      span_ (toHtml "type ")
+      select_ [name_ "cardType"] $ do
+        option_ [value_ "Ting"] (toHtml "Ting")
+        option_ [value_ "Biom"] (toHtml "Biom")
+        option_ [value_ "Event"] (toHtml "Event")
+        option_ [value_ "Mutation"] (toHtml "Mutation")
+        option_ [value_ "Splicer"] (toHtml "Splicer")
+      span_ (toHtml " (Ting, Biom, Event, Mutation, Splicer)")
       field "title" "" "text" ""
       field "rules" "" "text" ""
       field "domination" "" "number" "0"
       field "cost" "" "number" "0"
-      field "cardType" " (Ting, Biom, Event, Mutation, Splicer)" "text" "Ting"
       field "subType" " (i.e. Animal, Plant...)" "text" ""
       field "gene1" "" "text" ""
       field "gene2" "" "text" ""
@@ -183,7 +192,7 @@ renderAddCard username =
       field "illustration" " (URL)" "text" ""
       br_ []
       input_ [type_ "submit", value_ "Submit"]
-      renderCard NoLink (Card "title" "rules" 0 Ting "type" NoGene NoGene 4 4 "" username "")
+
 
 renderSubmittedCard :: Text -> Html ()
 renderSubmittedCard title =
