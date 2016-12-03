@@ -213,6 +213,28 @@ renderUserPage username myCardTitles = do
     a_ [href_ "/"] "Front page"
     a_ [href_ "/logout"] "Log out"
 
+renderSignupForm :: Html ()
+renderSignupForm = do
+  renderPage $ do
+    form_ [action_ "submit-signup"] $ do
+      h1_ "Signup"
+      span_ "Username "
+      input_ [type_ "text", name_ "username"]
+      br_ []
+      span_ "Email "
+      input_ [type_ "text", name_ "email"]
+      br_ []
+      span_ "Password "
+      input_ [type_ "password", name_ "password"]
+      input_ [type_ "hidden", name_ "next", value_ "user"]
+      input_ [type_ "submit", value_ "Sign up!"]
+
+renderFailSignup :: Html ()
+renderFailSignup = do
+  renderPage $ do
+    h1_ "Failed to sign up"
+    p_ "Perhaps that username is taken."
+
 renderLoginFormFull :: Html ()
 renderLoginFormFull = do
   renderPage $ do

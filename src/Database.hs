@@ -168,14 +168,18 @@ getPlayer name = do
   if length players > 0 then return $ Just (head players)
   else return Nothing
 
-addPlayer :: Player -> IO ()
+addPlayer :: Player -> IO Bool
 addPlayer player = do
-  conn <- getConnection
-  execute conn "INSERT INTO player VALUES (?, ?, ?)" player
-  return ()
+  existing <- getPlayer (playerName player)
+  case existing of
+    Just x -> return False
+    Nothing -> do conn <- getConnection
+                  execute conn "INSERT INTO player VALUES (?, ?, ?)" player
+                  return True
 
 addAdminPlayers :: IO ()
 addAdminPlayers = do
   addPlayer (Player "erik" "erik.svedang@gmail.com" "kaka")
   addPlayer (Player "catnipped" "ossianboren@gmail.com" "hihi")
+  return ()
 

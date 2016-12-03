@@ -12,10 +12,11 @@ import Data.Text (unpack, pack)
 import Data.Text.Internal (Text)
 import Data.Text.Lazy (toStrict)
 import Data.Monoid ((<>))
-import Database (migrate, getCards, addCard, addFakeData, authorize, getSecret, getCardsWithTitle, getCardsByDesigner)
+import Database (migrate, getCards, addCard, addFakeData, authorize, getSecret, getCardsWithTitle, getCardsByDesigner, addPlayer)
 import Card
 import Rendering
 import Lucid
+import Player
 
 type Route = ActionT IO ()
 
@@ -30,6 +31,9 @@ main = do
     get "add-card" $        addCardRoute
     get "submit-card" $     submitCardRoute
     get "add-fake-data" $   addFakeDataRoute
+    get "signup" $          signupRoute
+    get "submit-signup" $   submitSignupRoute
+    get "fail-signup" $     failSignupRoute
     get "login" $           loginRoute
     get "submit-login" $    submitLoginRoute
     get "logout" $          logoutRoute
@@ -94,6 +98,26 @@ addFakeDataRoute :: Route
 addFakeDataRoute = do
   liftIO addFakeData
   lucidToSpock renderAddFakeData
+
+signupRoute :: Route
+signupRoute = do
+  lucidToSpock renderSignupForm
+
+submitSignupRoute :: Route
+submitSignupRoute = do
+  Just username <- param "username"
+  Just email    <- param "email"
+  Just password <- param "password"
+  success <- liftIO $ addPlayer (Player username email password)
+  if success then do
+    setCookie "username" username defaultCookieSettings
+    redirect "/user"
+  else
+    redirect "/fail-signup"
+
+failSignupRoute :: Route
+failSignupRoute = do
+  lucidToSpock renderFailSignup
 
 loginRoute :: Route
 loginRoute = do
