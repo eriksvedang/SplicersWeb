@@ -226,6 +226,7 @@ renderSignupForm = do
       span_ "Password "
       input_ [type_ "password", name_ "password"]
       input_ [type_ "hidden", name_ "next", value_ "user"]
+      br_ []
       input_ [type_ "submit", value_ "Sign up!"]
 
 renderFailSignup :: Html ()
