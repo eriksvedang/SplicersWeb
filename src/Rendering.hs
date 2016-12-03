@@ -154,14 +154,14 @@ renderSplicer card =
          span_ $ toHtml (rules card)
          flavorText card
 
-field :: Text -> Text -> Text -> Text -> Html ()
-field name helpText inputType defaultValue =
-  div_ $ do span_ (toHtml name)
+field :: Text -> Text -> Text -> Text -> Text -> Html ()
+field name heading helpText inputType defaultValue =
+  div_ $ do span_ (toHtml heading)
             input_ [ type_ inputType
                    , name_ name
                    , value_ defaultValue
                    ]
-            span_ (toHtml helpText)
+            -- span_ (toHtml helpText)
 
 
 renderAddCard :: Text -> Html ()
@@ -169,27 +169,26 @@ renderAddCard username =
   renderPage $ do
     form_ [action_ "submit-card"] $ do
       renderCard NoLink (Card "title" "rules" 0 Ting "type" NoGene NoGene 4 4 "" username "")
-      span_ (toHtml "type ")
+      span_ (toHtml "card type")
       select_ [name_ "cardType"] $ do
         option_ [value_ "Ting"] (toHtml "Ting")
         option_ [value_ "Biom"] (toHtml "Biom")
         option_ [value_ "Event"] (toHtml "Event")
         option_ [value_ "Mutation"] (toHtml "Mutation")
         option_ [value_ "Splicer"] (toHtml "Splicer")
-      span_ (toHtml " (Ting, Biom, Event, Mutation, Splicer)")
-      field "title" "" "text" ""
-      field "rules" "" "text" ""
-      field "domination" "" "number" "0"
-      field "cost" "" "number" "0"
-      field "subType" " (i.e. Animal, Plant...)" "text" ""
-      field "gene1" "" "text" ""
-      field "gene2" "" "text" ""
-      field "startMatter" "" "number" "4"
-      field "startCards" "" "number" "4"
-      field "flavor" "" "text" ""
+      field "title" "title" "" "text" ""
+      field "rules" "rule text""" "text" ""
+      field "domination" "dominance" "" "number" "0"
+      field "cost" "cost" "" "number" "0"
+      field "subType" "subtype" " (i.e. Animal, Plant...)" "text" ""
+      field "gene1" "gene #1" "" "text" ""
+      field "gene2" "gene #2" "" "text" ""
+      field "startMatter" """" "number" "4"
+      field "startCards" "starting cards""" "number" "4"
+      field "flavor" "flavour text" "" "text" ""
       span_ "designer"
       input_ [type_ "text", name_ "designer", value_ username, readonly_ ""]
-      field "illustration" " (URL)" "text" ""
+      field "illustration" "image url" " (URL)" "text" ""
       br_ []
       input_ [type_ "submit", value_ "Submit"]
 
