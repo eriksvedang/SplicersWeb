@@ -8,11 +8,11 @@ window.onload = function () {
   var cardrules = $('[name="rules"]');
   cardrules.bind('input', function() {
     $(".ability span").html(cardrules.val());
-    $("span").each(function () {
-     if ($(this).children().length == 0) {
-        var newHTML = $(this).html().replace('[artificial]','<img src="files/gen_artificial.png" class="inlinesymbol"/>');
+    $(".ability span").each(function () {
+      if ($(this).children().length == 0) {
+        var newHTML = $(this).html().replace(/\[artificial]/g,'<img src="files/gen_artificial.png" class="inlinesymbol"/>');
         $(this).html(newHTML);
-     }
+      }
    });
   });
 
