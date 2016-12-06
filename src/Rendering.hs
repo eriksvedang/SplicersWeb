@@ -281,3 +281,8 @@ renderKeywordPage keywords = do
 renderKeyword :: Keyword -> Html ()
 renderKeyword kw = do h2_ (toHtml (keywordName kw))
                       p_ (toHtml (keywordRules kw))
+
+renderRulesDocument :: Text -> Html ()
+renderRulesDocument rulesText = do
+  renderPage $ do
+    div_ [id_ "rulesdoc"] (toHtml rulesText)

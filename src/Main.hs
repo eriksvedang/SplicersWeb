@@ -39,6 +39,7 @@ main = do
     get "logout" $          logoutRoute
     get "user" $            userPageRoute
     get "keywords" $        listKeywordsRoute
+    get "rules" $           rulesDocumentRoute
     get ("files" <//> var)  getFile
 
 frontPageRoute :: Route
@@ -157,6 +158,11 @@ listKeywordsRoute :: Route
 listKeywordsRoute = do
   keywords <- liftIO getKeywords
   lucidToSpock (renderKeywordPage keywords)
+
+rulesDocumentRoute :: Route
+rulesDocumentRoute = do
+  doc <- liftIO $ readFile "./files/rules.md"
+  lucidToSpock (renderRulesDocument (pack doc))
 
 getFile :: String -> Route
 getFile name = file (pack name) ("./files/" ++ name)
