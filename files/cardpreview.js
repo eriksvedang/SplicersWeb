@@ -1,4 +1,5 @@
 window.onload = function () {
+
   var cardtitle = $('[name="title"]');
   cardtitle.bind('input', function() {
     $(".title").html(cardtitle.val())
@@ -6,7 +7,13 @@ window.onload = function () {
 
   var cardrules = $('[name="rules"]');
   cardrules.bind('input', function() {
-    $(".ability span").html(cardrules.val())
+    $(".ability span").html(cardrules.val());
+    $("span").each(function () {
+     if ($(this).children().length == 0) {
+        var newHTML = $(this).html().replace('[artificial]','<img src="files/gen_artificial.png" class="inlinesymbol"/>');
+        $(this).html(newHTML);
+     }
+   });
   });
 
   var cardflavor = $('[name="flavor"]');

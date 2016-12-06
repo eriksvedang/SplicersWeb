@@ -275,6 +275,13 @@ a {
     color: inherit;
 }
 
+.inlinesymbol {
+	max-height: auto;
+	max-width: 15px;
+	display: inline;
+	vertical-align: text-top;
+}
+
 @media print {
 		body {
 			background: none;
