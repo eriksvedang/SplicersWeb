@@ -63,6 +63,9 @@ window.onload = function () {
   var index;
   var a = document.getElementsByClassName('randomcolor');
   for (index = 0; index < a.length; ++index) {
-    a[index].style.background = colors[Math.floor(Math.random() * colors.length)];
+    var b = Math.floor(Math.random() * colors.length);
+    var color = colors[b];
+    colors.splice(b,1);
+    a[index].style.background = color;
   };
 }
