@@ -8,6 +8,7 @@ import Data.Text.Internal (Text)
 import Data.Text (unpack, pack)
 import Data.Monoid ((<>))
 import Card
+import Keyword
 import Lucid
 
 css :: Text -> Html ()
@@ -271,3 +272,12 @@ renderLogout :: Html ()
 renderLogout = do
   renderPage $ do
     p_ "You have been logged out."
+
+renderKeywordPage :: [Keyword] -> Html ()
+renderKeywordPage keywords = do
+  renderPage $ do
+    mapM_ renderKeyword keywords
+
+renderKeyword :: Keyword -> Html ()
+renderKeyword kw = do h2_ (toHtml (keywordName kw))
+                      p_ (toHtml (keywordRules kw))

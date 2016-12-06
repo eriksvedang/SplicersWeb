@@ -17,6 +17,7 @@ import Data.Text.Encoding
 
 import Card
 import Player
+import Keyword
 
 getConnection :: IO Connection
 getConnection = do
@@ -53,6 +54,10 @@ migrate = do
 
   players <- getPlayers
   if (length players) == 0 then addAdminPlayers else return ()
+
+  execute_ conn "CREATE TABLE IF NOT EXISTS keyword (name VARCHAR(128) PRIMARY KEY, rules text);"
+  keywords <- getKeywords
+  if (length keywords) == 0 then addDefaultKeywords else return ()
   
   return ()
 
@@ -183,3 +188,28 @@ addAdminPlayers = do
   addPlayer (Player "catnipped" "ossianboren@gmail.com" "hihi")
   return ()
 
+
+-- Keyword
+
+instance FromRow Keyword where
+  fromRow = Keyword <$> field <*> field
+
+instance ToRow Keyword where
+  toRow keyword = [ toField (keywordName keyword)
+                  , toField (keywordRules keyword) ]
+
+getKeywords :: IO [Keyword]
+getKeywords = do
+  conn <- getConnection
+  keywords <- query_ conn "SELECT name, rules FROM keyword;"
+  return keywords
+
+addKeyword :: Keyword -> IO ()
+addKeyword keyword = do
+  conn <- getConnection
+  execute conn "INSERT INTO keyword VALUES (?, ?)" keyword
+  return ()
+
+addDefaultKeywords = do
+  addKeyword (Keyword "Grace" "Requires nearby plant. Get 1 action.")
+  addKeyword (Keyword "Hunt" "Devolve a nearby creature.")
