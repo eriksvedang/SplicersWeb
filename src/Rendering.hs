@@ -30,15 +30,7 @@ renderPage body = do head_ $ do
 
 renderFrontPage :: Html ()
 renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
-                                    div_ [id_ "logo", class_ "randomcolor"] $ do
-                                      img_ [src_ "/files/logo.png", id_ "logobg"]
-                                      img_ [src_ "/files/logo_star.png", id_ "star"]
-                                    h2_ [class_ "randomcolor"] "An open source collectible card game"
-                                    div_ [id_ "menu"] $ do
-                                      a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Start"
-                                      a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Rules"
-                                      a_ [class_ "menu-link randomcolor", href_ "cards"] $ toHtml "Cards"
-                                      a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "User"
+                                    renderMenu
                                     div_ [] $ do
                                       article_ (toHtml "Hello")
 
@@ -287,6 +279,12 @@ renderRulesDocument :: Text -> Html ()
 renderRulesDocument rulesText = do
   renderPage $ do
     div_ [id_ "page"] $ do
+      renderMenu
+      div_ [] $ do
+        article_ [class_ "markdown"] (toHtml rulesText)
+
+renderMenu :: Html ()
+renderMenu = do
       div_ [id_ "logo", class_ "randomcolor"] $ do
         img_ [src_ "/files/logo.png", id_ "logobg"]
         img_ [src_ "/files/logo_star.png", id_ "star"]
@@ -296,5 +294,3 @@ renderRulesDocument rulesText = do
         a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Rules"
         a_ [class_ "menu-link randomcolor", href_ "cards"] $ toHtml "Cards"
         a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "User"
-      div_ [] $ do
-        article_ [class_ "markdown"] (toHtml rulesText)

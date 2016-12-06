@@ -117,7 +117,7 @@ The game is played in rounds consisting of turns. A round ends when a player has
 
 The player who passed first is the new first player.
 
-### Misc. Rules <a name="miscrules"></a>
+### Misc. Rules
 
 #### Actions
 At the beginning of each turn during the action phase, the player who's turn it is gains one action. The player may consume actions to do one or more of the actions listen above (see turn structure). A player may gain more than one action, and in this case, they do not need to consume all their actions. They must however do at least one of the listed actions each turn.
