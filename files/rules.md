@@ -4,7 +4,7 @@
 
 ## Table of Contents
 1. [Game Objective](#gameobjective)
-  2. End of game
+2. [End of game](#endofgame)
 2. [Set-up](#setup)
 3. [Card Types](#cardtypes)
   4. Biom
@@ -28,14 +28,14 @@
 
 ---
 
-### Game Objective  <a name="gameobjective"></a>
+### Game Objective
 _add presentation text here_
 
 #### End of game
 The game ends when a player dominates at least 3 biom cards at the end of a round.
 Alternitavely, if a player cannot draw a card at the start of a round, that round is the last one. At the end of the round, the player with the most dominated biom cards win the game. In case of a tie, the player with biggest sum of printed dominance value on dominated biom cards win the game.
 
-### Set-up <a name="setup"></a>
+### Set-up
 Each player does the following:
 1. Prepare your deck by shuffling your cards (except your splicer and biom cards) and place them face down in front of you. Make room for a "discard pile" to place discarded cards.
 2. Place the splicer card face up next to the deck and the biom cards face up in a row between the players.
@@ -44,7 +44,7 @@ Each player does the following:
 
 Now, in turn order starting with the first player, each player may perform a mulligan. The game then starts with the first round, skipping the start of round phase (see turn structure below).
 
-### Card Types <a name="cardtypes"></a>
+### Card Types
 There are 5 card types in Splicers:
 - **Ting**
 - **Mutation**
@@ -103,7 +103,7 @@ The Splicer card represent the character you play. Splicers have 4 areas:
 
 The splicer card is always in play and is not a ting or a seed. It cannot be discarded and cannot host mutation cards. At the start of the game, the starting hand size number is the number of cards you draw as your opening hand.
 
-### Turn Structure <a name="turnstructure"></a>
+### Turn Structure
 The game is played in rounds consisting of turns. A round ends when a player has passed.
 1. **Start of round.** The player’s cards are unexhausted. Each player draw a card from their deck.
 2. **Action phase.** The players take turns doing actions, starting with the first player. The player must do at least one of the following actions:
@@ -151,7 +151,7 @@ All face up cards (including discard pile) are public information and may be loo
 
 ---
 
-### Keywords <a name="keywords"></a>
+### Keywords
 
 #### Common
 - **+X/-X** - change the dominance value by X until the end of the round.
@@ -183,7 +183,7 @@ All face up cards (including discard pile) are public information and may be loo
 
 
 ---
-#### Advanced Keywords <a name="advanced"></a>
+#### Advanced Keywords
 - **farsight** - +1 until end of round if an event is played.
 - **diminish** - choose a ting, then the owner must search their deck or discard pile for a ting with a printed dominance lower than the chosen ting and replace it (shuffle the deck).
 - **upgrade** - instead of playing this card as a seed, you may play it already evolved if you discard a friendly ting with the same set of genes. this card is played exhausted in the same place as the discarded ting.

@@ -1,6 +1,6 @@
 window.onload = function () {
   var converter = new showdown.Converter(),
-    text      = jQuery.get('files/test.md', String),
+    text      = $('.markdown').html(),
     html      = converter.makeHtml(text);
   $('.markdown').html(html);
 
