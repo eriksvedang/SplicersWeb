@@ -1,4 +1,8 @@
 window.onload = function () {
+  var converter = new showdown.Converter(),
+    text      = jQuery.get('files/test.md', String),
+    html      = converter.makeHtml(text);
+  $('.markdown').html(html);
 
   var cardtitle = $('[name="title"]');
   cardtitle.bind('input', function() {
@@ -54,4 +58,11 @@ window.onload = function () {
   cardillustration.bind('input', function() {
     $(".illustration").html("<img src='" + cardillustration.val() + "' >")
   });
+
+  var colors = ['#0AA9C9','#74A57F','#9ECE9A','#A7BED3','#C6E2E9','#F1FFC4','#FFCAAF','#DAB894','#B6CB9E','#92B4A7','#8C8A93','#75B9BE','#B2F7EF','#EFF7F6','#F7D6E0','#F2B5D4','#FBEA79','#C0F3A8','#95AFBA','#E2F89C','#FF829D','#F9704A','#8FFF63','#4D9BF9'];
+  var index;
+  var a = document.getElementsByClassName('randomcolor');
+  for (index = 0; index < a.length; ++index) {
+    a[index].style.background = colors[Math.floor(Math.random() * colors.length)];
+  };
 }

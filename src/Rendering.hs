@@ -21,9 +21,10 @@ allCSS = do (css "/files/styles.css")
 
 renderPage :: Html () -> Html ()
 renderPage body = do head_ $ do
-                      (script_ [src_ "/files/randomcolor.js"] "")
                       (script_ [src_ "/files/jquery.min.js"] "")
-                      (script_ [src_ "/files/cardpreview.js"] "")
+                      (script_ [src_ "/files/scripts.js"] "")
+                      (script_ [src_ "https://cdn.rawgit.com/showdownjs/showdown/1.5.1/dist/showdown.min.js"] "")
+
                       allCSS
                      body_ $ body
 
@@ -36,10 +37,10 @@ renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
                                     div_ [id_ "menu"] $ do
                                       a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Start"
                                       a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Rules"
-                                      a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Cards"
+                                      a_ [class_ "menu-link randomcolor", href_ "cards"] $ toHtml "Cards"
                                       a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "User"
                                     div_ [] $ do
-                                      article_ (toHtml "Welcome to this page.")
+                                      article_ [class_ "markdown"] (toHtml "### Game Objective")
 
 renderCards :: [Card] -> Html ()
 renderCards cards = renderPage $ mapM_ (renderCard AsLink) cards

@@ -21,6 +21,17 @@ b {
 	margin: 20px;
 	text-align: left;
 	overflow: hidden;
+
+}
+
+.card:hover {
+	animation-name: hover;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+	-webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
+	   animation-direction: alternate;
+	
 }
 
 
@@ -88,7 +99,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	margin-right: auto;
 	background-color: white;
 	border-width: 1px;
-	border-style: solid;;
+	border-style: solid;
 	border-color: black;
 	border-radius: 5px 5px 0 0;
 	overflow: hidden;

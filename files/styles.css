@@ -38,12 +38,6 @@ form .card {
 	clear: none;
 	margin-top: 0;
 	margin-right: -316px;
-	animation-name: hover;
-	animation-duration: 5s;
-	animation-iteration-count: infinite;
-	animation-timing-function: ease-in-out;
-	-webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
-	   animation-direction: alternate;
 }
 
 form .biom {
@@ -71,7 +65,7 @@ form .mutation .title {
 /* @end */
 
 #page {
-	background-color: ;
+	background-color: gray;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -84,7 +78,7 @@ form .mutation .title {
 
 @keyframes hover {
 	from {transform: translateY(0px);}
-	to {transform: translateY(10px);}
+	to {transform: translateY(-5px);}
 }
 
 @keyframes spinning {
