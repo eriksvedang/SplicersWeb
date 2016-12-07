@@ -9,5 +9,8 @@ data Deck = Deck { deckId :: Int
                  , deckDesigner :: Text
                  } deriving (Show)
 
-
+data InDeck = InDeck { inDeckId :: Int
+                     , inDeckDeck :: Int
+                     , inDeckCardTitle :: Text
+                     } deriving (Show)
 

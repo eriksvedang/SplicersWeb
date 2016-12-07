@@ -9,8 +9,8 @@ import Database.PostgreSQL.Simple.ToRow
 import Database.PostgreSQL.Simple.ToField
 import Database.PostgreSQL.Simple.Internal (Connection)
 import Control.Applicative ((<*>), (<$>))
-import Data.Text (Text(..), unpack)
-import Data.ByteString.Char8 (pack)
+import Data.Text (Text(..), pack, unpack)
+import qualified Data.ByteString.Char8 as BS
 import Control.Monad (forM_)
 import System.Environment (lookupEnv)
 import Data.Text.Encoding
@@ -28,7 +28,7 @@ getConnection = do
     Nothing -> do
       putStrLn "No DATABASE_URL string found in environment, using default one."
       return "dbname=splicers user=erik"
-  connectPostgreSQL (pack dbUrl)
+  connectPostgreSQL (BS.pack dbUrl)
 
 migrate :: IO ()
 migrate = do
@@ -62,6 +62,8 @@ migrate = do
   if (length keywords) == 0 then addDefaultKeywords else return ()
 
   execute_ conn "CREATE TABLE IF NOT EXISTS deck (id SERIAL PRIMARY KEY, name VARCHAR(128), designer VARCHAR(128) REFERENCES player);"
+
+  execute_ conn "CREATE TABLE IF NOT EXISTS inDeck (id SERIAL PRIMARY KEY, deck integer REFERENCES deck, cardTitle varchar(80));"
   
   return ()
 
@@ -237,9 +239,33 @@ addDeck deck = do
   execute conn "INSERT INTO deck (name, designer) VALUES (?, ?);" deck
   return ()
 
+getDecks :: Text -> IO [Deck]
+getDecks username = do
+  conn <- getConnection
+  decks <- query conn "SELECT id, name, designer FROM deck WHERE designer=?" (Only username)
+  return decks
+
 
 -- Add cards to Deck
+instance FromRow InDeck where
+  fromRow = InDeck <$> field <*> field <*> field
 
-addCardToDeck :: Text -> Int -> IO ()
-addCardToDeck cardName deckId = do
+instance ToRow InDeck where
+  -- ignore 'id' field, just like with the Deck
+  toRow inDeck = [ toField (inDeckDeck inDeck)
+                 , toField (inDeckCardTitle inDeck)]
+               
+addCardToDeck :: Int -> Text -> IO ()
+addCardToDeck deckId cardTitle = do
+  conn <- getConnection
+  execute conn "INSERT INTO inDeck (deck, cardTitle) VALUES (?, ?);" (InDeck 0 deckId cardTitle)
   return ()
+
+instance FromRow Text where
+  fromRow = pack <$> field
+
+getCardsInDeck :: Int -> IO [Text]
+getCardsInDeck deckId = do
+  conn <- getConnection
+  cards <- query conn "SELECT cardTitle FROM inDeck WHERE inDeck.deck=?" (Only deckId)
+  return cards
