@@ -1,9 +1,11 @@
 window.onload = function () {
+  // markdown converter
   var converter = new showdown.Converter(),
     text      = $('.markdown').html(),
     html      = converter.makeHtml(text);
   $('.markdown').html(html);
 
+  // add card live preview
   var cardtitle = $('[name="title"]');
   cardtitle.bind('input', function() {
     $(".title").html(cardtitle.val())
@@ -32,6 +34,52 @@ window.onload = function () {
 
   var cardtype = $('[name="cardType"]');
   cardtype.bind('input', function() {
+    // adjust form input to card type
+    if (cardtype.val() == 'Ting') {
+      $('[name="cost"]').parent().css( "display", "none" );
+      $('[name="startMatter"]').parent().css( "display", "none" );
+      $('[name="startCards"]').parent().css( "display", "none" );
+      $('[name="domination"]').parent().css( "display", "inline" );
+      $('[name="gene1"]').parent().css( "display", "inline" );
+      $('[name="gene2"]').parent().css( "display", "inline" );
+      $('[name="designer"]').css( "display", "none" );
+    }
+    if (cardtype.val() == 'Biom') {
+      $('[name="cost"]').parent().css( "display", "none" );
+      $('[name="startMatter"]').parent().css( "display", "none" );
+      $('[name="startCards"]').parent().css( "display", "none" );
+      $('[name="domination"]').parent().css( "display", "inline" );
+      $('[name="gene1"]').parent().css( "display", "none" );
+      $('[name="gene2"]').parent().css( "display", "none" );
+      $('[name="designer"]').css( "display", "none" );
+    }
+    if (cardtype.val() == 'Event') {
+      $('[name="cost"]').parent().css( "display", "none" );
+      $('[name="startMatter"]').parent().css( "display", "none" );
+      $('[name="startCards"]').parent().css( "display", "none" );
+      $('[name="domination"]').parent().css( "display", "none" );
+      $('[name="gene1"]').parent().css( "display", "inline" );
+      $('[name="gene2"]').parent().css( "display", "inline" );
+      $('[name="designer"]').css( "display", "none" );
+    }
+    if (cardtype.val() == 'Mutation') {
+      $('[name="cost"]').parent().css( "display", "none" );
+      $('[name="startMatter"]').parent().css( "display", "none" );
+      $('[name="startCards"]').parent().css( "display", "none" );
+      $('[name="domination"]').parent().css( "display", "none" );
+      $('[name="gene1"]').parent().css( "display", "inline" );
+      $('[name="gene2"]').parent().css( "display", "inline" );
+      $('[name="designer"]').css( "display", "none" );
+    }
+    if (cardtype.val() == 'Splicer') {
+      $('[name="cost"]').parent().css( "display", "none" );
+      $('[name="startMatter"]').parent().css( "display", "none" );
+      $('[name="startCards"]').parent().css( "display", "inline" );
+      $('[name="domination"]').parent().css( "display", "none" );
+      $('[name="gene1"]').parent().css( "display", "none" );
+      $('[name="gene2"]').parent().css( "display", "none" );
+      $('[name="designer"]').css( "display", "none" );
+    }
     $(".types span").html(cardtype.val() + " - " + cardsubtype.val())
     $(".dominance span").html(carddom.val())
     $(".card").attr("class","card " + cardtype.val())

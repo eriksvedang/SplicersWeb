@@ -3,42 +3,32 @@ body { font-family: Karla, sans-serif;
 	margin: 0;
 }
 
+
 .illustration { overflow: hidden; }
 .illustration img { }
 
-/* @group form specific */
 
-form {
+/* @group window specific */
+
+.window {
 	background: #f2f2f2;
 	margin-right: auto;
 	margin-left: auto;
 	margin-top: 50px;
-	padding: 30px;
-border-radius: 8px;
+	border-radius: 8px;
 -moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
-	border-right: 340px solid #b9b9b9;
 	max-width: 300px;
+	position: relative;
+	right: 150px;
+	padding: 10px 30px 30px;
 }
 
-form span {
 
-}
-
-form input, form select {
-	margin-bottom: 2px;
-	margin-top: 2px;
-}
-
-form .card span {
-	float: none;
-}
-
-form .card {
+.window .card {
 	float: right;
-	clear: none;
 	margin-top: 0;
-	margin-right: -316px;
+	margin-right: -300px;
 	animation-name: hover;
 	animation-duration: 2s;
 	animation-iteration-count: infinite;
@@ -47,29 +37,46 @@ form .card {
 	   animation-direction: alternate;
 }
 
-form .biom {
+.window .biom {
 	margin-right: -354px;
 }
 
-form .biom .gene1,form .biom .gene2 {
+.window .biom .gene1,.window .biom .gene2 {
 	display: none;
 }
 
-form .splicer .dominance, form .splicer .gene1,form .splicer .gene2 {
+.window .splicer .dominance, .window .splicer .gene1,form .splicer .gene2 {
 	display: none;
 }
 
-form .event .dominance {
+.window .event .dominance {
 	display: none;
 }
 
-form .mutation .title {
+.window .mutation .title {
 	top: 155px;
 	left: 55px;
 	transform-origin: 50% 50%;
 	position: absolute;
 }
+
+.window .mutation .dominance {
+	display: none;
+}
 /* @end */
+
+form {
+	text-align: right;
+}
+
+form input, form select {
+	margin-bottom: 2px;
+	margin-top: 2px;
+}
+
+form span {
+	float: left;
+}
 
 #page {
 	background-color: gray;
@@ -130,9 +137,9 @@ article {
 	position: fixed;
 	transition-duration: 1s;
 	width: 100%;
-	background: url(logo_star.png) 3px 1px no-repeat black;
+	background: url(logo_star.png) 7px 2px no-repeat black;
 	background-size: 25px;
-	padding-left: 30px;
+	padding-left: 40px;
 	-moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.23);
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.23);
 	z-index: 5;
@@ -193,8 +200,20 @@ article {
 
 .add {
 	text-align: center;
-	font-size: 25px;
-	opacity: 0.75;
+	font: 25px Karla;
+	opacity: 1;
+	background-color: rgba(255, 255, 255, 0.53);
+	width: 218px;
+	height: 302px;
+	border-radius: 8px;
+
+	display: inline-block;
+	float: left;
+	margin: 20px;
+	overflow: hidden;
+	transition-duration: 0.5s;
+	border: 3px solid black;
+	font-weight: bolder;
 }
 
 .add span {
@@ -203,7 +222,12 @@ article {
 }
 
 .add:hover span {
-	text-decoration: underline;
+	border-bottom: 3px solid black;
+}
+
+.add:hover {
+		-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
+		box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 }
 
 

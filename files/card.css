@@ -255,6 +255,8 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 .biom {
 	height: 224px;
 	width: 308px;
+	margin-bottom: 104px;
+	text-align: left;
 }
 
 .biom .title {
