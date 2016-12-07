@@ -3,8 +3,6 @@ body { font-family: Karla, sans-serif;
 	margin: 0;
 }
 
-
-
 .illustration { overflow: hidden; }
 .illustration img { }
 
@@ -168,7 +166,21 @@ article {
 	right: 4px;
 }
 
+#filter {
+	position: fixed;
+	top: 40px;
+	left: 20px;
+	border: 3px solid black;
+	-moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.23);
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.23);
+	border-radius: 5px;
+	font-size: 14px;
+}
+
 h2 {
 	margin: 0;
 	padding: 10px 20px;
+	position: fixed;
+	top: 50px;
+	left: 20px;
 }

@@ -38,7 +38,8 @@ renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
                                       article_ (toHtml "Hello")
 
 renderCards :: [Card] -> Html ()
-renderCards cards = renderPage $ mapM_ (renderCard AsLink) cards
+renderCards cards = renderPage $ do mapM_ (renderCard AsLink) cards
+                                    input_ [ type_ "text", name_ "filter", id_ "filter"]
 
 data RenderCardMode = AsLink | NoLink
 

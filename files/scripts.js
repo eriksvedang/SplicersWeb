@@ -59,6 +59,8 @@ window.onload = function () {
     $(".illustration").html("<img src='" + cardillustration.val() + "' >")
   });
 
+  // random color backgrounds
+
   var colors = ['#0AA9C9','#74A57F','#9ECE9A','#A7BED3','#C6E2E9','#F1FFC4','#FFCAAF','#DAB894','#B6CB9E','#92B4A7','#8C8A93','#75B9BE','#B2F7EF','#EFF7F6','#F7D6E0','#F2B5D4','#FBEA79','#C0F3A8','#95AFBA','#E2F89C','#FF829D','#F9704A','#8FFF63','#4D9BF9'];
   var index;
   var a = document.getElementsByClassName('randomcolor');
@@ -68,16 +70,34 @@ window.onload = function () {
     colors.splice(b,1);
     a[index].style.background = color;
   };
+
+  // hide small menu
+
   var scrollTop = $('#logo').height();
-    if($(this).scrollTop()<=scrollTop){
-      // alert('header just passed.');
-      var smallmenu = document.getElementById('smallmenu')
-      smallmenu.style.top = '-40';
-    }else{
-      var smallmenu = document.getElementById('smallmenu')
-      smallmenu.style.top = '-0';
+  if($(this).scrollTop()<=scrollTop){
+    // alert('header just passed.');
+    var smallmenu = document.getElementById('smallmenu')
+    smallmenu.style.top = '-40';
+  }else{
+    var smallmenu = document.getElementById('smallmenu')
+    smallmenu.style.top = '-0';
+  }
+
+    // title search
+  $('[name="filter"]').change( function () {
+    var filter = $(this).val();
+    if (filter) {
+      $('div').find(".title:not(:Contains(" + filter + "))").parent().css( "display", "none" );
+      $('div').find(".title:Contains(" + filter + ")").parent().css( "padding", "inline-block" );
+    } else {
+      $('div').find(".title").parent().css( "display", "inline-block" );
     }
-}
+    return false;
+  })
+  .keyup( function () {
+  			$(this).change();
+  });
+};
 
 $(window).scroll(function () {
   var scrollTop = $('#logo').height();
@@ -90,3 +110,8 @@ $(window).scroll(function () {
       smallmenu.style.top = '-0';
     }
 });
+
+// case insensitive search
+jQuery.expr[':'].Contains = function(a,i,m){
+  return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+};
