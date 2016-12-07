@@ -1,0 +1,4 @@
+# Misc todos
+- [ ] comments
+- [ ] kan submitta kort även om man inte är authensierad, /submit-card checkar inte auth
+- [ ] inte kunna lägga till kort av samma namn om man inte är den som skapat kortet
