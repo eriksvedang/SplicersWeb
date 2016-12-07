@@ -69,3 +69,15 @@ window.onload = function () {
     a[index].style.background = color;
   };
 }
+
+$(window).scroll(function () {
+  var scrollTop = $('#logo').height();
+    if($(this).scrollTop()<=scrollTop){
+      // alert('header just passed.');
+      var smallmenu = document.getElementById('smallmenu')
+      smallmenu.style.top = '-40';
+    }else{
+      var smallmenu = document.getElementById('smallmenu')
+      smallmenu.style.top = '-0';
+    }
+});

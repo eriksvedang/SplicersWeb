@@ -1,6 +1,8 @@
 body { font-family: Karla, sans-serif;
-	margin: 0px;
+	margin: 0;
 }
+
+
 
 .illustration { overflow: hidden; }
 .illustration img { }
@@ -108,6 +110,36 @@ form .mutation .title {
 article {
 	background-color: white;
 	padding: 20px;
+}
+
+#smallmenu {
+/*	display: none;*/
+	position: fixed;
+	transition-duration: 1s;
+	width: 100%;
+	background: url(logo_star.png) 3px 1px no-repeat black;
+	background-size: 25px;
+	padding-left: 30px;
+	-moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.23);
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.23);
+	z-index: 5;
+}
+
+#smallmenu a {
+	display: inline-block;
+	padding: 5px 10px;
+	text-decoration: none;
+	text-transform: lowercase;
+	transition-duration: 0.2s;
+	position: relative;
+	top: 0;
+	font-weight: bold;
+}
+
+#smallmenu a:hover {
+	-moz-text-shadow: 0 2px 2px rgba(0, 0, 0, 0.23);
+	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.23);
+	top: 5px;
 }
 
 #menu {

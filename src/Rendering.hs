@@ -26,7 +26,10 @@ renderPage body = do head_ $ do
                       (script_ [src_ "https://cdn.rawgit.com/showdownjs/showdown/1.5.1/dist/showdown.min.js"] "")
 
                       allCSS
-                     body_ $ body
+                     body_ $ do
+                       renderSmallMenu
+                       body
+
 
 renderFrontPage :: Html ()
 renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
@@ -290,6 +293,14 @@ renderMenu = do
         img_ [src_ "/files/logo_star.png", id_ "star"]
       h2_ [class_ "randomcolor"] "An open source collectible card game"
       div_ [id_ "menu"] $ do
+        a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Start"
+        a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Rules"
+        a_ [class_ "menu-link randomcolor", href_ "cards"] $ toHtml "Cards"
+        a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "User"
+
+renderSmallMenu :: Html ()
+renderSmallMenu = do
+      div_ [id_ "smallmenu"] $ do
         a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Start"
         a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Rules"
         a_ [class_ "menu-link randomcolor", href_ "cards"] $ toHtml "Cards"
