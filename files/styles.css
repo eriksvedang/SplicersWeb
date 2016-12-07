@@ -14,15 +14,15 @@ form {
 	margin-left: auto;
 	margin-top: 50px;
 	padding: 30px;
-	text-align: right;
 border-radius: 8px;
 -moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	border-right: 340px solid #b9b9b9;
 	max-width: 300px;
 }
+
 form span {
-	float: left;
+
 }
 
 form input, form select {
@@ -39,6 +39,12 @@ form .card {
 	clear: none;
 	margin-top: 0;
 	margin-right: -316px;
+	animation-name: hover;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+	-webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
+	   animation-direction: alternate;
 }
 
 form .biom {
@@ -76,8 +82,16 @@ form .mutation .title {
 
 
 @keyframes hover {
-	from {transform: translateY(0px);}
-	to {transform: translateY(-5px);}
+	from {
+		transform: translateY(0px);
+		-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
+		box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
+		}
+	to {
+		transform: translateY(-5px);
+		-moz-box-shadow: 2px 7px 3px rgba(6, 6, 6, 0.38);
+		box-shadow: 2px 7px 3px rgba(6, 6, 6, 0.38);
+		}
 }
 
 @keyframes spinning {
@@ -177,10 +191,24 @@ article {
 	font-size: 14px;
 }
 
+.add {
+	text-align: center;
+	font-size: 25px;
+	opacity: 0.75;
+}
+
+.add span {
+	position: relative;
+	top: 45%;
+}
+
+.add:hover span {
+	text-decoration: underline;
+}
+
+
+
 h2 {
 	margin: 0;
 	padding: 10px 20px;
-	position: fixed;
-	top: 50px;
-	left: 20px;
 }

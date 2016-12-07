@@ -2,3 +2,11 @@
 - [ ] comments
 - [ ] kan submitta kort även om man inte är authensierad, /submit-card checkar inte auth
 - [ ] inte kunna lägga till kort av samma namn om man inte är den som skapat kortet
+- [x] "add card"-kort i /cards
+- [x] fixa meny-länkar
+- [x] fixa meny-funktion
+- [ ] expand funktion för keywords
+- [ ] inte kunna submitta kort utan titel
+- [ ] filtrera kort efter ability, gener, typ
+- [ ] design guidelines
+- [ ] länkar i user page går till start, inte rätt kort

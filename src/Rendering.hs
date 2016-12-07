@@ -38,7 +38,10 @@ renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
                                       article_ (toHtml "Hello")
 
 renderCards :: [Card] -> Html ()
-renderCards cards = renderPage $ do mapM_ (renderCard AsLink) cards
+renderCards cards = renderPage $ do a_ [ href_ "add-card"] $ do
+                                      div_ [class_ "card add"] $ do
+                                        span_ [] (toHtml "add card")
+                                    mapM_ (renderCard AsLink) cards
                                     input_ [ type_ "text", name_ "filter", id_ "filter"]
 
 data RenderCardMode = AsLink | NoLink
@@ -294,15 +297,17 @@ renderMenu = do
         img_ [src_ "/files/logo_star.png", id_ "star"]
       h2_ [class_ "randomcolor"] "An open source collectible card game"
       div_ [id_ "menu"] $ do
-        a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Start"
-        a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Rules"
-        a_ [class_ "menu-link randomcolor", href_ "cards"] $ toHtml "Cards"
-        a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "User"
+        renderMenuItems
+
 
 renderSmallMenu :: Html ()
 renderSmallMenu = do
       div_ [id_ "smallmenu"] $ do
-        a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Start"
-        a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "Rules"
-        a_ [class_ "menu-link randomcolor", href_ "cards"] $ toHtml "Cards"
-        a_ [class_ "menu-link randomcolor", href_ "#"] $ toHtml "User"
+        renderMenuItems
+
+renderMenuItems :: Html ()
+renderMenuItems = do
+  a_ [class_ "menu-link randomcolor", href_ "/"] $ toHtml "Start"
+  a_ [class_ "menu-link randomcolor", href_ "rules"] $ toHtml "Rules"
+  a_ [class_ "menu-link randomcolor", href_ "cards"] $ toHtml "Cards"
+  a_ [class_ "menu-link randomcolor", href_ "user"] $ toHtml "User"

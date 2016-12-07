@@ -19,19 +19,19 @@ b {
 	display: inline-block;
 	float: left;
 	margin: 20px;
-	text-align: left;
 	overflow: hidden;
+	transition-duration: 1s;
+	position: relative;
+	bottom: 0px;
 
 }
 
 .card:hover {
-	animation-name: hover;
-	animation-duration: 2s;
-	animation-iteration-count: infinite;
-	animation-timing-function: ease-in-out;
-	-webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
-	   animation-direction: alternate;
-	
+	transition-duration: 0.5s;
+	position: relative;
+	bottom: 5px;
+	-moz-box-shadow: 2px 7px 3px rgba(6, 6, 6, 0.38);
+	box-shadow: 2px 7px 3px rgba(6, 6, 6, 0.38);
 }
 
 
@@ -43,6 +43,7 @@ b {
 	margin-top: 8px;
 	max-width: 170px;
 	display: inline-block;
+	transition-duration: 0.5s;
 }
 .dominance {
 	background: url(dom_star.png) #dadada;
@@ -62,6 +63,7 @@ b {
 	margin-bottom: -19px;
 	margin-left:-1px;
 	border-radius: 0px 5px 0px 5px;
+	transition-duration: 0.5s;
 }
 
 .dominance span {
@@ -87,6 +89,7 @@ b {
 	background-color: white;
 	-moz-box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
+	transition-duration: 0.5s;
 }
 
 .illustration {
@@ -103,6 +106,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	border-color: black;
 	border-radius: 5px 5px 0 0;
 	overflow: hidden;
+	transition-duration: 0.5s;
 }
 
 .illustration img {
@@ -118,6 +122,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	margin-left: auto;
 	z-index: -10;
 	font-size: 14px;
+	transition-duration: 0.5s;
 }
 
 .mutation .title {
