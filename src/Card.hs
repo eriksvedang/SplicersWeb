@@ -30,11 +30,12 @@ data CardType = Ting
 data Gene = Sinister
           | Artificial
           | Nautic
-          | Leaf
+          | Plant
           | Bug
           | Land
-          | Feather
-          | Small
+          | Fungi
+          | Air
+          | Mini
           | Other Text
           | NoGene
             deriving (Show)
@@ -47,18 +48,20 @@ mkCard title rules dominance cardType subType gene1 gene2 startMatter startCards
   "Biom" -> mkBiom title rules dominance subType flavor designer illustration
   "Mutation" -> mkMutation title rules subType flavor designer illustration
   "Splicer" -> mkSplicer title rules subType startMatter startCards flavor designer illustration
-  _ -> error $ unpack ("Unknown card type '" <> cardType <> "'") 
+  _ -> error $ unpack ("Unknown card type '" <> cardType <> "'")
 
 textToGene :: Text -> Gene
 textToGene geneText =
   case geneText of
+  "Sinister" -> Sinister
   "Artificial" -> Artificial
   "Nautic" -> Nautic
-  "Leaf" -> Leaf
+  "Plant" -> Plant
   "Bug" -> Bug
   "Land" -> Land
-  "Feather" -> Feather
-  "Small" -> Small
+  "Air" -> Air
+  "Fungi" -> Fungi
+  "Mini" -> Mini
   x -> Other x
 
 mkTing title rules dominance subType gene1 gene2 flavor designer illustration =

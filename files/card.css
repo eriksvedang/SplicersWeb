@@ -211,6 +211,65 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	display: inline;
 }
 
+/* @group window specific */
+.Air {
+	background: url(/files/gen_air.png) center no-repeat #dadada;
+	background-size: 90%;
+	background-position: center;
+}
+
+.Artificial {
+	background: url(/files/gen_artificial.png) center no-repeat #dadada;
+	background-size: 90%;
+	background-position: center;
+}
+
+.Fungi {
+	background: url(/files/gen_fungi.png) center no-repeat #dadada;
+	background-size: 90%;
+	background-position: center;
+}
+
+.Bug {
+	background: url(/files/gen_bug.png) center no-repeat #dadada;
+	background-size: 90%;
+	background-position: center;
+}
+
+.Mini {
+	background: url(/files/gen_mini.png) center no-repeat #dadada;
+	background-size: 90%;
+	background-position: center;
+}
+
+.Plant {
+	background: url(/files/gen_plant.png) center no-repeat #dadada;
+	background-size: 90%;
+	background-position: center;
+}
+
+.Nautic {
+	background: url(/files/gen_sea.png) center no-repeat #dadada;
+	background-size: 90%;
+	background-position: center;
+}
+
+.Sinister {
+	background: url(/files/gen_sin.png) center no-repeat #dadada;
+	background-size: 90%;
+	background-position: center;
+}
+
+.Land {
+	background: url(/files/gen_terran.png) center no-repeat #dadada;
+	background-size: 90%;
+	background-position: center;
+}
+/* @end */
+
+
+
+
 .splicer .title {
 	text-align: left;
 	display: block;

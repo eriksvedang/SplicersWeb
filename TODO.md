@@ -10,3 +10,4 @@
 - [ ] filtrera kort efter ability, gener, typ
 - [ ] design guidelines
 - [ ] länkar i user page går till start, inte rätt kort
+- [x] stöd för alla gener
