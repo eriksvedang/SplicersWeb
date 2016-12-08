@@ -18,8 +18,15 @@ window.onload = function () {
     $(".ability span").each(function () {
       if ($(this).children().length == 0) {
         var newHTML = $(this).html()
-        newHTML = $(this).html().replace(/\[artificial]/g , '<img src="/files/gen_artificial.png" class="inlinesymbol"/>');
         newHTML = $(this).html().replace(/\[air]/g , '<img src="/files/gen_air.png" class="inlinesymbol"/>');
+        newHTML = newHTML.replace(/\[artificial]/g , '<img src="/files/gen_artificial.png" class="inlinesymbol"/>');
+        newHTML = newHTML.replace(/\[bug]/g , '<img src="/files/gen_bug.png" class="inlinesymbol"/>');
+        newHTML = newHTML.replace(/\[fungi]/g , '<img src="/files/gen_fungi.png" class="inlinesymbol"/>');
+        newHTML = newHTML.replace(/\[mini]/g , '<img src="/files/gen_mini.png" class="inlinesymbol"/>');
+        newHTML = newHTML.replace(/\[plant]/g , '<img src="/files/gen_plant.png" class="inlinesymbol"/>');
+        newHTML = newHTML.replace(/\[nautic]/g , '<img src="/files/gen_nautic.png" class="inlinesymbol"/>');
+        newHTML = newHTML.replace(/\[sinister]/g , '<img src="/files/gen_sinister.png" class="inlinesymbol"/>');
+        newHTML = newHTML.replace(/\[land]/g , '<img src="/files/gen_land.png" class="inlinesymbol"/>');
         $(this).html(newHTML);
       }
     });
@@ -128,7 +135,7 @@ window.onload = function () {
   for (index = 0; index < a.length; ++index) {
     var b = Math.floor(Math.random() * colors.length);
     var color = colors[b];
-    colors2 = colors2 + color;
+    colors2.push(color);
     colors.splice(b,1);
     if (colors.length == 0) {
       colors = colors2

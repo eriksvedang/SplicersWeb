@@ -215,10 +215,9 @@ article {
 	top: 0;
 	font-weight: bold;
 	background-color: white;
-	right: 0;
 	z-index: 6;
 	transition-duration: 0.2s;
-	max-width: 150px;
+	right: 279px;
 }
 
 a .editing:hover {
@@ -232,11 +231,10 @@ a .editing:hover {
 #filter {
 	position: fixed;
 	top: 0px;
-	padding: 5px 10px;
-	color: white;
+	padding: 5px 5px 5px 10px;
 	z-index: 6;
 	display: inline-block;
-	right: 155px;
+	right: 0;
 }
 
 #filter input {

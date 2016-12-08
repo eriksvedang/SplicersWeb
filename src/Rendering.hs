@@ -47,7 +47,7 @@ renderCards cards deckToEdit = renderPage $ do a_ [ href_ "add-card"] $ do
                                                case deckToEdit of
                                                  Just deck -> a_ [class_ "editing randomcolor", href_ ""] (toHtml (T.append "Editing deck " (deckName deck)))
                                                  Nothing -> span_ [class_ "editing"] "No deck to edit"
-                                               div_ [id_ "filter"] $ do
+                                               div_ [id_ "filter", class_ "randomcolor"] $ do
                                                  span_ [] (toHtml "filter cards:")
                                                  input_ [ type_ "text", name_ "filter"]
 

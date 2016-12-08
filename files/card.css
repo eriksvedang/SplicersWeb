@@ -211,7 +211,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	display: inline;
 }
 
-/* @group window specific */
+/* @group gene types */
 .Air {
 	background: url(/files/gen_air.png) center no-repeat #dadada;
 	background-size: 90%;
@@ -249,19 +249,19 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 }
 
 .Nautic {
-	background: url(/files/gen_sea.png) center no-repeat #dadada;
+	background: url(/files/gen_nautic.png) center no-repeat #dadada;
 	background-size: 90%;
 	background-position: center;
 }
 
 .Sinister {
-	background: url(/files/gen_sin.png) center no-repeat #dadada;
+	background: url(/files/gen_sinister.png) center no-repeat #dadada;
 	background-size: 90%;
 	background-position: center;
 }
 
 .Land {
-	background: url(/files/gen_terran.png) center no-repeat #dadada;
+	background: url(/files/gen_land.png) center no-repeat #dadada;
 	background-size: 90%;
 	background-position: center;
 }
