@@ -6,6 +6,7 @@ module Rendering where
 import Control.Monad (foldM, mapM_)
 import Data.Text.Internal (Text)
 import Data.Text (unpack, pack)
+import qualified Data.Text as T
 import Data.Monoid ((<>))
 import Card
 import Keyword
@@ -110,8 +111,8 @@ renderTing card =
        illustrationDiv card
        typesDivWithDomination "ting" (subType card) (dominance card)
        div_ [class_ "ability"] $ do
-         img_ [src_ "/files/gen_artificial.png", class_ "gene1"]
-         img_ [src_ "/files/gen_artificial.png", class_ "gene1"]
+         div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
+         div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
          span_ $ toHtml (rules card)
          flavorText card
 
@@ -122,6 +123,8 @@ renderEvent card =
        illustrationDiv card
        typesDiv "event" (subType card)
        div_ [class_ "ability"] $ do
+         div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
+         div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
          span_ $ toHtml (rules card)
          flavorText card
 
@@ -142,6 +145,8 @@ renderMutation card =
        typesDiv "mutation" (subType card)
        div_ [class_ "title"] $ toHtml (title card)
        div_ [class_ "ability"] $ do
+         div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
+         div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
          span_ $ toHtml (rules card)
          flavorText card
 
@@ -195,25 +200,27 @@ renderAddCard username =
           div_ [id_ "genes"] $ do
             span_ (toHtml "Select genes: ")
             select_ [name_ "gene1"] $ do
+              option_ [value_ "NoGene"] (toHtml "Empty")
               option_ [value_ "Air"] (toHtml "Air")
               option_ [value_ "Artificial"] (toHtml "Artificial")
               option_ [value_ "Bug"] (toHtml "Bug")
               option_ [value_ "Fungi"] (toHtml "Fungi")
               option_ [value_ "Mini"] (toHtml "Mini")
               option_ [value_ "Plant"] (toHtml "Plant")
-              option_ [value_ "Sea"] (toHtml "Sea")
-              option_ [value_ "Sin"] (toHtml "Sin")
-              option_ [value_ "Terran"] (toHtml "Terran")
-            select_ [name_ "gene1"] $ do
+              option_ [value_ "Nautic"] (toHtml "Nautic")
+              option_ [value_ "Sinister"] (toHtml "Sinister")
+              option_ [value_ "Land"] (toHtml "Land")
+            select_ [name_ "gene2"] $ do
+              option_ [value_ "NoGene"] (toHtml "Empty")
               option_ [value_ "Air"] (toHtml "Air")
               option_ [value_ "Artificial"] (toHtml "Artificial")
               option_ [value_ "Bug"] (toHtml "Bug")
               option_ [value_ "Fungi"] (toHtml "Fungi")
               option_ [value_ "Mini"] (toHtml "Mini")
               option_ [value_ "Plant"] (toHtml "Plant")
-              option_ [value_ "Sea"] (toHtml "Sea")
-              option_ [value_ "Sin"] (toHtml "Sin")
-              option_ [value_ "Terran"] (toHtml "Terran")
+              option_ [value_ "Nautic"] (toHtml "Nautic")
+              option_ [value_ "Sinister"] (toHtml "Sinister")
+              option_ [value_ "Land"] (toHtml "Land")
           br_ []
           field "startMatter" """" "number" "4"
           field "startCards" "Cards" " (The number of cards you start with)" "number" "4"

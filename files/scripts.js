@@ -1,6 +1,6 @@
 window.onload = function () {
   smallMenu()
-  
+
   // markdown converter
   var converter = new showdown.Converter(),
     text      = $('.markdown').html(),
@@ -99,12 +99,12 @@ window.onload = function () {
 
   var cardg1 = $('[name="gene1"]');
   cardg1.bind('input', function() {
-    $(".gene1").html(cardg1.val())
+    $(".gene1").attr("class", "gene1 " + cardg1.val() )
   });
 
   var cardg2 = $('[name="gene2"]');
   cardg2.bind('input', function() {
-    $(".gene2").html(cardg2.val())
+    $(".gene2").attr("class", "gene2 " + cardg2.val() )
   });
 
   var cardillustration = $('[name="illustration"]');
@@ -115,12 +115,18 @@ window.onload = function () {
   // random color backgrounds
 
   var colors = ['#0AA9C9','#74A57F','#9ECE9A','#A7BED3','#C6E2E9','#F1FFC4','#FFCAAF','#DAB894','#B6CB9E','#92B4A7','#8C8A93','#75B9BE','#B2F7EF','#EFF7F6','#F7D6E0','#F2B5D4','#FBEA79','#C0F3A8','#95AFBA','#E2F89C','#FF829D','#F9704A','#8FFF63','#4D9BF9'];
+  var colors2 = [];
   var index;
   var a = document.getElementsByClassName('randomcolor');
   for (index = 0; index < a.length; ++index) {
     var b = Math.floor(Math.random() * colors.length);
     var color = colors[b];
+    colors2 = colors2 + color;
     colors.splice(b,1);
+    if (colors.length == 0) {
+      colors = colors2
+      colors2 = []
+    };
     a[index].style.background = color;
   };
 
@@ -129,11 +135,10 @@ window.onload = function () {
     // title search
   $('[name="filter"]').change( function () {
     var filter = $(this).val();
+    $('div').find(".title").parent().css( "display", "inline-block" );
     if (filter) {
       $('div').find(".title:not(:Contains(" + filter + "))").parent().css( "display", "none" );
       $('div').find(".title:Contains(" + filter + ")").parent().css( "padding", "inline-block" );
-    } else {
-      $('div').find(".title").parent().css( "display", "inline-block" );
     }
     return false;
   })
