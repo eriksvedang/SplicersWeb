@@ -51,7 +51,7 @@ renderCards cards deckToEdit = renderPage $ do a_ [ href_ "add-card"] $ do
                                                  Nothing -> span_ [class_ "editing"] "No deck to edit"
                                                div_ [id_ "filter", class_ "randomcolor"] $ do
 
-                                                 span_ [] (toHtml "filter cards:")
+                                                 span_ [] (toHtml "filter cards →")
                                                  input_ [ type_ "text", name_ "filter"]
 
 data RenderCardMode = AsLink | NoLink
@@ -237,7 +237,8 @@ renderAddCard username =
           input_ [type_ "text", name_ "designer", value_ username, readonly_ ""]
           field "illustration" "Image" " (URL)" "text" ""
           br_ []
-          input_ [type_ "submit", value_ "Submit"]
+          a_ [href_ "#", onclick_ "$(this).closest('form').submit()"] (toHtml "Submit")
+          -- input_ [type_ "submit", value_ "Submit"]
       div_ [class_ "preview randomcolor"] $ do
         renderCard NoLink (Card "title" "rules" 0 Ting "type" NoGene NoGene 4 4 "" username "")
 
@@ -300,8 +301,8 @@ renderSignupForm = do
           input_ [type_ "password", name_ "password"]
           input_ [type_ "hidden", name_ "next", value_ "user"]
           br_ []
-          input_ [type_ "submit", value_ "Sign up!"]
-
+          a_ [href_ "#", onclick_ "$(this).closest('form').submit()"] (toHtml "Sign up!")
+          -- input_ [type_ "submit", value_ "Sign up!"]
 renderFailSignup :: Html ()
 renderFailSignup = do
   renderPage $ do
@@ -327,7 +328,8 @@ renderLoginForm nextPage = do
     input_ [type_ "password", name_ "password"]
     input_ [type_ "hidden", name_ "next", value_ nextPage]
     br_ []
-    input_ [type_ "submit", value_ "Login"]
+    a_ [href_ "#", onclick_ "$(this).closest('form').submit()"] (toHtml "Login")
+    -- input_ [type_ "submit", value_ "Login"]
 
 renderMustLogIn :: Text -> Text -> Html ()
 renderMustLogIn helpText nextPage = do

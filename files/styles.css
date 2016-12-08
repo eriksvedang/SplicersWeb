@@ -31,7 +31,6 @@ li {
 	-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	float: left;
-	min-height: 400px;
 	text-align: left;
 }
 
@@ -68,6 +67,10 @@ li {
 	background-color: white;
 }
 
+.content span {
+	display: block;
+}
+
 
 .preview {
 	display: inline-block;
@@ -77,7 +80,7 @@ li {
 	-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	min-height: 300px;
-	border-radius: 0 8 8 0;
+	border-radius: 0 8 8 8;
 }
 
 .window .card {
@@ -255,7 +258,7 @@ article {
 	background-color: white;
 	z-index: 6;
 	transition-duration: 0.2s;
-	right: 279px;
+	right: 297px;
 }
 
 .editing:hover {
