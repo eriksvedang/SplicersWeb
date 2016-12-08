@@ -254,6 +254,13 @@ renderDeckPage deck cards = do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ (toHtml (deckName deck))
+        mapM_ (renderCard AsLink) cards
+
+renderNoSuchDeckPage = do
+  renderPage $ do
+    div_ [class_ "window"] $ do
+      div_ [class_ "content"] $ do
+        p_ (toHtml "No deck with that id was found.")
 
 renderSignupForm :: Html ()
 renderSignupForm = do

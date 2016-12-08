@@ -157,8 +157,13 @@ userPageRoute = do
 
 deckRoute :: Text -> Route
 deckRoute deckId = do
-  deck <- liftIO $ getDeck ((read . unpack) deckId)
-  lucidToSpock  (renderDeckPage deck [])
+  let deckIdAsInt = ((read . unpack) deckId)
+  deck <- liftIO $ getDeck deckIdAsInt
+  cardTitles <- liftIO $ getCardsInDeck deckIdAsInt
+  cards <- liftIO $ mapM getNewestCardWithTitle cardTitles
+  case deck of
+    (Just deck) -> lucidToSpock (renderDeckPage deck cards)
+    Nothing -> lucidToSpock renderNoSuchDeckPage
 
 listKeywordsRoute :: Route
 listKeywordsRoute = do

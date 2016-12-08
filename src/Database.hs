@@ -105,6 +105,14 @@ getCardsWithTitle title = do
   cards <- query conn "SELECT title, rules, dominance, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM card WHERE title = ? ORDER BY key DESC;" (Only title)
   return cards
 
+getNewestCardWithTitle :: Text -> IO Card
+getNewestCardWithTitle title = do
+  conn <- getConnection
+  cards <- query conn "SELECT title, rules, dominance, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM card WHERE title = ? ORDER BY key DESC;" (Only title)
+  case cards of
+    (card:_) -> return card
+    [] -> (error $ "Can't find card with title " ++ unpack title)
+
 getCardsByDesigner :: Text -> IO [Card]
 getCardsByDesigner designer = do
   conn <- getConnection
@@ -245,13 +253,13 @@ getDecks username = do
   decks <- query conn "SELECT id, name, designer FROM deck WHERE designer=?" (Only username)
   return decks
 
-getDeck :: Int -> IO Deck
+getDeck :: Int -> IO (Maybe Deck)
 getDeck deckId = do
   conn <- getConnection
   decks <- query conn "SELECT id, name, designer FROM deck WHERE id=?" (Only deckId)
   case decks of
-    [deck] -> return deck
-    _ -> error "Failed to get deck."
+    [deck] -> return (Just deck)
+    _ -> return Nothing
 
 -- Add cards to Deck
 instance FromRow InDeck where
