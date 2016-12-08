@@ -46,7 +46,7 @@ b {
 	transition-duration: 0.5s;
 }
 .dominance {
-	background: url(dom_star.png) #dadada;
+	background: #dadada;
 	background-size: cover;
 	width: 34px;
 	height: 34px;
@@ -64,11 +64,13 @@ b {
 	margin-left:-1px;
 	border-radius: 0px 5px 0px 5px;
 	transition-duration: 0.5s;
+	overflow: hidden;
 }
 
 .dominance span {
 	position: relative;
 	top: -3px;
+	left: 1px;
 }
 .types {
 	font-weight: bolder;

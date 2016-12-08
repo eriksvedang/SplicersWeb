@@ -62,7 +62,7 @@ renderSingleCardPage title cards =
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ [] (toHtml title)
-        h2_ [] (toHtml $ "Designed by " <> (designer (head cards)))
+        span_ [] (toHtml $ "Designed by " <> (designer (head cards)))
         a_ [href_ "/cards"] "Cards"
       div_ [class_ "preview randomcolor"] $ do
         mapM_ (\card -> p_ [] (renderCard NoLink card)) cards
@@ -257,10 +257,10 @@ renderPlayerPage username myCardTitles myDecks = do
   renderPage $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
-        h1_ (toHtml username)
-        h2_ "Cards by me"
+        h1_ [class_ "randomcolor"] (toHtml username)
+        h3_ "Cards by me"
         mapM_ (\cardTitle -> li_ $ a_ [href_ $ pack ("/card/" ++ unpack cardTitle)] (toHtml cardTitle)) myCardTitles
-        h2_ "Decks by me"
+        h3_ "Decks by me"
         mapM_ (\(deck) -> li_ $ do a_ [href_ $ pack ("/deck/" ++ show (deckId deck))] (toHtml $ deckName deck)
                                    span_ [] (toHtml " ")
                                    a_ [href_ $ T.append "/edit-deck/" ((pack . show . deckId) deck)] (toHtml "Edit"))
@@ -274,7 +274,7 @@ renderDeckPage deck cards = do
   renderPage $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
-        h1_ (toHtml (deckName deck))
+        h1_ [class_ "randomcolor"] (toHtml (deckName deck))
         mapM_ (renderCard AsLink) cards
 
 renderNoSuchDeckPage = do
