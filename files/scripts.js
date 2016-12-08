@@ -14,14 +14,21 @@ window.onload = function () {
   });
 
   var cardrules = $('[name="rules"]');
-  cardrules.bind('input', function() {
-    $(".ability span").html(cardrules.val());
+  function replaceInlineSymbol () {
     $(".ability span").each(function () {
       if ($(this).children().length == 0) {
-        var newHTML = $(this).html().replace(/\[artificial]/g,'<img src="files/gen_artificial.png" class="inlinesymbol"/>');
+        var newHTML = $(this).html()
+        newHTML = $(this).html().replace(/\[artificial]/g , '<img src="/files/gen_artificial.png" class="inlinesymbol"/>');
+        newHTML = $(this).html().replace(/\[air]/g , '<img src="/files/gen_air.png" class="inlinesymbol"/>');
         $(this).html(newHTML);
       }
-   });
+    });
+  }
+  replaceInlineSymbol( )
+
+  cardrules.bind('input', function() {
+    $(".ability span").html(cardrules.val());
+    replaceInlineSymbol( )
   });
 
   var cardflavor = $('[name="flavor"]');
