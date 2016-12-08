@@ -10,6 +10,7 @@ import Data.Monoid ((<>))
 import Card
 import Keyword
 import Lucid
+import Deck
 
 css :: Text -> Html ()
 css name = link_ [rel_ "stylesheet", type_ "text/css", href_ name]
@@ -246,6 +247,13 @@ renderPlayerPage username myCardTitles = do
         mapM_ (\cardTitle -> li_ $ a_ [href_ $ pack ("/card/" ++ unpack cardTitle)] (toHtml cardTitle)) myCardTitles
         a_ [href_ "/"] "Front page"
         a_ [href_ "/logout"] "Log out"
+
+renderDeckPage :: Deck -> [Card] -> Html ()
+renderDeckPage deck cards = do
+  renderPage $ do
+    div_ [class_ "window"] $ do
+      div_ [class_ "content"] $ do
+        h1_ (toHtml (deckName deck))
 
 renderSignupForm :: Html ()
 renderSignupForm = do

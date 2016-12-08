@@ -245,6 +245,13 @@ getDecks username = do
   decks <- query conn "SELECT id, name, designer FROM deck WHERE designer=?" (Only username)
   return decks
 
+getDeck :: Int -> IO Deck
+getDeck deckId = do
+  conn <- getConnection
+  decks <- query conn "SELECT id, name, designer FROM deck WHERE id=?" (Only deckId)
+  case decks of
+    [deck] -> return deck
+    _ -> error "Failed to get deck."
 
 -- Add cards to Deck
 instance FromRow InDeck where

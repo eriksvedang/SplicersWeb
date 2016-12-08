@@ -12,7 +12,7 @@ import Data.Text (unpack, pack)
 import Data.Text.Internal (Text)
 import Data.Text.Lazy (toStrict)
 import Data.Monoid ((<>))
-import Database (migrate, getCards, addCard, addFakeData, authorize, getSecret, getCardsWithTitle, getCardsByDesigner, addPlayer, getKeywords)
+import Database
 import Card
 import Rendering
 import Lucid
@@ -38,6 +38,7 @@ main = do
     get "submit-login" $    submitLoginRoute
     get "logout" $          logoutRoute
     get "user" $            userPageRoute
+    get ("deck" <//> var) $ deckRoute
     get "keywords" $        listKeywordsRoute
     get "rules" $           rulesDocumentRoute
     get ("files" <//> var)  getFile
@@ -153,6 +154,11 @@ userPageRoute = do
                Nothing -> ""
   myCards <- liftIO $ getCardsByDesigner name
   withAuth (\username -> renderPlayerPage username (fmap title myCards)) "user"
+
+deckRoute :: Text -> Route
+deckRoute deckId = do
+  deck <- liftIO $ getDeck ((read . unpack) deckId)
+  lucidToSpock  (renderDeckPage deck [])
 
 listKeywordsRoute :: Route
 listKeywordsRoute = do
