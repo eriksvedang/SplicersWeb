@@ -6,6 +6,7 @@ module Rendering where
 import Control.Monad (foldM, mapM_)
 import Data.Text.Internal (Text)
 import Data.Text (unpack, pack)
+import qualified Data.Text as T
 import Data.Monoid ((<>))
 import Card
 import Keyword
@@ -38,12 +39,15 @@ renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
                                     div_ [] $ do
                                       article_ (toHtml "Hello")
 
-renderCards :: [Card] -> Html ()
-renderCards cards = renderPage $ do a_ [ href_ "add-card"] $ do
-                                      div_ [class_ "add"] $ do
-                                        span_ [] (toHtml "+ Create a card")
-                                    mapM_ (renderCard AsLink) cards
-                                    input_ [ type_ "text", name_ "filter", id_ "filter"]
+renderCards :: [Card] -> Maybe Deck -> Html ()
+renderCards cards deckToEdit = renderPage $ do a_ [ href_ "add-card"] $ do
+                                                 div_ [class_ "add"] $ do
+                                                   span_ [] (toHtml "+ Create a card")
+                                               mapM_ (renderCard AsLink) cards
+                                               case deckToEdit of
+                                                 Just deck -> p_ [] (toHtml (T.append "Editing deck " (deckName deck)))
+                                                 Nothing -> p_ [] "No deck to edit."
+                                               input_ [ type_ "text", name_ "filter", id_ "filter"]
 
 data RenderCardMode = AsLink | NoLink
 
@@ -65,7 +69,7 @@ renderCard :: RenderCardMode -> Card -> Html ()
 renderCard cardMode card =
   case cardMode of
   AsLink -> do
-    a_ [href_ $ "card/" <> (title card)] renderedCard
+    a_ [href_ $ "/card/" <> (title card)] renderedCard
   NoLink -> do
     p_ [] renderedCard
   where
@@ -237,14 +241,19 @@ renderAddFakeData :: Html ()
 renderAddFakeData = do
   renderPage $ p_ "Added fake data!"
 
-renderPlayerPage :: Text -> [Text] -> Html ()
-renderPlayerPage username myCardTitles = do
+renderPlayerPage :: Text -> [Text] -> [Deck] -> Html ()
+renderPlayerPage username myCardTitles myDecks = do
   renderPage $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ (toHtml username)
         h2_ "Cards by me"
         mapM_ (\cardTitle -> li_ $ a_ [href_ $ pack ("/card/" ++ unpack cardTitle)] (toHtml cardTitle)) myCardTitles
+        h2_ "Decks by me"
+        mapM_ (\(deck) -> li_ $ do a_ [href_ $ pack ("/deck/" ++ show (deckId deck))] (toHtml $ deckName deck)
+                                   span_ [] (toHtml " ")
+                                   a_ [href_ $ T.append "/edit-deck/" ((pack . show . deckId) deck)] (toHtml "Edit"))
+          myDecks
         a_ [href_ "/"] "Front page"
         a_ [href_ "/logout"] "Log out"
 

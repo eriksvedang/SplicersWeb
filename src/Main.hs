@@ -17,6 +17,7 @@ import Card
 import Rendering
 import Lucid
 import Player
+import Deck
 
 type Route = ActionT IO ()
 
@@ -39,6 +40,7 @@ main = do
     get "logout" $          logoutRoute
     get "user" $            userPageRoute
     get ("deck" <//> var) $ deckRoute
+    get ("edit-deck" <//> var) $ editDeckRoute
     get "keywords" $        listKeywordsRoute
     get "rules" $           rulesDocumentRoute
     get ("files" <//> var)  getFile
@@ -50,7 +52,12 @@ frontPageRoute = do
 cardsRoute :: Route
 cardsRoute = do
   cards <- liftIO getCards
-  lucidToSpock $ renderCards cards
+  deckIdAsText <- (cookie "deck")
+  let deckIdAsInt = case deckIdAsText of
+                      (Just deckId) -> read (unpack deckId)
+                      Nothing -> 0
+  deckToEdit <- liftIO $ getDeck deckIdAsInt
+  lucidToSpock $ renderCards cards deckToEdit
 
 singleCardRoute :: Text -> Route
 singleCardRoute title = do
@@ -153,7 +160,8 @@ userPageRoute = do
                Just n -> n
                Nothing -> ""
   myCards <- liftIO $ getCardsByDesigner name
-  withAuth (\username -> renderPlayerPage username (fmap title myCards)) "user"
+  myDecks <- liftIO $ getDecks name
+  withAuth (\username -> renderPlayerPage username (fmap title myCards) myDecks) "user"
 
 deckRoute :: Text -> Route
 deckRoute deckId = do
@@ -164,6 +172,11 @@ deckRoute deckId = do
   case deck of
     (Just deck) -> lucidToSpock (renderDeckPage deck cards)
     Nothing -> lucidToSpock renderNoSuchDeckPage
+
+editDeckRoute :: Text -> Route
+editDeckRoute deckId = do
+  setCookie "deck" deckId defaultCookieSettings
+  redirect "/cards"
 
 listKeywordsRoute :: Route
 listKeywordsRoute = do
