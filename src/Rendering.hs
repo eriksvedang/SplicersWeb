@@ -72,7 +72,7 @@ renderCard :: RenderCardMode -> Card -> Html ()
 renderCard cardMode card =
   case cardMode of
   AsLink -> do
-    a_ [href_ $ "/card/" <> (title card)] renderedCard
+    a_ [class_ "cardLink", href_ $ "/card/" <> (title card)] renderedCard
   NoLink -> do
     p_ [] renderedCard
   where
