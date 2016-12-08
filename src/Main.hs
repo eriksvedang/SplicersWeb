@@ -41,7 +41,8 @@ main = do
     get "user" $            userPageRoute
     get ("deck" <//> var) $ deckRoute
     get ("edit-deck" <//> var) $ editDeckRoute
-    get "new-deck" $        newDeckRoute
+    get "new-deck" $             newDeckRoute
+    get "add-card-to-deck" $     addCardToDeckRoute
     get "keywords" $        listKeywordsRoute
     get "rules" $           rulesDocumentRoute
     get ("files" <//> var)  getFile
@@ -187,6 +188,13 @@ newDeckRoute = do
                     setCookie "deck" ((pack . show) newDeckId) defaultCookieSettings
                     redirect "/cards"
     Nothing -> error "Can't create deck when not logged in."
+
+addCardToDeckRoute :: Route
+addCardToDeckRoute = do
+  Just deckId <- param "deckId"
+  Just cardTitle <- param "cardTitle"
+  liftIO $ addCardToDeck ((read . unpack) deckId) cardTitle
+  lucidToSpock (p_ [] "Card added.")
 
 listKeywordsRoute :: Route
 listKeywordsRoute = do
