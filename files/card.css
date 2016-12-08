@@ -23,7 +23,7 @@ b {
 	transition-duration: 1s;
 	position: relative;
 	bottom: 0px;
-
+	text-align: left;
 }
 
 .card:hover {

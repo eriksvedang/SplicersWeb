@@ -50,11 +50,12 @@ renderSingleCardPage :: Text -> [Card] -> Html ()
 renderSingleCardPage title cards =
   renderPage $ do
     div_ [class_ "window"] $ do
-      h1_ [] (toHtml title)
-      h2_ [] (toHtml $ "Designed by " <> (designer (head cards)))
-      div_ [] $ do
+      div_ [class_ "content"] $ do
+        h1_ [] (toHtml title)
+        h2_ [] (toHtml $ "Designed by " <> (designer (head cards)))
+        a_ [href_ "/cards"] "Cards"
+      div_ [class_ "preview randomcolor"] $ do
         mapM_ (\card -> p_ [] (renderCard NoLink card)) cards
-      a_ [href_ "/cards"] "Cards"
 
 svg :: Text -> Html ()
 svg path = embed_ [src_ path, type_ "image/svg+xml"]
@@ -173,54 +174,56 @@ renderAddCard :: Text -> Html ()
 renderAddCard username =
   renderPage $ do
     div_ [class_ "window"] $ do
-      renderCard NoLink (Card "title" "rules" 0 Ting "type" NoGene NoGene 4 4 "" username "")
-      h1_ (toHtml "Create a card")  
-      form_ [action_ "submit-card"] $ do
-        span_ (toHtml "Select a card type: ")
-        select_ [name_ "cardType"] $ do
-          option_ [value_ "Ting"] (toHtml "Ting")
-          option_ [value_ "Biom"] (toHtml "Biom")
-          option_ [value_ "Event"] (toHtml "Event")
-          option_ [value_ "Mutation"] (toHtml "Mutation")
-          option_ [value_ "Splicer"] (toHtml "Splicer")
+      div_ [class_ "content"] $ do
+        h1_ (toHtml "Create a card")
+        form_ [action_ "submit-card"] $ do
+          span_ (toHtml "Select a card type: ")
+          select_ [name_ "cardType"] $ do
+            option_ [value_ "Ting"] (toHtml "Ting")
+            option_ [value_ "Biom"] (toHtml "Biom")
+            option_ [value_ "Event"] (toHtml "Event")
+            option_ [value_ "Mutation"] (toHtml "Mutation")
+            option_ [value_ "Splicer"] (toHtml "Splicer")
 
-        br_ []
-        br_ []
-        field "title" "Title" "" "text" ""
-        field "subType" "Subtype" " (i.e. Animal, Plant...)" "text" ""
-        field "domination" "Dominance" " (0-10)" "number" "0"
-        field "cost" "cost" "" "number" "0"
-        div_ [id_ "genes"] $ do
-          span_ (toHtml "Select genes: ")
-          select_ [name_ "gene1"] $ do
-            option_ [value_ "Air"] (toHtml "Air")
-            option_ [value_ "Artificial"] (toHtml "Artificial")
-            option_ [value_ "Bug"] (toHtml "Bug")
-            option_ [value_ "Fungi"] (toHtml "Fungi")
-            option_ [value_ "Mini"] (toHtml "Mini")
-            option_ [value_ "Plant"] (toHtml "Plant")
-            option_ [value_ "Sea"] (toHtml "Sea")
-            option_ [value_ "Sin"] (toHtml "Sin")
-            option_ [value_ "Terran"] (toHtml "Terran")
-          select_ [name_ "gene1"] $ do
-            option_ [value_ "Air"] (toHtml "Air")
-            option_ [value_ "Artificial"] (toHtml "Artificial")
-            option_ [value_ "Bug"] (toHtml "Bug")
-            option_ [value_ "Fungi"] (toHtml "Fungi")
-            option_ [value_ "Mini"] (toHtml "Mini")
-            option_ [value_ "Plant"] (toHtml "Plant")
-            option_ [value_ "Sea"] (toHtml "Sea")
-            option_ [value_ "Sin"] (toHtml "Sin")
-            option_ [value_ "Terran"] (toHtml "Terran")
-        br_ []
-        field "startMatter" """" "number" "4"
-        field "startCards" "Cards" " (The number of cards you start with)" "number" "4"
-        field "rules" "Rule text" " (example: @: Roam)" "text" ""
-        field "flavor" "Flavour text" "" "text" ""
-        input_ [type_ "text", name_ "designer", value_ username, readonly_ ""]
-        field "illustration" "Image" " (URL)" "text" ""
-        br_ []
-        input_ [type_ "submit", value_ "Submit"]
+          br_ []
+          br_ []
+          field "title" "Title" "" "text" ""
+          field "subType" "Subtype" " (i.e. Animal, Plant...)" "text" ""
+          field "domination" "Dominance" " (0-10)" "number" "0"
+          field "cost" "cost" "" "number" "0"
+          div_ [id_ "genes"] $ do
+            span_ (toHtml "Select genes: ")
+            select_ [name_ "gene1"] $ do
+              option_ [value_ "Air"] (toHtml "Air")
+              option_ [value_ "Artificial"] (toHtml "Artificial")
+              option_ [value_ "Bug"] (toHtml "Bug")
+              option_ [value_ "Fungi"] (toHtml "Fungi")
+              option_ [value_ "Mini"] (toHtml "Mini")
+              option_ [value_ "Plant"] (toHtml "Plant")
+              option_ [value_ "Sea"] (toHtml "Sea")
+              option_ [value_ "Sin"] (toHtml "Sin")
+              option_ [value_ "Terran"] (toHtml "Terran")
+            select_ [name_ "gene1"] $ do
+              option_ [value_ "Air"] (toHtml "Air")
+              option_ [value_ "Artificial"] (toHtml "Artificial")
+              option_ [value_ "Bug"] (toHtml "Bug")
+              option_ [value_ "Fungi"] (toHtml "Fungi")
+              option_ [value_ "Mini"] (toHtml "Mini")
+              option_ [value_ "Plant"] (toHtml "Plant")
+              option_ [value_ "Sea"] (toHtml "Sea")
+              option_ [value_ "Sin"] (toHtml "Sin")
+              option_ [value_ "Terran"] (toHtml "Terran")
+          br_ []
+          field "startMatter" """" "number" "4"
+          field "startCards" "Cards" " (The number of cards you start with)" "number" "4"
+          field "rules" "Rule text" " (example: @: Roam)" "text" ""
+          field "flavor" "Flavour text" "" "text" ""
+          input_ [type_ "text", name_ "designer", value_ username, readonly_ ""]
+          field "illustration" "Image" " (URL)" "text" ""
+          br_ []
+          input_ [type_ "submit", value_ "Submit"]
+      div_ [class_ "preview randomcolor"] $ do
+        renderCard NoLink (Card "title" "rules" 0 Ting "type" NoGene NoGene 4 4 "" username "")
 
 
 renderSubmittedCard :: Text -> Html ()
@@ -237,40 +240,46 @@ renderUserPage :: Text -> [Text] -> Html ()
 renderUserPage username myCardTitles = do
   renderPage $ do
     div_ [class_ "window"] $ do
-      h1_ (toHtml username)
-      h2_ "Cards by me"
-      mapM_ (\cardTitle -> li_ $ a_ [href_ "/#"] (toHtml cardTitle)) myCardTitles
-      a_ [href_ "/"] "Front page"
-      a_ [href_ "/logout"] "Log out"
+      div_ [class_ "content"] $ do
+        h1_ (toHtml username)
+        h2_ "Cards by me"
+        mapM_ (\cardTitle -> li_ $ a_ [href_ "/#"] (toHtml cardTitle)) myCardTitles
+        a_ [href_ "/"] "Front page"
+        a_ [href_ "/logout"] "Log out"
 
 renderSignupForm :: Html ()
 renderSignupForm = do
   renderPage $ do
     div_ [class_ "window"] $ do
-      form_ [action_ "submit-signup"] $ do
-        h1_ "Signup"
-        span_ "Username "
-        input_ [type_ "text", name_ "username"]
-        br_ []
-        span_ "Email "
-        input_ [type_ "text", name_ "email"]
-        br_ []
-        span_ "Password "
-        input_ [type_ "password", name_ "password"]
-        input_ [type_ "hidden", name_ "next", value_ "user"]
-        br_ []
-        input_ [type_ "submit", value_ "Sign up!"]
+      div_ [class_ "content"] $ do
+        form_ [action_ "submit-signup"] $ do
+          h1_ "Signup"
+          span_ "Username "
+          input_ [type_ "text", name_ "username"]
+          br_ []
+          span_ "Email "
+          input_ [type_ "text", name_ "email"]
+          br_ []
+          span_ "Password "
+          input_ [type_ "password", name_ "password"]
+          input_ [type_ "hidden", name_ "next", value_ "user"]
+          br_ []
+          input_ [type_ "submit", value_ "Sign up!"]
 
 renderFailSignup :: Html ()
 renderFailSignup = do
   renderPage $ do
-    h1_ "Failed to sign up"
-    p_ "Perhaps that username is taken."
+    div_ [class_ "window"] $ do
+      div_ [class_ "content"] $ do
+        h1_ "Failed to sign up"
+        p_ "Perhaps that username is taken."
 
 renderLoginFormFull :: Html ()
 renderLoginFormFull = do
   renderPage $ do
-    renderLoginForm ""
+    div_ [class_ "window"] $ do
+      div_ [class_ "content"] $ do
+          renderLoginForm ""
 
 renderLoginForm :: Text -> Html ()
 renderLoginForm nextPage = do
@@ -286,23 +295,31 @@ renderLoginForm nextPage = do
 renderMustLogIn :: Text -> Text -> Html ()
 renderMustLogIn helpText nextPage = do
   renderPage $ do
-    p_ (toHtml helpText)
-    renderLoginForm nextPage
+    div_ [class_ "window"] $ do
+      div_ [class_ "content"] $ do
+        p_ (toHtml helpText)
+        renderLoginForm nextPage
 
 renderSucceededToLogin :: Html ()
 renderSucceededToLogin = do
   renderPage $ do
-    p_ "You are logged in!"
+    div_ [class_ "window"] $ do
+      div_ [class_ "content"] $ do
+          p_ "You are logged in!"
 
 renderFailedToLogin :: Html ()
 renderFailedToLogin = do
   renderPage $ do
-    p_ "Failed to login, invalid password or username."
+    div_ [class_ "window"] $ do
+      div_ [class_ "content"] $ do
+          p_ "Failed to login, invalid password or username."
 
 renderLogout :: Html ()
 renderLogout = do
   renderPage $ do
-    p_ "You have been logged out."
+    div_ [class_ "window"] $ do
+      div_ [class_ "content"] $ do
+          p_ "You have been logged out."
 
 renderKeywordPage :: [Keyword] -> Html ()
 renderKeywordPage keywords = do
@@ -339,6 +356,6 @@ renderSmallMenu = do
 renderMenuItems :: Html ()
 renderMenuItems = do
   a_ [class_ "menu-link randomcolor", href_ "/"] $ toHtml "Start"
-  a_ [class_ "menu-link randomcolor", href_ "rules"] $ toHtml "Rules"
-  a_ [class_ "menu-link randomcolor", href_ "cards"] $ toHtml "Cards"
-  a_ [class_ "menu-link randomcolor", href_ "user"] $ toHtml "User"
+  a_ [class_ "menu-link randomcolor", href_ "/rules"] $ toHtml "Rules"
+  a_ [class_ "menu-link randomcolor", href_ "/cards"] $ toHtml "Cards"
+  a_ [class_ "menu-link randomcolor", href_ "/user"] $ toHtml "User"

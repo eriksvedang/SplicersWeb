@@ -1,4 +1,6 @@
 window.onload = function () {
+  smallMenu()
+  
   // markdown converter
   var converter = new showdown.Converter(),
     text      = $('.markdown').html(),
@@ -33,8 +35,7 @@ window.onload = function () {
   });
 
   var cardtype = $('[name="cardType"]');
-  cardtype.bind('input', function() {
-    // adjust form input to card type
+  function dynamicForm () {
     if (cardtype.val() == 'Ting') {
       $('[name="cost"]').parent().css( "display", "none" );
       $('[name="startMatter"]').parent().css( "display", "none" );
@@ -80,10 +81,14 @@ window.onload = function () {
       $('[name="gene2"]').parent().css( "display", "none" );
       $('[name="designer"]').css( "display", "none" );
     }
+  }
+  dynamicForm()
+  cardtype.bind('input', function() {
+    // adjust form input to card type
+    dynamicForm()
     $(".types span").html(cardtype.val() + " - " + cardsubtype.val())
     $(".dominance span").html(carddom.val())
     $(".card").attr("class","card " + cardtype.val())
-
   });
 
   var cardsubtype = $('[name="subType"]');
@@ -119,17 +124,7 @@ window.onload = function () {
     a[index].style.background = color;
   };
 
-  // hide small menu
 
-  var scrollTop = $('#logo').height();
-  if($(this).scrollTop()<=scrollTop){
-    // alert('header just passed.');
-    var smallmenu = document.getElementById('smallmenu')
-    smallmenu.style.top = '-40';
-  }else{
-    var smallmenu = document.getElementById('smallmenu')
-    smallmenu.style.top = '-0';
-  }
 
     // title search
   $('[name="filter"]').change( function () {
@@ -147,16 +142,20 @@ window.onload = function () {
   });
 };
 
-$(window).scroll(function () {
+  // hide small menu
+function smallMenu () {
   var scrollTop = $('#logo').height();
-    if($(this).scrollTop()<=scrollTop){
-      // alert('header just passed.');
-      var smallmenu = document.getElementById('smallmenu')
-      smallmenu.style.top = '-40';
-    }else{
-      var smallmenu = document.getElementById('smallmenu')
-      smallmenu.style.top = '-0';
-    }
+  if($(this).scrollTop()<=scrollTop){
+    // alert('header just passed.');
+    var smallmenu = document.getElementById('smallmenu')
+    smallmenu.style.top = '-40';
+  }else{
+    var smallmenu = document.getElementById('smallmenu')
+    smallmenu.style.top = '-0';
+  }
+}
+$(window).scroll(function () {
+  smallMenu()
 });
 
 // case insensitive search
