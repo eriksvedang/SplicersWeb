@@ -241,11 +241,11 @@ instance ToRow Deck where
 
 deck1 = Deck 0 "blurg" "erik"
 
-addDeck :: Deck -> IO ()
+addDeck :: Deck -> IO Int
 addDeck deck = do
   conn <- getConnection
-  execute conn "INSERT INTO deck (name, designer) VALUES (?, ?);" deck
-  return ()
+  [Only newDeckId] <- query conn "INSERT INTO deck (name, designer) VALUES (?, ?) RETURNING id;" deck
+  return newDeckId
 
 getDecks :: Text -> IO [Deck]
 getDecks username = do

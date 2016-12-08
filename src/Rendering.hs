@@ -260,6 +260,7 @@ renderPlayerPage username myCardTitles myDecks = do
                                    span_ [] (toHtml " ")
                                    a_ [href_ $ T.append "/edit-deck/" ((pack . show . deckId) deck)] (toHtml "Edit"))
           myDecks
+        a_ [href_ "/new-deck"] "Create a new deck"
         a_ [href_ "/"] "Front page"
         a_ [href_ "/logout"] "Log out"
 

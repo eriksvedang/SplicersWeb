@@ -41,6 +41,7 @@ main = do
     get "user" $            userPageRoute
     get ("deck" <//> var) $ deckRoute
     get ("edit-deck" <//> var) $ editDeckRoute
+    get "new-deck" $        newDeckRoute
     get "keywords" $        listKeywordsRoute
     get "rules" $           rulesDocumentRoute
     get ("files" <//> var)  getFile
@@ -177,6 +178,15 @@ editDeckRoute :: Text -> Route
 editDeckRoute deckId = do
   setCookie "deck" deckId defaultCookieSettings
   redirect "/cards"
+
+newDeckRoute :: Route
+newDeckRoute = do
+  username <- cookie "username"
+  case username of
+    Just name -> do newDeckId <- liftIO $ addDeck (Deck 0 "Awesome New Deck" name)
+                    setCookie "deck" ((pack . show) newDeckId) defaultCookieSettings
+                    redirect "/cards"
+    Nothing -> error "Can't create deck when not logged in."
 
 listKeywordsRoute :: Route
 listKeywordsRoute = do
