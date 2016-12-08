@@ -152,7 +152,7 @@ userPageRoute = do
                Just n -> n
                Nothing -> ""
   myCards <- liftIO $ getCardsByDesigner name
-  withAuth (\username -> renderUserPage username (fmap title myCards)) "user"
+  withAuth (\username -> renderPlayerPage username (fmap title myCards)) "user"
 
 listKeywordsRoute :: Route
 listKeywordsRoute = do

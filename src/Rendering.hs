@@ -236,14 +236,14 @@ renderAddFakeData :: Html ()
 renderAddFakeData = do
   renderPage $ p_ "Added fake data!"
 
-renderUserPage :: Text -> [Text] -> Html ()
-renderUserPage username myCardTitles = do
+renderPlayerPage :: Text -> [Text] -> Html ()
+renderPlayerPage username myCardTitles = do
   renderPage $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ (toHtml username)
         h2_ "Cards by me"
-        mapM_ (\cardTitle -> li_ $ a_ [href_ "/#"] (toHtml cardTitle)) myCardTitles
+        mapM_ (\cardTitle -> li_ $ a_ [href_ $ pack ("/card/" ++ unpack cardTitle)] (toHtml cardTitle)) myCardTitles
         a_ [href_ "/"] "Front page"
         a_ [href_ "/logout"] "Log out"
 
@@ -290,6 +290,7 @@ renderLoginForm nextPage = do
     span_ "Password "
     input_ [type_ "password", name_ "password"]
     input_ [type_ "hidden", name_ "next", value_ nextPage]
+    br_ []
     input_ [type_ "submit", value_ "Login"]
 
 renderMustLogIn :: Text -> Text -> Html ()
