@@ -26,7 +26,7 @@ renderPage body = do head_ $ do
                       (script_ [src_ "/files/jquery.min.js"] "")
                       (script_ [src_ "/files/scripts.js"] "")
                       (script_ [src_ "https://cdn.rawgit.com/showdownjs/showdown/1.5.1/dist/showdown.min.js"] "")
-
+                      (script_ [src_ "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"] "")
                       allCSS
                      body_ $ do
                        renderSmallMenu
