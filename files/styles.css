@@ -287,22 +287,33 @@ article {
 
 .cardLink{
 	display: inline-block;
-	margin: 10px;
-	padding: 10px;
-	border-radius: 16px;
-	border-width: 2px;
+	float: left;
+	margin: 15px;
 }
 
-.selectable:hover {
-	margin: 8px;
-	border-style: solid;
-	border-color: #535353;
+.selectable .card {
+	border: 0px solid black;
+	margin: 0px;
+	transition-duration: 0.2s;
 }
 
-.selected {
-	margin: 8px;
+.selectable .card:hover {
 	border-style: solid;
-	border-color: #0cdf21;
+	margin: -3;
+	border-width: 3px;
+}
+
+.selected .card {
+	opacity: 0.5;
+	margin: -3px;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	border: 3px solid black;
+}
+
+.selected .card:hover {
+	opacity: 1;
+	border-color: #00d61d;
 }
 
 .add {
@@ -316,7 +327,7 @@ article {
 
 	display: inline-block;
 	float: left;
-	margin: 20px;
+	margin: 15px;
 	overflow: hidden;
 	transition-duration: 0.5s;
 	border: 3px solid black;
