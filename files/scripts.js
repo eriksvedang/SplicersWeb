@@ -17,7 +17,7 @@ window.onload = function () {
   }
   if (document.cookie.indexOf("deck") >= 0) {
     var deckid = $.cookie("deck");
-    $('a .card').each(function () {
+    $('a:not(.selected) .card').each(function () {
       var cardtitle = $(this).find('.title').html();
       $(this).parent().attr("href", "#" );
       $(this).parent().click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, $(this) )});
