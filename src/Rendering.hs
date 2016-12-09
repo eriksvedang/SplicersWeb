@@ -162,7 +162,6 @@ renderSplicer :: Card -> Html ()
 renderSplicer card =
   do div_ [class_ "card splicer"] $ do
        div_ [class_ "carddraw"] $ do
-         svg "/files/carddraw.svg"
          span_ $ toHtml (show (startCards card))
        div_ [class_ "title"] $ toHtml (title card)
        illustrationDiv card

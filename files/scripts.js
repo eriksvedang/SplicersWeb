@@ -1,5 +1,15 @@
 
 
+function httpGetAsync(theUrl, callback)
+{
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function() {
+      // if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+      //     callback(xmlHttp.responseText);
+  }
+  xmlHttp.open("GET", theUrl, true); // true for asynchronous
+  xmlHttp.send(null);
+}
 window.onload = function () {
   smallMenu()
 
@@ -17,23 +27,11 @@ window.onload = function () {
     var deckid = $.cookie("deck");
     $('a .card').each(function () {
       var cardtitle = $(this).find('.title').html();
-      var newlink = httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck());
       $(this).parent().attr("href", "#" );
-      $(this).parent().attr("onclick", newlink)
+      $(this).parent().click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck()); });
       $(this).parent().attr("class","cardlink selectable");
     });
   };
-
-  function httpGetAsync(theUrl, callback)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous
-    xmlHttp.send(null);
-}
 
   // add card live preview
   var cardtitle = $('[name="title"]');
