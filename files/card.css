@@ -18,7 +18,6 @@ b {
 	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	display: inline-block;
 	float: left;
-	margin: 20px;
 	overflow: hidden;
 	transition-duration: 1s;
 	position: relative;
@@ -53,18 +52,19 @@ b {
 	vertical-align: text-bottom;
 	text-align: center;
 	font-size: 35px;
-	float: left;
 	border: 1px solid black;
 	text-indent: 0;
-	display: inline;
+	display: inline-block;
 	position: relative;
-	bottom: 19px;
-	left: 0px;
+	bottom: 17px;
 	margin-bottom: -19px;
 	margin-left:-1px;
 	border-radius: 0px 5px 0px 5px;
 	transition-duration: 0.5s;
 	overflow: hidden;
+	left: -5px;
+	border-bottom-style: hidden;
+	border-left-style: hidden;
 }
 
 .dominance span {
@@ -316,7 +316,6 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 .biom {
 	height: 224px;
 	width: 308px;
-	margin-bottom: 104px;
 	text-align: left;
 }
 
@@ -333,6 +332,11 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	float: right;
 	margin-right: -1px;
 	border-radius: 5px 0px 5px 0px;
+	border-bottom-style: hidden;
+	border-right-style: hidden;
+	border-left-style: solid;
+	left: -1px;
+	bottom: 19px;
 }
 
 .biom .types {

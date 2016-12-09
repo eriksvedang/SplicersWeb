@@ -10,14 +10,17 @@ window.onload = function () {
   $('.markdown').html(html);
   function makeSelectable(card) {};
   // add to deck
-  function onCardAddedToDeck() { }
+  function onCardAddedToDeck() {
+  $(this).attr("class","cardlink selected");
+  }
   if (document.cookie.indexOf("deck") >= 0) {
     var deckid = $.cookie("deck");
     $('a .card').each(function () {
       var cardtitle = $(this).find('.title').html();
-      var newhref = httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck() );
-      $(this).parent().attr("href", newhref );
-      $(this).parent().attr("class",".cardlink .selectable");
+      var newlink = httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck());
+      $(this).parent().attr("href", "#" );
+      $(this).parent().attr("onclick", newlink)
+      $(this).parent().attr("class","cardlink selectable");
     });
   };
 
@@ -25,8 +28,8 @@ window.onload = function () {
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
-        // if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-        //     callback(xmlHttp.responseText);
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous
     xmlHttp.send(null);

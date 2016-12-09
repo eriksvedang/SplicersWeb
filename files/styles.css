@@ -75,12 +75,11 @@ li {
 .preview {
 	display: inline-block;
 	text-align: center;
-	min-width: 300px;
 	float: right;
 	-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
-	min-height: 300px;
 	border-radius: 0 8 8 8;
+	padding: 20px;
 }
 
 .window .card {
@@ -284,6 +283,26 @@ article {
 		font-size: 14px;
 		border: 1px solid black;
 	margin: 0 0 0 5px;
+}
+
+.cardLink{
+	display: inline-block;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 16px;
+	border-width: 2px;
+}
+
+.selectable:hover {
+	margin: 8px;
+	border-style: solid;
+	border-color: #535353;
+}
+
+.selected {
+	margin: 8px;
+	border-style: solid;
+	border-color: #0cdf21;
 }
 
 .add {
