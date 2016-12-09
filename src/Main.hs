@@ -60,7 +60,9 @@ cardsRoute = do
                       (Just deckId) -> read (unpack deckId)
                       Nothing -> 0
   deckToEdit <- liftIO $ getDeck deckIdAsInt
-  lucidToSpock $ renderCards cards deckToEdit
+  cardTitles <- liftIO $ getCardsInDeck deckIdAsInt
+  cardsInDeck <- liftIO $ mapM getNewestCardWithTitle cardTitles
+  lucidToSpock $ renderCards cards deckToEdit cardsInDeck
 
 singleCardRoute :: Text -> Route
 singleCardRoute title = do

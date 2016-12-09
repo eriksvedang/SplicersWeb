@@ -39,22 +39,20 @@ renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
                                     div_ [] $ do
                                       article_ (toHtml "Hello")
 
-renderCards :: [Card] -> Maybe Deck -> Html ()
-renderCards cards deckToEdit = renderPage $ do a_ [ href_ "add-card"] $ do
-                                                 div_ [class_ "add"] $ do
-                                                   span_ [] (toHtml "+ Create a card")
-                                               mapM_ (renderCard AsLink) cards
-                                               case deckToEdit of
+renderCards :: [Card] -> Maybe Deck -> [Card] -> Html ()
+renderCards cards deckToEdit cardsInDeck = renderPage $ do a_ [ href_ "add-card"] $ do
+                                                             div_ [class_ "add"] $ do
+                                                               span_ [] (toHtml "+ Create a card")
+                                                           mapM_ (\card -> renderCard (if ((title card) `elem` (map title cardsInDeck)) then InDeckSelection else AsLink) card) cards
+                                                           case deckToEdit of
+                                                             Just deck -> a_ [class_ "editing randomcolor", href_ (T.append "/deck/" ((pack . show . deckId) deck))]
+                                                                             (toHtml (T.append "Editing: " (deckName deck)))
+                                                             Nothing -> span_ [class_ "editing"] "No deck to edit"
+                                                           div_ [id_ "filter", class_ "randomcolor"] $ do
+                                                             span_ [] (toHtml "filter cards →")
+                                                             input_ [ type_ "text", name_ "filter"]
 
-                                                 Just deck -> a_ [class_ "editing randomcolor", href_ (T.append "/deck/" ((pack . show . deckId) deck))]
-                                                                 (toHtml (T.append "Editing: " (deckName deck)))
-                                                 Nothing -> span_ [class_ "editing"] "No deck to edit"
-                                               div_ [id_ "filter", class_ "randomcolor"] $ do
-
-                                                 span_ [] (toHtml "filter cards →")
-                                                 input_ [ type_ "text", name_ "filter"]
-
-data RenderCardMode = AsLink | NoLink
+data RenderCardMode = AsLink | NoLink | InDeckSelection
 
 renderSingleCardPage :: Text -> [Card] -> Html ()
 renderSingleCardPage title cards =
@@ -73,10 +71,12 @@ svg path = embed_ [src_ path, type_ "image/svg+xml"]
 renderCard :: RenderCardMode -> Card -> Html ()
 renderCard cardMode card =
   case cardMode of
-  AsLink -> do
-    a_ [class_ "cardLink", href_ $ "/card/" <> (title card)] renderedCard
-  NoLink -> do
-    p_ [] renderedCard
+    AsLink -> do
+      a_ [class_ "cardLink", href_ $ "/card/" <> (title card)] renderedCard
+    NoLink -> do
+      p_ [] renderedCard
+    InDeckSelection -> do
+      a_ [class_ "cardLink selected", href_ $ "#" <> (title card)] renderedCard
   where
     renderedCard =
       case (cardType card) of
