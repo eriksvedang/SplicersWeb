@@ -273,7 +273,13 @@ instance ToRow InDeck where
 addCardToDeck :: Int -> Text -> IO ()
 addCardToDeck deckId cardTitle = do
   conn <- getConnection
-  execute conn "INSERT INTO inDeck (deck, cardTitle) VALUES (?, ?);" (InDeck 0 deckId cardTitle)
+  execute conn "INSERT INTO inDeck (deck, cardTitle) SELECT ?, ? WHERE NOT EXISTS (SELECT * FROM indeck WHERE deck=? AND cardtitle=?)" (deckId, cardTitle, deckId, cardTitle)
+  return ()
+
+removeCardFromDeck :: Int -> Text -> IO ()
+removeCardFromDeck deckId cardTitle = do
+  conn <- getConnection
+  execute conn "DELETE FROM inDeck WHERE inDeck.deck = ? AND indeck.cardTitle = ?" (deckId, cardTitle) 
   return ()
 
 instance FromRow Text where

@@ -26,26 +26,27 @@ main = do
   migrate
   port <- getPort
   runSpock (read port) $ spockT id $ do
-    get root $              frontPageRoute
-    get "cards" $           cardsRoute
-    get ("card" <//> var) $ singleCardRoute
-    get "add-card" $        addCardRoute
-    get "submit-card" $     submitCardRoute
-    get "add-fake-data" $   addFakeDataRoute
-    get "signup" $          signupRoute
-    get "submit-signup" $   submitSignupRoute
-    get "fail-signup" $     failSignupRoute
-    get "login" $           loginRoute
-    get "submit-login" $    submitLoginRoute
-    get "logout" $          logoutRoute
-    get "user" $            userPageRoute
-    get ("deck" <//> var) $ deckRoute
-    get ("edit-deck" <//> var) $ editDeckRoute
-    get "new-deck" $             newDeckRoute
-    get "add-card-to-deck" $     addCardToDeckRoute
-    get "keywords" $        listKeywordsRoute
-    get "rules" $           rulesDocumentRoute
-    get ("files" <//> var)  getFile
+    get root $                     frontPageRoute
+    get "cards" $                  cardsRoute
+    get ("card" <//> var) $        singleCardRoute
+    get "add-card" $               addCardRoute
+    get "submit-card" $            submitCardRoute
+    get "add-fake-data" $          addFakeDataRoute
+    get "signup" $                 signupRoute
+    get "submit-signup" $          submitSignupRoute
+    get "fail-signup" $            failSignupRoute
+    get "login" $                  loginRoute
+    get "submit-login" $           submitLoginRoute
+    get "logout" $                 logoutRoute
+    get "user" $                   userPageRoute
+    get ("deck" <//> var) $        deckRoute
+    get ("edit-deck" <//> var) $   editDeckRoute
+    get "new-deck" $               newDeckRoute
+    get "add-card-to-deck" $       addCardToDeckRoute
+    get "remove-card-from-deck" $  removeCardFromDeckRoute
+    get "keywords" $               listKeywordsRoute
+    get "rules" $                  rulesDocumentRoute
+    get ("files" <//> var)         getFile
 
 frontPageRoute :: Route
 frontPageRoute = do
@@ -195,6 +196,13 @@ addCardToDeckRoute = do
   Just cardTitle <- param "cardTitle"
   liftIO $ addCardToDeck ((read . unpack) deckId) cardTitle
   lucidToSpock (p_ [] "Card added.")
+
+removeCardFromDeckRoute :: Route
+removeCardFromDeckRoute = do
+  Just deckId <- param "deckId"
+  Just cardTitle <- param "cardTitle"
+  liftIO $ removeCardFromDeck ((read . unpack) deckId) cardTitle
+  lucidToSpock (p_ [] "Card removed.")
 
 listKeywordsRoute :: Route
 listKeywordsRoute = do
