@@ -14,16 +14,16 @@ window.onload = function () {
   function onCardAddedToDeck(alerttext, element) {
     var deckid = $.cookie("deck");
     var cardtitle = element.find('.title').html();
-    var selectclass = element.parent().attr("class");
+    var selectclass = element.attr("class");
 
-    element.parent().unbind( "click" );
+    element.unbind( "click" );
     if (selectclass = "cardLink selectable") {
-      element.parent().click(function() { httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
-      element.parent().attr("class","cardLink selected")
+      element.click(function() { httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
+      element.attr("class","cardLink selected")
       alert(selectclass)
     }else if (selectclass = "cardLink selected") {
-      element.parent().click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )})
-      element.parent().attr("class","cardLink selectable")
+      element.click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )})
+      element.attr("class","cardLink selectable")
       alert(selectclass)
     };
     // alert(alert);
@@ -33,16 +33,16 @@ window.onload = function () {
     $('a .selected').each(function () {
       var element = $(this)
       var cardtitle = element.find('.title').html();
-      element.parent().attr("href", "#" + cardtitle );
-      element.parent().click(function() { httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
-      element.parent().attr("class","cardLink selected");
+      element.attr("href", "#" + cardtitle );
+      element.click(function() { httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
+      element.attr("class","cardLink selected");
     });
-    $('a:not(.selected)').each(function () {
-      var element = $(this)
+    $('a:not(.selected) .card').each(function () {
+      var element = $(this).parent()
       var cardtitle = element.find('.title').html();
-      element.parent().attr("href", "#" + cardtitle );
-      element.parent().click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
-      element.parent().attr("class","cardLink selectable");
+      element.attr("href", "#" + cardtitle );
+      element.click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
+      element.attr("class","cardLink selectable");
     });
 
   };
