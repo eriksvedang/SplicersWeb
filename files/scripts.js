@@ -11,28 +11,38 @@ window.onload = function () {
   $('.markdown').html(html);
 
   // add to deck
-  function onCardAddedToDeck(alert, element) {
-    if (element.attr("class") = "cardLink selectable") {
-      element.click(function() { httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, $(this) )});
-      element.attr("class","cardLink selected");
-    }else if (element.attr("class") = "cardLink selected") {
-      element.click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, $(this) )});
-      element.attr("class","cardLink selectable");
-    }
+  function onCardAddedToDeck(alerttext, element) {
+    var deckid = $.cookie("deck");
+    var cardtitle = element.find('.title').html();
+    var selectclass = element.parent().attr("class");
+
+    element.parent().unbind( "click" );
+    if (selectclass = "cardLink selectable") {
+      element.parent().click(function() { httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
+      element.parent().attr("class","cardLink selected")
+      alert(selectclass)
+    }else if (selectclass = "cardLink selected") {
+      element.parent().click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )})
+      element.parent().attr("class","cardLink selectable")
+      alert(selectclass)
+    };
     // alert(alert);
-  }
+  };
   if (document.cookie.indexOf("deck") >= 0) {
     var deckid = $.cookie("deck");
-    $('a .selected .card').each(function () {
-      var cardtitle = $(this).find('.title').html();
-      $(this).parent().attr("href", "#" );
-      $(this).parent().click(function() { httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, $(this) )});
+    $('a .selected').each(function () {
+      var element = $(this)
+      var cardtitle = element.find('.title').html();
+      element.parent().attr("href", "#" + cardtitle );
+      element.parent().click(function() { httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
+      element.parent().attr("class","cardLink selected");
     });
-    $('a:not(.selected) .card').each(function () {
-      var cardtitle = $(this).find('.title').html();
-      $(this).parent().attr("href", "#" );
-      $(this).parent().click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, $(this) )});
-      $(this).parent().attr("class","cardLink selectable");
+    $('a:not(.selected)').each(function () {
+      var element = $(this)
+      var cardtitle = element.find('.title').html();
+      element.parent().attr("href", "#" + cardtitle );
+      element.parent().click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
+      element.parent().attr("class","cardLink selectable");
     });
 
   };
