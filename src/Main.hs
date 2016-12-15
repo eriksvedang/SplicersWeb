@@ -53,30 +53,44 @@ main = do
 
 frontPageRoute :: Route
 frontPageRoute = do
-  lucidToSpock renderFrontPage
+  activeDeck <- getActiveDeck
+  lucidToSpock $ renderFrontPage activeDeck
 
-cardsRoute :: Route
-cardsRoute = do
-  cards <- liftIO getCards
+getDeckId :: ActionT IO Int
+getDeckId = do
   deckIdAsText <- (cookie "deck")
   let deckIdAsInt = case deckIdAsText of
                       (Just deckId) -> case reads (unpack deckId) of
                                          [] -> 0
                                          [(n, _)] -> n
                       Nothing -> 0
-  deckToEdit <- liftIO $ getDeck deckIdAsInt
-  cardTitles <- liftIO $ getCardsInDeck deckIdAsInt
+  return deckIdAsInt
+
+getActiveDeck :: ActionT IO (Maybe Deck)
+getActiveDeck = do
+  deckId <- getDeckId
+  deckToEdit <- liftIO $ getDeck deckId
+  return deckToEdit
+
+cardsRoute :: Route
+cardsRoute = do
+  cards <- liftIO getCards
+  deckId <- getDeckId
+  activeDeck <- getActiveDeck
+  cardTitles <- liftIO $ getCardsInDeck deckId
   cardsInDeck <- liftIO $ mapM getNewestCardWithTitle cardTitles
-  lucidToSpock $ renderCards cards deckToEdit cardsInDeck
+  lucidToSpock $ renderCards cards activeDeck cardsInDeck
 
 singleCardRoute :: Text -> Route
 singleCardRoute title = do
   cards <- liftIO (getCardsWithTitle title)
-  lucidToSpock (renderSingleCardPage title cards)
+  activeDeck <- getActiveDeck
+  lucidToSpock (renderSingleCardPage activeDeck title cards)
 
 addCardRoute :: Route
 addCardRoute = do
-  withAuth renderAddCard "add-card"
+  activeDeck <- getActiveDeck
+  withAuth (renderAddCard activeDeck) "add-card"
 
 paramOrDefault :: (PathPiece p, MonadIO m) => Text -> p -> ActionT m p
 paramOrDefault name defaultValue = do
@@ -87,6 +101,7 @@ paramOrDefault name defaultValue = do
 
 submitCardRoute :: Route
 submitCardRoute = withAuthImproved "/add-card" $ do
+  activeDeck <- getActiveDeck
   title <- paramOrDefault "title" "untitled"
   rules <- paramOrDefault "rules" ""
   domination <- paramOrDefault "domination" "0"
@@ -112,18 +127,20 @@ submitCardRoute = withAuthImproved "/add-card" $ do
                     designer
                     illustration
   case verifyCard card of
-    Left msg -> lucidToSpock (renderError msg)
+    Left msg -> lucidToSpock (renderError activeDeck msg)
     Right _  -> do liftIO (addCard card)
-                   lucidToSpock (renderSubmittedCard title)
+                   lucidToSpock (renderSubmittedCard activeDeck title)
 
 addFakeDataRoute :: Route
 addFakeDataRoute = do
   liftIO addFakeData
-  lucidToSpock renderAddFakeData
+  activeDeck <- getActiveDeck
+  lucidToSpock (renderAddFakeData activeDeck)
 
 signupRoute :: Route
 signupRoute = do
-  lucidToSpock renderSignupForm
+  activeDeck <- getActiveDeck
+  lucidToSpock (renderSignupForm activeDeck)
 
 submitSignupRoute :: Route
 submitSignupRoute = do
@@ -139,13 +156,16 @@ submitSignupRoute = do
 
 failSignupRoute :: Route
 failSignupRoute = do
-  lucidToSpock renderFailSignup
+  activeDeck <- getActiveDeck
+  lucidToSpock $ renderFailSignup activeDeck
 
 loginRoute :: Route
 loginRoute = do
-  lucidToSpock renderLoginFormFull
+  activeDeck <- getActiveDeck
+  lucidToSpock $ renderLoginFormFull activeDeck
 
 submitLoginRoute = do
+  activeDeck <- getActiveDeck
   Just username <- param "username"
   Just password <- param "password"
   maybeSecret <- liftIO $ authorize username password
@@ -156,14 +176,14 @@ submitLoginRoute = do
       maybeNextPage <- param "next"
       case maybeNextPage of
         Just nextPage -> redirect $ "" <> nextPage
-        Nothing -> lucidToSpock renderSucceededToLogin
+        Nothing -> lucidToSpock $ renderSucceededToLogin activeDeck
     Nothing -> do
-      lucidToSpock renderFailedToLogin
+      lucidToSpock $ renderFailedToLogin activeDeck
 
 logoutRoute = do
   deleteCookie "username"
   deleteCookie "secret"
-  lucidToSpock renderLogout
+  lucidToSpock $ renderLogout Nothing
 
 userPageRoute :: Route
 userPageRoute = do
@@ -173,7 +193,8 @@ userPageRoute = do
                Nothing -> ""
   myCards <- liftIO $ getCardsByDesigner name
   myDecks <- liftIO $ getDecks name
-  withAuth (\username -> renderPlayerPage username (fmap title myCards) myDecks) "user"
+  activeDeck <- getActiveDeck
+  withAuth (\username -> renderPlayerPage activeDeck username (fmap title myCards) myDecks) "user"
 
 deckRoute :: Text -> Route
 deckRoute deckId = do
@@ -181,9 +202,10 @@ deckRoute deckId = do
   deck <- liftIO $ getDeck deckIdAsInt
   cardTitles <- liftIO $ getCardsInDeck deckIdAsInt
   cards <- liftIO $ mapM getNewestCardWithTitle cardTitles
+  activeDeck <- getActiveDeck
   case deck of
-    (Just deck) -> lucidToSpock (renderDeckPage deck cards)
-    Nothing -> lucidToSpock renderNoSuchDeckPage
+    (Just deck) -> lucidToSpock $ renderDeckPage activeDeck deck cards
+    Nothing -> lucidToSpock $ renderNoSuchDeckPage activeDeck
 
 editDeckRoute :: Text -> Route
 editDeckRoute deckId = do
@@ -197,12 +219,13 @@ setDeckNameRoute = withAuthImproved "/player" $ do
   let deckId :: Int
       deckId = ((read . unpack) deckIdStr)
   deck <- liftIO $ getDeck deckId
+  activeDeck <- getActiveDeck
   case deck of
     Just deck -> do Just username <- cookie "username" -- should be safe since the auth was OK
                     if username == (deckDesigner deck)
                       then do liftIO $ setDeckName deckId deckName
                               lucidToSpock (p_ [] "Deck name was set.")
-                      else lucidToSpock (renderError "Can't set deck name of someone else's deck.")    
+                      else lucidToSpock (renderError activeDeck "Can't set deck name of someone else's deck.")    
 
 newDeckRoute :: Route
 newDeckRoute = withAuthImproved "/new-deck" $ do
@@ -216,13 +239,14 @@ newDeckRoute = withAuthImproved "/new-deck" $ do
 deleteDeckRoute :: Route
 deleteDeckRoute = withAuthImproved "/player" $ do
   username <- cookie "username"
+  activeDeck <- getActiveDeck
   case username of
     Just name -> do deckIdStr <- param "deckId"
                     case deckIdStr of
                       Just s  -> do liftIO $ deleteDeck ((read . unpack) s)
                                     setCookie "deck" "" defaultCookieSettings
                                     redirect "/player"
-                      Nothing -> lucidToSpock (renderError "Missing parameter: 'deckId'")
+                      Nothing -> lucidToSpock $ renderError activeDeck "Missing parameter: 'deckId'"
     Nothing -> error "Can't delete deck when not logged in."
 
 addCardToDeckRoute :: Route
@@ -242,12 +266,14 @@ removeCardFromDeckRoute = withAuthImproved "/" $ do
 listKeywordsRoute :: Route
 listKeywordsRoute = do
   keywords <- liftIO getKeywords
-  lucidToSpock (renderKeywordPage keywords)
+  activeDeck <- getActiveDeck
+  lucidToSpock $ renderKeywordPage activeDeck keywords
 
 rulesDocumentRoute :: Route
 rulesDocumentRoute = do
   doc <- liftIO $ readFile "./files/rules.md"
-  lucidToSpock (renderRulesDocument (pack doc))
+  activeDeck <- getActiveDeck
+  lucidToSpock $ renderRulesDocument activeDeck (pack doc)
 
 getFile :: String -> Route
 getFile name = file (pack name) ("./files/" ++ name)
@@ -278,13 +304,15 @@ isAuthorized = do
 withAuth :: (Text -> Html ()) -> Text -> ActionT IO ()
 withAuth authenticatedRoute goHereAfterLogin = do
   maybeUsername <- cookie "username"
+  activeDeck <- getActiveDeck
   case maybeUsername of
     Just username -> lucidToSpock (authenticatedRoute username)
-    Nothing -> lucidToSpock $ renderMustLogIn "Please log in first." goHereAfterLogin
+    Nothing -> lucidToSpock $ renderMustLogIn activeDeck "Please log in first." goHereAfterLogin
 
 withAuthImproved :: Text -> Route ->  ActionT IO ()
 withAuthImproved goHereAfterLogin authenticatedRoute = do
   maybeUsername <- cookie "username"
+  activeDeck <- getActiveDeck
   case maybeUsername of
     Just username -> authenticatedRoute
-    Nothing -> lucidToSpock $ renderMustLogIn "Please log in first." goHereAfterLogin
+    Nothing -> lucidToSpock $ renderMustLogIn activeDeck "Please log in first." goHereAfterLogin
