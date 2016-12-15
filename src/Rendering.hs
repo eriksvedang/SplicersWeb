@@ -272,7 +272,7 @@ renderDeckPage :: Deck -> [Card] -> Html ()
 renderDeckPage deck cards = do
   renderPage $ do
     div_ [class_ "window"] $ do
-      div_ [class_ "content"] $ do
+      div_ [class_ "content deckedit"] $ do
         h1_ [class_ "randomcolor"] (toHtml (deckName deck))
         a_ [href_ "/cards"] "Add more cards to this deck"
         mapM_ (renderCard InDeckSelection) cards
