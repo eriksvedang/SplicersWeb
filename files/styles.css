@@ -186,13 +186,16 @@ article {
 	position: fixed;
 	transition-duration: 1s;
 	width: 100%;
+	width: -webkit-calc(100% - 40px);
+	width: -moz-calc(100% - 40px);
+	width: calc(100% - 40px);
 	background: url(logo_star.png) 7px 2px no-repeat black;
 	background-size: 25px;
-	padding-left: 40px;
 	-moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.23);
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.23);
 	z-index: 5;
 	text-align: left;
+	padding-left: 40px;
 }
 
 #smallmenu a {
@@ -246,13 +249,11 @@ article {
 	padding: 5px 10px;
 	text-decoration: none;
 	text-transform: lowercase;
-	position: fixed;
-	top: 0;
 	font-weight: bold;
 	background-color: white;
 	z-index: 6;
 	transition-duration: 0.2s;
-	right: 297px;
+	float: right;
 }
 
 .editing:hover {
@@ -264,12 +265,10 @@ article {
 }
 
 #filter {
-	position: fixed;
-	top: 0px;
 	padding: 4px 5px 4px 10px;
 	z-index: 6;
 	display: inline-block;
-	right: 0;
+	float: right;
 }
 
 #filter input {

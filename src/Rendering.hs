@@ -47,16 +47,16 @@ cornerWidget deckToEdit = do
                  (toHtml (T.append "Editing: " (deckName deck)))
     Nothing -> span_ [class_ "editing"] "No deck to edit"
   div_ [id_ "filter", class_ "randomcolor"] $ do
-  span_ [] (toHtml "filter cards →")
-  input_ [ type_ "text", name_ "filter"]
-  
+    span_ [] (toHtml "filter cards →")
+    input_ [ type_ "text", name_ "filter"]
+
 renderCards :: [Card] -> Maybe Deck -> [Card] -> Html ()
 renderCards cards activeDeck cardsInDeck = renderPage activeDeck $
   do a_ [ href_ "add-card"] $ do
        div_ [class_ "add"] $ do
          span_ [] (toHtml "+ Create a card")
      mapM_ (\card -> renderCard (if ((title card) `elem` (map title cardsInDeck)) then InDeckSelection else AsLink) card) cards
-                                                           
+
 
 data RenderCardMode = AsLink | NoLink | InDeckSelection
 
@@ -315,7 +315,7 @@ renderSignupForm activeDeck = do
           input_ [type_ "hidden", name_ "next", value_ "user"]
           br_ []
           input_ [class_ "button", type_ "submit", value_ "Sign up!"]
-          
+
 renderFailSignup :: Maybe Deck -> Html ()
 renderFailSignup activeDeck = do
   renderPage activeDeck $ do
