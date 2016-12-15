@@ -152,7 +152,7 @@ submitLoginRoute = do
       setCookie "secret" secret defaultCookieSettings
       maybeNextPage <- param "next"
       case maybeNextPage of
-        Just nextPage -> redirect $ "/" <> nextPage
+        Just nextPage -> redirect $ "" <> nextPage
         Nothing -> lucidToSpock renderSucceededToLogin
     Nothing -> do
       lucidToSpock renderFailedToLogin
@@ -188,14 +188,14 @@ editDeckRoute deckId = do
   redirect "/cards"
 
 setDeckNameRoute :: Route
-setDeckNameRoute = do
+setDeckNameRoute = withAuthImproved "/player" $ do
   Just deckId <- param "deckId"
   Just deckName <- param "deckName"
   liftIO $ setDeckName ((read . unpack) deckId) deckName
   lucidToSpock (p_ [] "Deck name was set.")
 
 newDeckRoute :: Route
-newDeckRoute = do
+newDeckRoute = withAuthImproved "/new-deck" $ do
   username <- cookie "username"
   case username of
     Just name -> do newDeckId <- liftIO $ addDeck (Deck 0 "Awesome New Deck" name)
@@ -204,14 +204,14 @@ newDeckRoute = do
     Nothing -> error "Can't create deck when not logged in."
 
 addCardToDeckRoute :: Route
-addCardToDeckRoute = do
+addCardToDeckRoute = withAuthImproved "/" $ do
   Just deckId <- param "deckId"
   Just cardTitle <- param "cardTitle"
   liftIO $ addCardToDeck ((read . unpack) deckId) cardTitle
   lucidToSpock (p_ [] "Card added.")
 
 removeCardFromDeckRoute :: Route
-removeCardFromDeckRoute = do
+removeCardFromDeckRoute = withAuthImproved "/" $ do
   Just deckId <- param "deckId"
   Just cardTitle <- param "cardTitle"
   liftIO $ removeCardFromDeck ((read . unpack) deckId) cardTitle
@@ -246,9 +246,23 @@ getPort = do
       return defaultPort
   return port
 
+isAuthorized :: ActionT IO Bool
+isAuthorized = do
+  maybeUsername <- cookie "username"
+  case maybeUsername of
+    Just username -> return True
+    Nothing -> return False
+
 withAuth :: (Text -> Html ()) -> Text -> ActionT IO ()
 withAuth authenticatedRoute goHereAfterLogin = do
   maybeUsername <- cookie "username"
   case maybeUsername of
     Just username -> lucidToSpock (authenticatedRoute username)
+    Nothing -> lucidToSpock $ renderMustLogIn "Please log in first." goHereAfterLogin
+
+withAuthImproved :: Text -> Route ->  ActionT IO ()
+withAuthImproved goHereAfterLogin authenticatedRoute = do
+  maybeUsername <- cookie "username"
+  case maybeUsername of
+    Just username -> authenticatedRoute
     Nothing -> lucidToSpock $ renderMustLogIn "Please log in first." goHereAfterLogin
