@@ -403,10 +403,12 @@ h3 {
  	font-family: Karla, sans-serif;
  	font-weight: bolder;
  	background: none;
+	width: 500px;
 }
 
 .deckedit .button {
 	!important;
 	float: right;
 	margin-top: 25px;
+	margin-right: 20px;
 }

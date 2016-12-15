@@ -284,3 +284,8 @@ function deleteDeck() {
   $.removeCookie('deck', { path: '/' });
   window.location.href = '/player';
 }
+
+function editDeck() {
+  var currentdeck = $('[name = "deckid"]').val();
+  httpGetAsync('/edit-deck/'+ currentdeck);
+}
