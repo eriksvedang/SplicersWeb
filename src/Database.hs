@@ -261,6 +261,12 @@ getDeck deckId = do
     [deck] -> return (Just deck)
     _ -> return Nothing
 
+setDeckName :: Int -> Text -> IO ()
+setDeckName deckId name = do
+  conn <- getConnection
+  execute conn "UPDATE deck SET name=? WHERE id=?" (name, deckId)
+  return ()
+
 -- Add cards to Deck
 instance FromRow InDeck where
   fromRow = InDeck <$> field <*> field <*> field

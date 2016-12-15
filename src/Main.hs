@@ -42,6 +42,7 @@ main = do
     get "user" $                   userPageRoute
     get ("deck" <//> var) $        deckRoute
     get ("edit-deck" <//> var) $   editDeckRoute
+    get "set-deck-name" $          setDeckNameRoute
     get "new-deck" $               newDeckRoute
     get "add-card-to-deck" $       addCardToDeckRoute
     get "remove-card-from-deck" $  removeCardFromDeckRoute
@@ -185,6 +186,13 @@ editDeckRoute :: Text -> Route
 editDeckRoute deckId = do
   setCookie "deck" deckId defaultCookieSettings
   redirect "/cards"
+
+setDeckNameRoute :: Route
+setDeckNameRoute = do
+  Just deckId <- param "deckId"
+  Just deckName <- param "deckName"
+  liftIO $ setDeckName ((read . unpack) deckId) deckName
+  lucidToSpock (p_ [] "Deck name was set.")
 
 newDeckRoute :: Route
 newDeckRoute = do
