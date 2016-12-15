@@ -9,6 +9,7 @@ import Control.Monad.IO.Class (MonadIO, liftIO)
 import System.Environment (getArgs)
 import System.Environment (lookupEnv)
 import Data.Text (unpack, pack)
+import qualified Data.Text as T
 import Data.Text.Internal (Text)
 import Data.Text.Lazy (toStrict)
 import Data.Monoid ((<>))
@@ -210,7 +211,9 @@ deckRoute deckId = do
 editDeckRoute :: Text -> Route
 editDeckRoute deckId = do
   setCookie "deck" deckId defaultCookieSettings
-  redirect "/cards"
+  let page = (T.append "/deck/" deckId)
+  --liftIO $ putStrLn (unpack page)
+  redirect page
 
 setDeckNameRoute :: Route
 setDeckNameRoute = withAuthImproved "/player" $ do
