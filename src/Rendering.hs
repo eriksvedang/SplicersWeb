@@ -268,7 +268,8 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
         h3_ "Decks by me"
         mapM_ (\(deck) -> li_ $ do a_ [href_ $ pack ("/deck/" ++ show (deckId deck))] (toHtml $ deckName deck)
                                    span_ [] (toHtml " ")
-                                   a_ [href_ $ T.append "/edit-deck/" ((pack . show . deckId) deck)] (toHtml "Edit"))
+                                   a_ [href_ $ T.append "/edit-deck/" ((pack . show . deckId) deck)] (toHtml "Edit")
+                                   a_ [href_ $ T.append "/delete-deck?deckId=" ((pack . show . deckId) deck)] (toHtml "Delete"))
           myDecks
         a_ [href_ "/new-deck", class_ "button"] "Create a new deck"
         a_ [href_ "/", class_ "button"] "Front page"
