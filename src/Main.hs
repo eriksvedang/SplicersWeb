@@ -60,7 +60,9 @@ cardsRoute = do
   cards <- liftIO getCards
   deckIdAsText <- (cookie "deck")
   let deckIdAsInt = case deckIdAsText of
-                      (Just deckId) -> read (unpack deckId)
+                      (Just deckId) -> case reads (unpack deckId) of
+                                         [] -> 0
+                                         [(n, _)] -> n
                       Nothing -> 0
   deckToEdit <- liftIO $ getDeck deckIdAsInt
   cardTitles <- liftIO $ getCardsInDeck deckIdAsInt

@@ -39,18 +39,22 @@ renderFrontPage = renderPage $ do div_ [id_ "page"] $ do
                                     div_ [] $ do
                                       article_ (toHtml "Hello")
 
+cornerWidget :: Maybe Deck -> Html ()
+cornerWidget deckToEdit = do
+  case deckToEdit of
+    Just deck -> a_ [class_ "editing randomcolor", href_ (T.append "/deck/" ((pack . show . deckId) deck))]
+                 (toHtml (T.append "Editing: " (deckName deck)))
+    Nothing -> span_ [class_ "editing"] "No deck to edit"
+  div_ [id_ "filter", class_ "randomcolor"] $ do
+  span_ [] (toHtml "filter cards →")
+  input_ [ type_ "text", name_ "filter"]
+  
 renderCards :: [Card] -> Maybe Deck -> [Card] -> Html ()
 renderCards cards deckToEdit cardsInDeck = renderPage $ do a_ [ href_ "add-card"] $ do
                                                              div_ [class_ "add"] $ do
                                                                span_ [] (toHtml "+ Create a card")
                                                            mapM_ (\card -> renderCard (if ((title card) `elem` (map title cardsInDeck)) then InDeckSelection else AsLink) card) cards
-                                                           case deckToEdit of
-                                                             Just deck -> a_ [class_ "editing randomcolor", href_ (T.append "/deck/" ((pack . show . deckId) deck))]
-                                                                             (toHtml (T.append "Editing: " (deckName deck)))
-                                                             Nothing -> span_ [class_ "editing"] "No deck to edit"
-                                                           div_ [id_ "filter", class_ "randomcolor"] $ do
-                                                             span_ [] (toHtml "filter cards →")
-                                                             input_ [ type_ "text", name_ "filter"]
+                                                           cornerWidget deckToEdit
 
 data RenderCardMode = AsLink | NoLink | InDeckSelection
 
