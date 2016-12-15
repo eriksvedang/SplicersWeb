@@ -1,5 +1,16 @@
 
-
+function httpGetAsync(theUrl, element)
+{
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function() {
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+          //callback(xmlHttp.responseText, element);
+          console.log(xmlHttp.responseText);
+      }
+  }
+  xmlHttp.open("GET", theUrl, true); // true for asynchronous
+  xmlHttp.send(null);
+}
 
 window.onload = function () {
   smallMenu()
@@ -64,19 +75,6 @@ window.onload = function () {
             element.attr("class","cardLink selectable");
         });
     }
-
-  function httpGetAsync(theUrl, element)
-  {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            //callback(xmlHttp.responseText, element);
-            console.log(xmlHttp.responseText);
-        }
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous
-    xmlHttp.send(null);
-  }
 
   // add card live preview
   var cardtitle = $('[name="title"]');
@@ -214,7 +212,7 @@ window.onload = function () {
     };
     a[index].style.background = color;
 
-
+    //deck editing
     if (document.cookie.indexOf("deck") >= 0) {
       var deckid = $.cookie("deck");
       var currentdeck = $('[name = "deckid"]').val();
@@ -250,6 +248,7 @@ window.onload = function () {
     var deckid = $.cookie("deck");
     httpGetAsync('/set-deck-name?deckId='+ deckid +'&deckName='+name);
   });
+
 };
 
   // hide small menu
@@ -277,4 +276,11 @@ jQuery.expr[':'].Contains = function(a,i,m){
 function removeCookie() {
   $.removeCookie('deck', { path: '/' });
   location.reload();
+}
+
+function deleteDeck() {
+  var deckid = $.cookie("deck");
+  httpGetAsync('/delete-deck?deckId='+ deckid);
+  $.removeCookie('deck', { path: '/' });
+  window.location.href = '/player';
 }
