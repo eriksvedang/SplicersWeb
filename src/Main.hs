@@ -38,6 +38,7 @@ main = do
     get "login" $                  loginRoute
     get "submit-login" $           submitLoginRoute
     get "logout" $                 logoutRoute
+    get "player" $                 userPageRoute
     get "user" $                   userPageRoute
     get ("deck" <//> var) $        deckRoute
     get ("edit-deck" <//> var) $   editDeckRoute

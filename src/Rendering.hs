@@ -274,6 +274,7 @@ renderDeckPage deck cards = do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ [class_ "randomcolor"] (toHtml (deckName deck))
+        a_ [href_ "/cards"] "Add more cards to this deck"
         mapM_ (renderCard InDeckSelection) cards
 
 renderNoSuchDeckPage = do
@@ -334,6 +335,8 @@ renderMustLogIn helpText nextPage = do
       div_ [class_ "content"] $ do
         p_ (toHtml helpText)
         renderLoginForm nextPage
+        p_ [] "Don't have a player account?"
+        a_ [href_ "/signup"] "Sign up here!"
 
 renderSucceededToLogin :: Html ()
 renderSucceededToLogin = do
@@ -393,7 +396,7 @@ renderMenuItems = do
   a_ [class_ "menu-link randomcolor", href_ "/"] $ toHtml "Start"
   a_ [class_ "menu-link randomcolor", href_ "/rules"] $ toHtml "Rules"
   a_ [class_ "menu-link randomcolor", href_ "/cards"] $ toHtml "Cards"
-  a_ [class_ "menu-link randomcolor", href_ "/user"] $ toHtml "User"
+  a_ [class_ "menu-link randomcolor", href_ "/player"] $ toHtml "Player"
 
 renderError :: Text -> Html ()
 renderError message = do
