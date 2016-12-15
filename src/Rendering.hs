@@ -288,7 +288,8 @@ renderDeckPage activeDeck deck cards = do
       div_ [class_ "content deckedit"] $ do
         div_ [class_ "randomcolor", style_ "margin-left: -20px; margin-right: -20px;"] $ do
           a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish editing"
-          a_ [class_ "button",  href_ "#", onclick_ "deleteDeck()"] "Delete Deck"
+          a_ [class_ "button",  href_ "#", onclick_ "deleteDeck()"] "Delete..."
+          a_ [class_ "button",  href_ "#", onclick_ "editDeck()"] "Edit this deck"
           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
 
         input_ [name_ "deckid", style_ "display:none", value_ ((pack . show . deckId) deck), readonly_ ""]
