@@ -44,6 +44,7 @@ main = do
     get ("edit-deck" <//> var) $   editDeckRoute
     get "set-deck-name" $          setDeckNameRoute
     get "new-deck" $               newDeckRoute
+    get "delete-deck" $            deleteDeckRoute
     get "add-card-to-deck" $       addCardToDeckRoute
     get "remove-card-from-deck" $  removeCardFromDeckRoute
     get "keywords" $               listKeywordsRoute
@@ -209,6 +210,18 @@ newDeckRoute = withAuthImproved "/new-deck" $ do
                     setCookie "deck" ((pack . show) newDeckId) defaultCookieSettings
                     redirect "/cards"
     Nothing -> error "Can't create deck when not logged in."
+
+deleteDeckRoute :: Route
+deleteDeckRoute = withAuthImproved "/player" $ do
+  username <- cookie "username"
+  case username of
+    Just name -> do deckIdStr <- param "deckId"
+                    case deckIdStr of
+                      Just s  -> do liftIO $ deleteDeck ((read . unpack) s)
+                                    setCookie "deck" "" defaultCookieSettings
+                                    redirect "/player"
+                      Nothing -> lucidToSpock (renderError "Missing parameter: 'deckId'")
+    Nothing -> error "Can't delete deck when not logged in."
 
 addCardToDeckRoute :: Route
 addCardToDeckRoute = withAuthImproved "/" $ do

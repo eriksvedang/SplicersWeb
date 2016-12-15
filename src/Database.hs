@@ -247,6 +247,14 @@ addDeck deck = do
   [Only newDeckId] <- query conn "INSERT INTO deck (name, designer) VALUES (?, ?) RETURNING id;" deck
   return newDeckId
 
+deleteDeck :: Int -> IO ()
+deleteDeck deckId = do
+  conn <- getConnection
+  -- Can't delete deck if there are any InDeck relations using it.
+  execute conn "DELETE FROM inDeck WHERE deck=?;" (Only deckId)
+  execute conn "DELETE FROM deck WHERE id=?;" (Only deckId)
+  return ()
+
 getDecks :: Text -> IO [Deck]
 getDecks username = do
   conn <- getConnection
