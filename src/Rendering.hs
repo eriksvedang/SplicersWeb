@@ -275,7 +275,7 @@ renderDeckPage deck cards = do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ [class_ "randomcolor"] (toHtml (deckName deck))
-        mapM_ (renderCard AsLink) cards
+        mapM_ (renderCard InDeckSelection) cards
 
 renderNoSuchDeckPage = do
   renderPage $ do
