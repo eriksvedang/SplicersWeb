@@ -11,3 +11,12 @@
 - [ ] design guidelines
 - [ ] länkar i user page går till start, inte rätt kort
 - [x] stöd för alla gener
+
+- Text på förstasidan
+- Objectives i rules
+- Filter cards-rutan ska vara dold som default
+- Glitch med kort
+- Kortsidan: Text med "Select cards for your deck"
+- Spelarsidan: Snyggare lista med deck och card
+- Leksidan: Start editing-knapp
+- Spelarsidan: Ta bort edit-knappen
