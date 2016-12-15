@@ -276,7 +276,7 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
 
         h3_ "Cards by me"
         mapM_ (\cardTitle -> li_ $ a_ [href_ $ pack ("/card/" ++ unpack cardTitle)] (toHtml cardTitle)) myCardTitles
-          
+
         a_ [href_ "/new-deck", class_ "button"] "Create a new deck"
         a_ [href_ "/add-card", class_ "button"] "Create a new card"
         a_ [href_ "/logout", class_ "button"] "Log out"
@@ -288,8 +288,8 @@ renderDeckPage activeDeck deck cards = do
       div_ [class_ "content deckedit"] $ do
         div_ [class_ "randomcolor", style_ "margin-left: -20px; margin-right: -20px;"] $ do
           a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish editing"
+          a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit this deck"
           a_ [class_ "button",  href_ "#", onclick_ "deleteDeck()"] "Delete..."
-          a_ [class_ "button",  href_ "#", onclick_ "editDeck()"] "Edit this deck"
           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
 
         input_ [name_ "deckid", style_ "display:none", value_ ((pack . show . deckId) deck), readonly_ ""]
@@ -298,7 +298,9 @@ renderDeckPage activeDeck deck cards = do
         a_ [class_ "whileediting", style_ "display:none;", href_ "/cards"] $ do
                                                                      div_ [class_ "add"] $ do
                                                                        span_ [] (toHtml "Add more cards to deck")
-        mapM_ (renderCard InDeckSelection) cards
+        case activeDeck of
+          Just deck -> mapM_ (renderCard InDeckSelection) cards
+          Nothing -> mapM_ (renderCard AsLink) cards
 
 renderNoSuchDeckPage :: Maybe Deck -> Html ()
 renderNoSuchDeckPage activeDeck = do

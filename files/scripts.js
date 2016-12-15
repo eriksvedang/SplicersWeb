@@ -195,6 +195,8 @@ window.onload = function () {
     $(".illustration").html("<img src='" + cardillustration.val() + "' >")
   });
 
+  //show filter at /cards
+  if (getCurrentFileName() == 'cards') {showFilter()};
   // random color backgrounds
 
   var colors = ['#0AA9C9','#74A57F','#9ECE9A','#A7BED3','#C6E2E9','#F1FFC4','#FFCAAF','#DAB894','#B6CB9E','#92B4A7','#8C8A93','#75B9BE','#B2F7EF','#EFF7F6','#F7D6E0','#F2B5D4','#FBEA79','#C0F3A8','#95AFBA','#E2F89C','#FF829D','#F9704A','#8FFF63','#4D9BF9'];
@@ -217,6 +219,7 @@ window.onload = function () {
       var deckid = $.cookie("deck");
       var currentdeck = $('[name = "deckid"]').val();
       if (deckid == currentdeck) {
+        $('.notediting').each(function () {$(this).attr("style", "display:none;")})
         $('.whileediting').each(function () {$(this).attr("style", "display:inline;")});
       } else {
         $('.deckedit input').attr("readonly", "true");
@@ -249,8 +252,18 @@ window.onload = function () {
     httpGetAsync('/set-deck-name?deckId='+ deckid +'&deckName='+name);
   });
 
+
 };
 
+function getCurrentFileName(){
+    var pagePathName= window.location.pathname;
+    return pagePathName.substring(pagePathName.lastIndexOf("/") + 1);
+}
+
+function showFilter() {
+  $('#filter').attr('style','display: inline-block;')
+
+}
   // hide small menu
 function smallMenu () {
   var scrollTop = $('#logo').height();

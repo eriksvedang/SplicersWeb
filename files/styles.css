@@ -347,7 +347,7 @@ article {
 	text-align: center;
 	font: 25px Karla;
 	opacity: 1;
-	background-color: rgba(255, 255, 255, 0.53);
+	background-color: rgba(255, 255, 255, 0);
 	width: 218px;
 	height: 302px;
 	border-radius: 8px;
@@ -362,7 +362,7 @@ article {
 
 .add span {
 	position: relative;
-	top: 45%;
+	top: 120px;
 	max-width: 180px;
 	margin-right: auto;
 	margin-left: auto;

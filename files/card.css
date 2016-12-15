@@ -370,7 +370,20 @@ a {
 @media print {
 		body {
 			background: none;
+			margin: 0 auto;
+		}
+		#smallmenu,.add, .button, h1, input {
+			display: none;
+		}
+		.window,.content {
+			width: auto;
+			height: auto;
+			min-width: auto;
+			min-height: auto;
+			max-width: auto;
+			max-height: auto;
 			margin: auto;
+			background: none;
 		}
     .card {
 	    border-radius: 0;
@@ -378,6 +391,7 @@ a {
 			border: 1px dashed gray;
 			box-shadow: none;
 			page-break-inside: avoid;
+			float: left;
 		}
 		.biom {
 			transform: rotate(90deg);
