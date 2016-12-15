@@ -11,47 +11,68 @@ window.onload = function () {
   $('.markdown').html(html);
 
   // add to deck
-  function onCardAddedToDeck(alerttext, element) {
-    var deckid = $.cookie("deck");
-    var cardtitle = element.find('.title').html();
-    var selectclass = element.attr("class");
+    function onCardAddedToDeck(element) {
+        var deckid = $.cookie("deck");
+        var cardtitle = element.find('.title').html();
 
-    element.unbind( "click" );
-    if (selectclass = "cardLink selectable") {
-      element.click(function() { httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
-      element.attr("class","cardLink selected")
-      alert(selectclass)
-    }else if (selectclass = "cardLink selected") {
-      element.click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )})
-      element.attr("class","cardLink selectable")
-      alert(selectclass)
-    };
-    // alert(alert);
-  };
-  if (document.cookie.indexOf("deck") >= 0) {
-    var deckid = $.cookie("deck");
-    $('a .selected').each(function () {
-      var element = $(this)
-      var cardtitle = element.find('.title').html();
-      element.attr("href", "#" + cardtitle );
-      element.click(function() { httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
-      element.attr("class","cardLink selected");
-    });
-    $('a:not(.selected) .card').each(function () {
-      var element = $(this).parent()
-      var cardtitle = element.find('.title').html();
-      element.attr("href", "#" + cardtitle );
-      element.click(function() { httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, onCardAddedToDeck, element )});
-      element.attr("class","cardLink selectable");
-    });
+        element.unbind( "click" );
+        
+        if (element.hasClass("selectable")) {
+            console.log("SELECTABLE");
+            element.click(function() {
+                httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, element );
+                onCardAddedToDeck(element);
+            });
+            element.removeClass("selectable");
+            element.addClass("selected");
+        } else if (element.hasClass("selected")) {
+            console.log("SELECTED");
+            element.click(function() {
+                httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, element );
+                onCardAddedToDeck(element)
+            })
+            element.removeClass("selected");
+            element.addClass("selectable");
+        } else {
+            console.log("Failed to match class!");
+        }
+    }
+    
+    if (document.cookie.indexOf("deck") >= 0) {
+        var deckid = $.cookie("deck");
 
-  };
-  function httpGetAsync(theUrl, callback, element)
+        $('.selected').each(function () {
+            var element = $(this)
+            var cardtitle = element.find('.title').html();
+            element.attr("href", "#" + cardtitle );
+            element.click(function() {
+                httpGetAsync('/remove-card-from-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, element );
+                onCardAddedToDeck(element);
+            });
+            element.attr("class","cardLink selected");
+            console.log("!");
+        });
+        
+        $('a:not(.selected) .card').each(function () {
+            var element = $(this).parent()
+            var cardtitle = element.find('.title').html();
+            element.attr("href", "#" + cardtitle );
+            element.click(function() {
+                httpGetAsync('/add-card-to-deck?deckId=' + deckid + '&cardTitle=' + cardtitle, element );
+                onCardAddedToDeck(element);
+            });
+            element.attr("class","cardLink selectable");
+        });
+    }
+    
+  function httpGetAsync(theUrl, element)
   {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText, element);
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            //callback(xmlHttp.responseText, element);
+            console.log(xmlHttp.responseText);
+        }            
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous
     xmlHttp.send(null);
