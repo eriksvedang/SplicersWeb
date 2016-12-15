@@ -138,3 +138,9 @@ mkSplicer title rules subType startMatter startCards flavor designer illustratio
        , designer = designer
        , illustration = illustration
        }
+
+verifyCard :: Card -> Either Text Card
+verifyCard card = do
+  if (title card) == ""
+    then (Left "Can't have empty title")
+    else (Right card)

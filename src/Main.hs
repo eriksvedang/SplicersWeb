@@ -106,8 +106,10 @@ submitCardRoute = do
                     flavor
                     designer
                     illustration
-  liftIO (addCard card)
-  lucidToSpock (renderSubmittedCard title)
+  case verifyCard card of
+    Left msg -> lucidToSpock (renderError msg)
+    Right _  -> do liftIO (addCard card)
+                   lucidToSpock (renderSubmittedCard title)
 
 addFakeDataRoute :: Route
 addFakeDataRoute = do

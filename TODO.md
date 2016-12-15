@@ -6,7 +6,7 @@
 - [x] fixa meny-länkar
 - [x] fixa meny-funktion
 - [ ] expand funktion för keywords
-- [ ] inte kunna submitta kort utan titel
+- [x] inte kunna submitta kort utan titel
 - [ ] filtrera kort efter ability, gener, typ
 - [ ] design guidelines
 - [ ] länkar i user page går till start, inte rätt kort

@@ -394,3 +394,10 @@ renderMenuItems = do
   a_ [class_ "menu-link randomcolor", href_ "/rules"] $ toHtml "Rules"
   a_ [class_ "menu-link randomcolor", href_ "/cards"] $ toHtml "Cards"
   a_ [class_ "menu-link randomcolor", href_ "/user"] $ toHtml "User"
+
+renderError :: Text -> Html ()
+renderError message = do
+  renderPage $ do
+    div_ [class_ "window"] $ do
+      div_ [class_ "content"] $ do
+        p_ (toHtml message)
