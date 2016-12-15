@@ -16,7 +16,7 @@ window.onload = function () {
         var cardtitle = element.find('.title').html();
 
         element.unbind( "click" );
-        
+
         if (element.hasClass("selectable")) {
             console.log("SELECTABLE");
             element.click(function() {
@@ -37,7 +37,7 @@ window.onload = function () {
             console.log("Failed to match class!");
         }
     }
-    
+
     if (document.cookie.indexOf("deck") >= 0) {
         var deckid = $.cookie("deck");
 
@@ -52,7 +52,7 @@ window.onload = function () {
             element.attr("class","cardLink selected");
             console.log("!");
         });
-        
+
         $('a:not(.selected) .card').each(function () {
             var element = $(this).parent()
             var cardtitle = element.find('.title').html();
@@ -64,7 +64,7 @@ window.onload = function () {
             element.attr("class","cardLink selectable");
         });
     }
-    
+
   function httpGetAsync(theUrl, element)
   {
     var xmlHttp = new XMLHttpRequest();
@@ -72,7 +72,7 @@ window.onload = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             //callback(xmlHttp.responseText, element);
             console.log(xmlHttp.responseText);
-        }            
+        }
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous
     xmlHttp.send(null);
@@ -213,6 +213,13 @@ window.onload = function () {
       colors2 = []
     };
     a[index].style.background = color;
+
+    if (document.cookie.indexOf("deck") >= 0) {
+      $('.whileediting').each(function () {$(this).attr("style", "display:inline;")});
+    } else {
+      $('.deckedit input').attr("readonly", "true");
+    }
+
   };
 
 
@@ -229,6 +236,12 @@ window.onload = function () {
   })
   .keyup( function () {
   			$(this).change();
+  });
+
+  $('[name="deckname"]').change( function() {
+    var name = $(this).val();
+    var deckid = $.cookie("deck");
+    httpGetAsync('set-deck-name?deckId='+ deckid +'&deckName='+name);
   });
 };
 
@@ -252,3 +265,9 @@ $(window).scroll(function () {
 jQuery.expr[':'].Contains = function(a,i,m){
   return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
 };
+
+//remove cookie
+function removeCookie() {
+  $.removeCookie('deck', { path: '/' });
+  location.reload();
+}

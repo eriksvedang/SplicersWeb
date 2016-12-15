@@ -264,17 +264,27 @@ renderPlayerPage username myCardTitles myDecks = do
                                    span_ [] (toHtml " ")
                                    a_ [href_ $ T.append "/edit-deck/" ((pack . show . deckId) deck)] (toHtml "Edit"))
           myDecks
-        a_ [href_ "/new-deck"] "Create a new deck"
-        a_ [href_ "/"] "Front page"
-        a_ [href_ "/logout"] "Log out"
+        a_ [href_ "/new-deck", class_ "button"] "Create a new deck"
+        a_ [href_ "/", class_ "button"] "Front page"
+        a_ [href_ "/logout", class_ "button"] "Log out"
 
 renderDeckPage :: Deck -> [Card] -> Html ()
 renderDeckPage deck cards = do
   renderPage $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content deckedit"] $ do
-        h1_ [class_ "randomcolor"] (toHtml (deckName deck))
-        a_ [href_ "/cards"] "Add more cards to this deck"
+        input_ [id_ "deckname", class_ "randomcolor", value_ (deckName deck), name_ "deckname"]
+        br_ []
+        br_ []
+        span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing. Click a card to remove it from your deck. Click the title to change it. ")
+        br_ []
+        br_ []
+        a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish editing"
+        br_ []
+        br_ []
+        a_ [href_ (T.append "/edit-deck/" ((pack . show . deckId) deck))] $ do
+                                                                     div_ [class_ "add"] $ do
+                                                                       span_ [] (toHtml "Add more cards to deck")
         mapM_ (renderCard InDeckSelection) cards
 
 renderNoSuchDeckPage = do
@@ -336,7 +346,7 @@ renderMustLogIn helpText nextPage = do
         p_ (toHtml helpText)
         renderLoginForm nextPage
         p_ [] "Don't have a player account?"
-        a_ [href_ "/signup"] "Sign up here!"
+        a_ [href_ "/signup", class_ "button"] "Sign up here!"
 
 renderSucceededToLogin :: Html ()
 renderSucceededToLogin = do
