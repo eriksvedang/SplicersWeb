@@ -56,15 +56,16 @@ b {
 	text-indent: 0;
 	display: inline-block;
 	position: relative;
-	bottom: 17px;
-	margin-bottom: -19px;
-	margin-left:-1px;
+	bottom: 19px;
+	margin-bottom: -20px;
+	margin-left: -1px;
 	border-radius: 0px 5px 0px 5px;
 	transition-duration: 0.5s;
 	overflow: hidden;
-	left: -5px;
+	left: 1px;
 	border-bottom-style: hidden;
 	border-left-style: hidden;
+	float: left;
 }
 
 .dominance span {

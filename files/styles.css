@@ -32,6 +32,7 @@ li {
 	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	float: left;
 	text-align: left;
+	max-width: 770px;
 }
 
 .content li a {
@@ -49,7 +50,7 @@ li {
 	text-decoration: none;
 }
 
-.content a:not(li a) {
+.button {
 	text-decoration: none;
 	border-radius: 8px;
 	border: 2px solid gray;
@@ -61,7 +62,7 @@ li {
 	margin-right: 10px;
 }
 
-.content a:hover:not(li a) {
+.button {
 	-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	background-color: white;
@@ -83,12 +84,6 @@ li {
 }
 
 .window .card {
-	animation-name: hover;
-	animation-duration: 2s;
-	animation-iteration-count: infinite;
-	animation-timing-function: ease-in-out;
-	-webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
-	   animation-direction: alternate;
 	float: none;
 	text-align: left;
 }
@@ -291,6 +286,8 @@ article {
 	margin: 15px;
 }
 
+
+
 .selectable .card {
 	border: 0px solid black;
 	margin: 0px;
@@ -298,13 +295,12 @@ article {
 }
 
 .selectable .card:hover {
-	border-style: solid;
+	border: 3px solid #00d61d;
 	margin: -3;
-	border-width: 3px;
 }
 
 .selected .card {
-	opacity: 0.5;
+	opacity: 0.3;
 	margin: -3px;
 	box-shadow: none;
 	-moz-box-shadow: none;
@@ -312,8 +308,40 @@ article {
 }
 
 .selected .card:hover {
+	opacity: 0.5;
+	border-color: black;
+}
+
+.deckedit .selectable .card {
+	!important;
+	opacity: 0.3;
+	margin: -3px;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	border: 3px solid red;	
+}
+
+.deckedit .selectable .card:hover {
+	!important;
+	opacity: 0.5;
+	border-color: red;
+}
+
+.deckedit .selected .card {
+	!important;
+	border: 0px solid black;
+	margin: 0px;
+	transition-duration: 0.2s;
 	opacity: 1;
-	border-color: #00d61d;
+	-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
+	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
+	
+}
+
+.deckedit .selected .card:hover {
+	!important;
+	border: 3px solid red;
+	margin: -3;
 }
 
 .add {
