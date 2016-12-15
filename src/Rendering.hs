@@ -266,16 +266,19 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ [class_ "randomcolor"] (toHtml username)
-        h3_ "Cards by me"
-        mapM_ (\cardTitle -> li_ $ a_ [href_ $ pack ("/card/" ++ unpack cardTitle)] (toHtml cardTitle)) myCardTitles
+
         h3_ "Decks by me"
         mapM_ (\(deck) -> li_ $ do a_ [href_ $ pack ("/deck/" ++ show (deckId deck))] (toHtml $ deckName deck)
                                    span_ [] (toHtml " ")
                                    -- a_ [href_ $ T.append "/edit-deck/" ((pack . show . deckId) deck)] (toHtml "Edit")
                                    a_ [href_ $ T.append "/delete-deck?deckId=" ((pack . show . deckId) deck)] (toHtml "Delete"))
           myDecks
+
+        h3_ "Cards by me"
+        mapM_ (\cardTitle -> li_ $ a_ [href_ $ pack ("/card/" ++ unpack cardTitle)] (toHtml cardTitle)) myCardTitles
+          
         a_ [href_ "/new-deck", class_ "button"] "Create a new deck"
-        a_ [href_ "/", class_ "button"] "Front page"
+        a_ [href_ "/add-card", class_ "button"] "Create a new card"
         a_ [href_ "/logout", class_ "button"] "Log out"
 
 renderDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
