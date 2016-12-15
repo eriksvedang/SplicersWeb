@@ -274,6 +274,7 @@ renderDeckPage deck cards = do
     div_ [class_ "window"] $ do
       div_ [class_ "content deckedit"] $ do
         input_ [id_ "deckname", class_ "randomcolor", value_ (deckName deck), name_ "deckname"]
+        span_ [class_ "deckid"] (toHtml ((pack . show . deckId) deck))
         br_ []
         br_ []
         span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing. Click a card to remove it from your deck. Click the title to change it. ")
