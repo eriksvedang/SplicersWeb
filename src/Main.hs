@@ -83,7 +83,7 @@ paramOrDefault name defaultValue = do
     Nothing -> return defaultValue
 
 submitCardRoute :: Route
-submitCardRoute = do
+submitCardRoute = withAuthImproved "/add-card" $ do
   title <- paramOrDefault "title" "untitled"
   rules <- paramOrDefault "rules" ""
   domination <- paramOrDefault "domination" "0"
@@ -189,10 +189,17 @@ editDeckRoute deckId = do
 
 setDeckNameRoute :: Route
 setDeckNameRoute = withAuthImproved "/player" $ do
-  Just deckId <- param "deckId"
+  Just deckIdStr <- param "deckId"
   Just deckName <- param "deckName"
-  liftIO $ setDeckName ((read . unpack) deckId) deckName
-  lucidToSpock (p_ [] "Deck name was set.")
+  let deckId :: Int
+      deckId = ((read . unpack) deckIdStr)
+  deck <- liftIO $ getDeck deckId
+  case deck of
+    Just deck -> do Just username <- cookie "username" -- should be safe since the auth was OK
+                    if username == (deckDesigner deck)
+                      then do liftIO $ setDeckName deckId deckName
+                              lucidToSpock (p_ [] "Deck name was set.")
+                      else lucidToSpock (renderError "Can't set deck name of someone else's deck.")    
 
 newDeckRoute :: Route
 newDeckRoute = withAuthImproved "/new-deck" $ do
