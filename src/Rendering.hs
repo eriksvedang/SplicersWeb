@@ -280,15 +280,9 @@ renderDeckPage activeDeck deck cards = do
     div_ [class_ "window"] $ do
       div_ [class_ "content deckedit"] $ do
         input_ [id_ "deckname", class_ "randomcolor", value_ (deckName deck), name_ "deckname"]
-        span_ [class_ "deckid"] (toHtml ((pack . show . deckId) deck))
-        br_ []
-        br_ []
+        input_ [name_ "deckid", style_ "float:right; background: black; color: white;", value_ ((pack . show . deckId) deck), readonly_ ""]
         span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing. Click a card to remove it from your deck. Click the title to change it. ")
-        br_ []
-        br_ []
         a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish editing"
-        br_ []
-        br_ []
         a_ [href_ (T.append "/edit-deck/" ((pack . show . deckId) deck))] $ do
                                                                      div_ [class_ "add"] $ do
                                                                        span_ [] (toHtml "Add more cards to deck")
