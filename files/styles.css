@@ -396,12 +396,12 @@ h3 {
 }
 
 #deckname {
-	display: inline-block;
+	display: block;
 	font-size: 2em;
-	margin: -10px -20px 0;
+	margin: -10px -20px 20px;
 	padding: 20px;
 	border: none;
  	font-family: Karla, sans-serif;
  	font-weight: bolder;
-	width: 100%;
+	width: 810px;
 }

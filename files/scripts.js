@@ -214,8 +214,15 @@ window.onload = function () {
     };
     a[index].style.background = color;
 
+
     if (document.cookie.indexOf("deck") >= 0) {
-      $('.whileediting').each(function () {$(this).attr("style", "display:inline;")});
+      var deckid = $.cookie("deck");
+      var currentdeck = $('[name = "deckid"]').val();
+      if (deckid == currentdeck) {
+        $('.whileediting').each(function () {$(this).attr("style", "display:inline;")});
+      } else {
+        $('.deckedit input').attr("readonly", "true");
+      }
     } else {
       $('.deckedit input').attr("readonly", "true");
     }
