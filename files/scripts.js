@@ -241,7 +241,7 @@ window.onload = function () {
   $('[name="deckname"]').change( function() {
     var name = $(this).val();
     var deckid = $.cookie("deck");
-    httpGetAsync('set-deck-name?deckId='+ deckid +'&deckName='+name);
+    httpGetAsync('/set-deck-name?deckId='+ deckid +'&deckName='+name);
   });
 };
 
