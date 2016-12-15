@@ -287,5 +287,6 @@ function deleteDeck() {
 
 function editDeck() {
   var currentdeck = $('[name = "deckid"]').val();
-  httpGetAsync('/edit-deck/'+ currentdeck);
+  console.log(currentdeck)
+  window.location.href = '/edit-deck/'+ currentdeck
 }
