@@ -373,7 +373,7 @@ a {
 			margin: 0 auto;
 		}
 		#smallmenu,.add, .button, h1, input, #deckname, .whileediting {
-			display: none;
+			display: none !important;
 		}
 		.window,.content,.deckedit {
 			width: auto;
