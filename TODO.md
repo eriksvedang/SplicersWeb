@@ -30,7 +30,7 @@
 - [ ] Förslag på subtyper borde ändras när man skapar Biom (och länka till en lista med vanliga subtyper för biom?)
 - [ ] Ta bort menyn från regelsidan när man printar (mindre font också, så att det tar upp färre sidor att skriva ut)
 
-- [ ] Bioms har 0 i domination.
+- [x] Bioms har 0 i domination.
 - [ ] Vill kunna skriva flera rader text (med radbrytning) på regeltexten.
 - [ ] När man skapat ett kort vill man kunna skapa ett nytt direkt från nästa sida.
 - [ ] Vill kunna göra en ny version av ett existerande kort lätt.
