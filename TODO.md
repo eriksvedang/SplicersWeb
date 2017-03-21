@@ -14,7 +14,7 @@
 - [ ] inte kunna lägga till kort av samma namn om man inte är den som skapat kortet
 - [ ] expand funktion för keywords
 - [ ] filtrera kort efter ability, gener, typ
-- [ ] design guidelines
+- [ ] Under "add new card"-formuläret: "design guidelines" och svar på vanliga frågor när man designar kort
 - [ ] Objectives i rules
 - [ ] Glitch med kort (är denna löst?)
 - [ ] Kortsidan: Text med "Select cards for your deck"
@@ -27,3 +27,5 @@
 - [ ] Vit kant ovanför färgsegmentet (med titeln) på leksidan
 - [ ] Mer whitespace i höjdled på "create card"-sidan (svårt att se vilka rubriker som hör till inputfälten)
 - [ ] Borde beskriva alla vanliga subtyper som finns (just nu är det bara två exempel på "create card"-sidan). Med länk till reglerna kring subtypes.
+- [ ] Förslag på subtyper borde ändras när man skapar Biom (och länka till en lista med vanliga subtyper för biom?)
+- [ ] Ta bort menyn från regelsidan när man printar
