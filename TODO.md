@@ -38,3 +38,6 @@
 - [ ] Räknare som visar antal kort i leken.
 - [ ] Ska subtyp skrivas ut på Splicers / Events ? Iaf inte om de är tomma.
 - [ ] Inte kunna skapa en ny version av någon annans kort?
+- [ ] Kortmängd syns inte på Splicer.
+- [ ] "no deck to edit" borde vara länk till sina lekar
+- [ ] Korten hamnar mitt emellan sidor när man skriver ut en hel lek.
