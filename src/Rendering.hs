@@ -19,7 +19,6 @@ css name = link_ [rel_ "stylesheet", type_ "text/css", href_ name]
 allCSS :: Html ()
 allCSS = do (css "/files/styles.css")
             (css "/files/card.css")
-            (css "http://fonts.googleapis.com/css?family=Karla:400,700,400italic,700italic")
 
 renderPage :: Maybe Deck -> Html () -> Html ()
 renderPage activeDeck body = do head_ $ do

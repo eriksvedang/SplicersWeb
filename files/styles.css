@@ -1,4 +1,19 @@
-body { font-family: Karla, sans-serif;
+@font-face {
+font-family: KarlaRegular;
+src: url('Karla-Regular.ttf');
+}
+
+@font-face {
+font-family: KarlaItalic;
+src: url('Karla-Italic.ttf');
+}
+
+@font-face {
+font-family: KarlaBold;
+src: url('Karla-Bold.ttf');
+}
+
+body { font-family: KarlaRegular, sans-serif;
 	padding-top: 40px;
 	margin-top: 0;
 	margin-right: 0;
@@ -206,7 +221,7 @@ article {
 	transition-duration: 0.2s;
 	position: relative;
 	top: 0;
-	font-weight: bold;
+	font-family: KarlaBold;
 }
 
 #smallmenu a:hover {
@@ -231,7 +246,7 @@ article {
 	transition-duration: 0.2s;
 	position: relative;
 	bottom: 0;
-	font-weight: bold;
+	font-family: KarlaBold;
 }
 
 #menu a:hover {
@@ -249,7 +264,7 @@ article {
 	padding: 5px 10px;
 	text-decoration: none;
 	text-transform: lowercase;
-	font-weight: bold;
+	font-family: KarlaBold;
 	background-color: white;
 	z-index: 6;
 	transition-duration: 0.2s;
@@ -345,7 +360,7 @@ article {
 
 .add {
 	text-align: center;
-	font: 25px Karla;
+	font: 25px;
 	opacity: 1;
 	background-color: rgba(255, 255, 255, 0);
 	width: 218px;
@@ -357,7 +372,7 @@ article {
 	overflow: hidden;
 	transition-duration: 0.5s;
 	border: 3px solid black;
-	font-weight: bolder;
+	font-family: KarlaBold;
 }
 
 .add span {
@@ -400,8 +415,7 @@ h3 {
 	margin: -10px 0 20px;
 	padding: 20px;
 	border: none;
- 	font-family: Karla, sans-serif;
- 	font-weight: bolder;
+ 	font-family: KarlaBold, sans-serif;
  	background: none;
 	width: 500px;
 }

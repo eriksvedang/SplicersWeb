@@ -5,11 +5,11 @@ body {
 }
 
 b {
-	font-weight: bolder;
+	font-family: KarlaBold;
 }
 
 .card {
-	font-family: Karla;
+	font-family: KarlaRegular, sans-serif;
 	width: 224px;
 	height: 308px;
 	background: white;
@@ -35,7 +35,7 @@ b {
 
 
 .title {
-	font-weight: bolder;
+	font-family: KarlaBold;
 	font-size: 18px;
 	margin-left: 13px;
 	margin-bottom: 4px;
@@ -74,7 +74,7 @@ b {
 	left: 1px;
 }
 .types {
-	font-weight: bolder;
+	font-family: KarlaBold;
 	text-transform: uppercase;
 	font-size: 12px; /* 9/0.75 */
 	width: 200px;
@@ -305,7 +305,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	margin-top: 6px;
 	margin-right: 14px;
 	font-size: 24px; /* 18/0.75 */
-	font-weight: bold;
+	font-family: KarlaBold;
 	padding-left: 22px;
 	background: url(/files/carddraw.png) 0 3px no-repeat;
 	background-size: 22px;
@@ -352,7 +352,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 }
 
 .flavor {
-    font-style: italic;
+    font-family: KarlaItalic;
     color: #bbb;
 }
 
