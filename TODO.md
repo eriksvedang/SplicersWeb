@@ -29,3 +29,12 @@
 - [ ] Borde beskriva alla vanliga subtyper som finns (just nu är det bara två exempel på "create card"-sidan). Med länk till reglerna kring subtypes.
 - [ ] Förslag på subtyper borde ändras när man skapar Biom (och länka till en lista med vanliga subtyper för biom?)
 - [ ] Ta bort menyn från regelsidan när man printar (mindre font också, så att det tar upp färre sidor att skriva ut)
+
+- [ ] Bioms har 0 i domination.
+- [ ] Vill kunna skriva flera rader text (med radbrytning) på regeltexten.
+- [ ] När man skapat ett kort vill man kunna skapa ett nytt direkt från nästa sida.
+- [ ] Vill kunna göra en ny version av ett existerande kort lätt.
+- [ ] Filtrera på "mina kort".
+- [ ] Räknare som visar antal kort i leken.
+- [ ] Ska subtyp skrivas ut på Splicers / Events ? Iaf inte om de är tomma.
+- [ ] Inte kunna skapa en ny version av någon annans kort?
