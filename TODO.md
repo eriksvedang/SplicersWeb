@@ -5,23 +5,25 @@
 - [x] inte kunna submitta kort utan titel
 - [x] stöd för alla gener
 - [x] Text på förstasidan
-- [ ] comments
+- [x] länkar i user page går till start, inte rätt kort
+- [x] Filter cards-rutan ska vara dold som default
+- [x] Leksidan: Start editing-knapp
+- [x] Spelarsidan: Ta bort edit-knappen
+- [ ] comments (på kort?)
 - [ ] kan submitta kort även om man inte är authensierad, /submit-card checkar inte auth
 - [ ] inte kunna lägga till kort av samma namn om man inte är den som skapat kortet
 - [ ] expand funktion för keywords
 - [ ] filtrera kort efter ability, gener, typ
 - [ ] design guidelines
-- [x] länkar i user page går till start, inte rätt kort
 - [ ] Objectives i rules
-- [x] Filter cards-rutan ska vara dold som default
 - [ ] Glitch med kort (är denna löst?)
 - [ ] Kortsidan: Text med "Select cards for your deck"
 - [ ] Spelarsidan: Snyggare lista med deck och card
-- [x] Leksidan: Start editing-knapp
-- [x] Spelarsidan: Ta bort edit-knappen
 - [ ] Gör delete-knappen för lekar på spelarsidan till ett litet kryss.
 - [ ] Konfirmering (i javascript) för att ta bort lek (dialogruta?)
 - [ ] Om man tar bort en lek så tas man till spelarsidan, men man måste refresh:a för att leken ska försvinna
 - [ ] Delete-knappen på leksidan har ... i titeln men det är ingen konfirmering.
 - [ ] editing: <lektitel> gör lekens titel till lowercase, vilket kan vara irriterande om man kallat sin lek något som ser bra ut med uppercase
-- [ ] 
+- [ ] Vit kant ovanför färgsegmentet (med titeln) på leksidan
+- [ ] Mer whitespace i höjdled på "create card"-sidan (svårt att se vilka rubriker som hör till inputfälten)
+- [ ] Borde beskriva alla vanliga subtyper som finns (just nu är det bara två exempel på "create card"-sidan). Med länk till reglerna kring subtypes.
