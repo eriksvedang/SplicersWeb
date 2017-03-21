@@ -372,10 +372,10 @@ a {
 			background: none;
 			margin: 0 auto;
 		}
-		#smallmenu,.add, .button, h1, input {
+		#smallmenu,.add, .button, h1, input, #deckname, .whileediting {
 			display: none;
 		}
-		.window,.content {
+		.window,.content,.deckedit {
 			width: auto;
 			height: auto;
 			min-width: auto;
@@ -384,8 +384,9 @@ a {
 			max-height: auto;
 			margin: auto;
 			background: none;
+			box-shadow: none;
 		}
-    .card {
+    .card, .card:hover, .cardLink {
 	    border-radius: 0;
 	    margin: 0 0 -1px -1px;
 			border: 1px dashed gray;

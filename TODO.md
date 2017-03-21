@@ -11,12 +11,11 @@
 - [ ] expand funktion för keywords
 - [ ] filtrera kort efter ability, gener, typ
 - [ ] design guidelines
-- [ ] länkar i user page går till start, inte rätt kort
-
+- [x] länkar i user page går till start, inte rätt kort
 - [ ] Objectives i rules
-- [ ] Filter cards-rutan ska vara dold som default
+- [x] Filter cards-rutan ska vara dold som default
 - [ ] Glitch med kort
 - [ ] Kortsidan: Text med "Select cards for your deck"
 - [ ] Spelarsidan: Snyggare lista med deck och card
-- [ ] Leksidan: Start editing-knapp
-- [ ] Spelarsidan: Ta bort edit-knappen
+- [x] Leksidan: Start editing-knapp
+- [x] Spelarsidan: Ta bort edit-knappen
