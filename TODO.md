@@ -28,4 +28,4 @@
 - [ ] Mer whitespace i höjdled på "create card"-sidan (svårt att se vilka rubriker som hör till inputfälten)
 - [ ] Borde beskriva alla vanliga subtyper som finns (just nu är det bara två exempel på "create card"-sidan). Med länk till reglerna kring subtypes.
 - [ ] Förslag på subtyper borde ändras när man skapar Biom (och länka till en lista med vanliga subtyper för biom?)
-- [ ] Ta bort menyn från regelsidan när man printar
+- [ ] Ta bort menyn från regelsidan när man printar (mindre font också, så att det tar upp färre sidor att skriva ut)
