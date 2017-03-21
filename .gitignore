@@ -10,3 +10,5 @@ add-card.html
 cards.html
 
 *.html
+
+setenv.sh~
