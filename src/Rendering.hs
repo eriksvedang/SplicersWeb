@@ -96,7 +96,7 @@ renderCard cardMode card =
 
 illustrationDiv :: Card -> Html ()
 illustrationDiv card =
-  div_ [class_ "illustration randomcolor"] $ do
+  div_ [class_ "illustration"] $ do
     img_ [src_ (illustration card)]
 
 typesDiv :: Text -> Text -> Html ()
@@ -305,7 +305,7 @@ renderDeckPage activeDeck deck cards = do
 renderPrintDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
 renderPrintDeckPage activeDeck deck cards = do
   renderPage activeDeck $ do
-        script_ "document.getElementsByTagName('link')[0].disabled = true;"
+        script_ "document.getElementsByTagName('link')[0].disabled = true; $('.randomcolor').css('background-color', 'none');"
         case activeDeck of
           Just deck -> mapM_ (renderCard NoLink) cards
           Nothing -> mapM_ (renderCard NoLink) cards
