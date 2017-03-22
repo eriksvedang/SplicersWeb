@@ -1,17 +1,4 @@
-@font-face {
-font-family: KarlaRegular;
-src: url('Karla-Regular.ttf');
-}
 
-@font-face {
-font-family: KarlaItalic;
-src: url('Karla-Italic.ttf');
-}
-
-@font-face {
-font-family: KarlaBold;
-src: url('Karla-Bold.ttf');
-}
 
 body { font-family: KarlaRegular, sans-serif;
 	padding-top: 40px;

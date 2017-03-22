@@ -280,35 +280,35 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
         a_ [href_ "/add-card", class_ "button"] "Create a new card"
         a_ [href_ "/logout", class_ "button"] "Log out"
 
-renderDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
-renderDeckPage activeDeck deck cards = do
-  renderPage activeDeck $ do
-    div_ [class_ "window"] $ do
-      div_ [class_ "content deckedit"] $ do
-        div_ [class_ "randomcolor", style_ "margin-left: -20px; margin-right: -20px;"] $ do
-          a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish editing"
-          a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit this deck"
-          a_ [class_ "button",  href_ "#", target_ "new"] "Print this deck"
-          a_ [class_ "button",  href_ "#", onclick_ "deleteDeck()"] "Delete..."
-          input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
-
-        input_ [name_ "deckid", style_ "display:none", value_ ((pack . show . deckId) deck), readonly_ ""]
-        span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing. Click a card to remove it from your deck. Click the title to change it. ")
-
-        a_ [class_ "whileediting", style_ "display:none;", href_ "/cards"] $ do
-                                                                     div_ [class_ "add"] $ do
-                                                                       span_ [] (toHtml "Add more cards to deck")
-        case activeDeck of
-          Just deck -> mapM_ (renderCard InDeckSelection) cards
-          Nothing -> mapM_ (renderCard AsLink) cards
-
 -- renderDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
 -- renderDeckPage activeDeck deck cards = do
 --   renderPage activeDeck $ do
---         script_ "document.getElementsByTagName('link')[0].disabled = true;"
+--     div_ [class_ "window"] $ do
+--       div_ [class_ "content deckedit"] $ do
+--         div_ [class_ "randomcolor", style_ "margin-left: -20px; margin-right: -20px;"] $ do
+--           a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish editing"
+--           a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit this deck"
+--           a_ [class_ "button",  href_ "#", target_ "new"] "Print this deck"
+--           a_ [class_ "button",  href_ "#", onclick_ "deleteDeck()"] "Delete..."
+--           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
+--
+--         input_ [name_ "deckid", style_ "display:none", value_ ((pack . show . deckId) deck), readonly_ ""]
+--         span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing. Click a card to remove it from your deck. Click the title to change it. ")
+--
+--         a_ [class_ "whileediting", style_ "display:none;", href_ "/cards"] $ do
+--                                                                      div_ [class_ "add"] $ do
+--                                                                        span_ [] (toHtml "Add more cards to deck")
 --         case activeDeck of
---           Just deck -> mapM_ (renderCard NoLink) cards
---           Nothing -> mapM_ (renderCard NoLink) cards
+--           Just deck -> mapM_ (renderCard InDeckSelection) cards
+--           Nothing -> mapM_ (renderCard AsLink) cards
+
+renderDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
+renderDeckPage activeDeck deck cards = do
+  renderPage activeDeck $ do
+        script_ "document.getElementsByTagName('link')[0].disabled = true;"
+        case activeDeck of
+          Just deck -> mapM_ (renderCard NoLink) cards
+          Nothing -> mapM_ (renderCard NoLink) cards
 
 renderNoSuchDeckPage :: Maybe Deck -> Html ()
 renderNoSuchDeckPage activeDeck = do
