@@ -398,6 +398,12 @@ article {
 h2 {
 	margin: 0;
 	padding: 10px 20px;
+font-weight: normal;
+}
+
+h4 {
+		font-weight: normal;
+		font-family: KarlaBold;
 }
 
 h1 {
@@ -408,6 +414,7 @@ h1 {
 
 h3 {
 	margin-bottom: 3px;
+font-weight: normal;
 }
 
 #deckname {
