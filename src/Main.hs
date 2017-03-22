@@ -42,6 +42,7 @@ main = do
     get "player" $                 userPageRoute
     get "user" $                   userPageRoute
     get ("deck" <//> var) $        deckRoute
+    get ("print" <//> var) $       printDeckRoute
     get ("edit-deck" <//> var) $   editDeckRoute
     get "set-deck-name" $          setDeckNameRoute
     get "new-deck" $               newDeckRoute
@@ -206,6 +207,18 @@ deckRoute deckId = do
   activeDeck <- getActiveDeck
   case deck of
     (Just deck) -> lucidToSpock $ renderDeckPage activeDeck deck cards
+    Nothing -> lucidToSpock $ renderNoSuchDeckPage activeDeck
+
+-- TODO: clean up this, it's just a copy of 'deckRoute' with one change!
+printDeckRoute :: Text -> Route
+printDeckRoute deckId = do
+  let deckIdAsInt = ((read . unpack) deckId)
+  deck <- liftIO $ getDeck deckIdAsInt
+  cardTitles <- liftIO $ getCardsInDeck deckIdAsInt
+  cards <- liftIO $ mapM getNewestCardWithTitle cardTitles
+  activeDeck <- getActiveDeck
+  case deck of
+    (Just deck) -> lucidToSpock $ renderPrintDeckPage activeDeck deck cards
     Nothing -> lucidToSpock $ renderNoSuchDeckPage activeDeck
 
 editDeckRoute :: Text -> Route
