@@ -288,6 +288,7 @@ renderDeckPage activeDeck deck cards = do
         div_ [class_ "randomcolor", style_ "margin-left: -20px; margin-right: -20px;"] $ do
           a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish editing"
           a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit this deck"
+          a_ [class_ "button",  href_ "#", target_ "new"] "Print this deck"
           a_ [class_ "button",  href_ "#", onclick_ "deleteDeck()"] "Delete..."
           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
 
@@ -300,6 +301,14 @@ renderDeckPage activeDeck deck cards = do
         case activeDeck of
           Just deck -> mapM_ (renderCard InDeckSelection) cards
           Nothing -> mapM_ (renderCard AsLink) cards
+
+-- renderDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
+-- renderDeckPage activeDeck deck cards = do
+--   renderPage activeDeck $ do
+--         script_ "document.getElementsByTagName('link')[0].disabled = true;"
+--         case activeDeck of
+--           Just deck -> mapM_ (renderCard NoLink) cards
+--           Nothing -> mapM_ (renderCard NoLink) cards
 
 renderNoSuchDeckPage :: Maybe Deck -> Html ()
 renderNoSuchDeckPage activeDeck = do
