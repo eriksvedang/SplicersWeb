@@ -116,11 +116,11 @@ submitCardRoute = withAuthImproved "/add-card" $ do
   flavor <- paramOrDefault "flavor" ""
   designer <- paramOrDefault "designer" "unknown"
   illustration <- paramOrDefault "illustration" ""
-  let card = mkCard title
+  let card = mkCard (T.strip title)
                     rules
                     (read domination)
                     cardType
-                    subType
+                    (T.strip subType)
                     gene1
                     gene2
                     (read startMatter)
