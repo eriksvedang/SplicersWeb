@@ -46,7 +46,7 @@ mkCard title rules dominance cardType subType gene1 gene2 startMatter startCards
   "Ting" -> mkTing title rules dominance subType gene1 gene2 flavor designer illustration
   "Event" -> mkEvent title rules subType flavor designer illustration
   "Biom" -> mkBiom title rules dominance subType flavor designer illustration
-  "Mutation" -> mkMutation title rules subType flavor designer illustration
+  "Mutation" -> mkMutation title rules subType gene1 gene2 flavor designer illustration
   "Splicer" -> mkSplicer title rules subType startMatter startCards flavor designer illustration
   _ -> error $ unpack ("Unknown card type '" <> cardType <> "'")
 
@@ -109,14 +109,14 @@ mkBiom title rules domination subType flavor designer illustration =
        , illustration = illustration
        }
 
-mkMutation title rules subType flavor designer illustration =
+mkMutation title rules subType gene1 gene2 flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = 0
        , cardType = Mutation
        , subType = subType
-       , gene1 = NoGene
-       , gene2 = NoGene
+       , gene1 = textToGene gene1
+       , gene2 = textToGene gene2
        , startMatter = 0
        , startCards = 0
        , flavor = flavor
