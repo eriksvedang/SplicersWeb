@@ -223,12 +223,12 @@ renderAddCard activeDeck copiedCard username =
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ (toHtml "Create a card")
-        form_ [action_ "submit-card"] $ do
+        form_ [action_ "/submit-card"] $ do
           span_ (toHtml "Select a card type: ")
           
           select_ [name_ "cardType"] $ do
             let cardTypeText = (pack . show . cardType $ copiedCard)
-            option_ [value_ cardTypeText, selected_ "", hidden_ ""] (toHtml cardTypeText)
+            option_ [value_ cardTypeText, selected_ "", hidden_ "", disabled_ ""] (toHtml cardTypeText)
             option_ [value_ "Ting"] (toHtml "Ting")
             option_ [value_ "Biom"] (toHtml "Biom")
             option_ [value_ "Event"] (toHtml "Event")
@@ -246,7 +246,7 @@ renderAddCard activeDeck copiedCard username =
             select_ [name_ "gene1"] $ do
               let geneText = (pack . show . gene1 $ copiedCard)
               option_ [value_ geneText , selected_ "", hidden_ ""] (toHtml geneText)
-              option_ [value_ "NoGene"] (toHtml "Empty")
+              option_ [value_ "NoGene"] (toHtml "NoGene")
               option_ [value_ "Air"] (toHtml "Air")
               option_ [value_ "Artificial"] (toHtml "Artificial")
               option_ [value_ "Bug"] (toHtml "Bug")
@@ -257,7 +257,9 @@ renderAddCard activeDeck copiedCard username =
               option_ [value_ "Sinister"] (toHtml "Sinister")
               option_ [value_ "Land"] (toHtml "Land")
             select_ [name_ "gene2"] $ do
-              option_ [value_ "NoGene"] (toHtml "Empty")
+              let geneText = (pack . show . gene2 $ copiedCard)
+              option_ [value_ geneText , selected_ "", hidden_ ""] (toHtml geneText)
+              option_ [value_ "NoGene"] (toHtml "NoGene")
               option_ [value_ "Air"] (toHtml "Air")
               option_ [value_ "Artificial"] (toHtml "Artificial")
               option_ [value_ "Bug"] (toHtml "Bug")
@@ -282,8 +284,13 @@ renderAddCard activeDeck copiedCard username =
 renderSubmittedCard :: Maybe Deck -> Text -> Html ()
 renderSubmittedCard activeDeck title =
   renderPage activeDeck $ do
-    p_ $ toHtml $ "The card " <> title <> " was added!"
-    a_ [href_ "/cards"] "Cards"
+    div_ [class_ "window"] $ do 
+      div_ [class_ "content"] $ do
+        p_ $ span_ [] $ do (toHtml "The card ")
+                           a_ [href_ ("/card/" <> title)] (toHtml title)
+                           (toHtml " was added. Thank you!")
+        a_ [href_ "/cards", class_ "button"] "See all cards"
+        a_ [href_ "/add-card", class_ "button"] "Add another card"
 
 renderAddFakeData :: Maybe Deck -> Html ()
 renderAddFakeData activeDeck = do

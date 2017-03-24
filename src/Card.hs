@@ -38,7 +38,6 @@ data Gene = Sinister
           | Mini
           | Other Text
           | NoGene
-            deriving (Show)
 
 mkCard ::  Text -> Text -> Int -> Text -> Text -> Text -> Text -> Int -> Int -> Text -> Text -> Text -> Card
 mkCard title rules dominance cardType subType gene1 gene2 startMatter startCards flavor designer illustration =
@@ -62,7 +61,22 @@ textToGene geneText =
   "Air" -> Air
   "Fungi" -> Fungi
   "Mini" -> Mini
-  x -> Other x
+  "NoGene" -> NoGene
+  "Empty" -> NoGene
+  x -> NoGene --Other x
+
+instance Show Gene where
+  show Sinister = "Sinister"
+  show Artificial = "Artificial"
+  show Nautic = "Nautic"
+  show Plant = "Plant"
+  show Bug = "Bug"
+  show Land = "Land"
+  show Air = "Air"
+  show Fungi = "Fungi"
+  show Mini = "Mini"
+  show NoGene = "NoGene"
+  show (Other x) = show x
 
 mkTing title rules dominance subType gene1 gene2 flavor designer illustration =
   Card { title = title
