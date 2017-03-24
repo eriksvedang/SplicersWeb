@@ -88,6 +88,8 @@ li {
 .window .card {
 	float: none;
 	text-align: left;
+	transform: scale(1.5);
+	margin: 65px;
 }
 
 .window .biom .gene1,.window .biom .gene2 {
@@ -117,9 +119,12 @@ li {
 .inputField {
 	padding: 10px 20px;
 	margin: 0 -20px;
-	background-color: white;
 	border-bottom: 1px solid gray;
 	display: block;
+}
+
+.inputField:hover {
+	background: white;
 }
 
 form {
