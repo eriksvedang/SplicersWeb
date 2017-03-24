@@ -124,16 +124,16 @@ window.onload = function () {
       $('[name="cost"]').parent().css( "display", "none" );
       $('[name="startMatter"]').parent().css( "display", "none" );
       $('[name="startCards"]').parent().css( "display", "none" );
-      $('[name="domination"]').parent().css( "display", "inline" );
-      $('[name="gene1"]').parent().css( "display", "inline" );
-      $('[name="gene2"]').parent().css( "display", "inline" );
+      $('[name="domination"]').parent().css( "display", "block" );
+      $('[name="gene1"]').parent().css( "display", "block" );
+      $('[name="gene2"]').parent().css( "display", "block" );
       $('[name="designer"]').css( "display", "none" );
     }
     if (cardtype.val() == 'Biom') {
       $('[name="cost"]').parent().css( "display", "none" );
       $('[name="startMatter"]').parent().css( "display", "none" );
       $('[name="startCards"]').parent().css( "display", "none" );
-      $('[name="domination"]').parent().css( "display", "inline" );
+      $('[name="domination"]').parent().css( "display", "block" );
       $('[name="gene1"]').parent().css( "display", "none" );
       $('[name="gene2"]').parent().css( "display", "none" );
       $('[name="designer"]').css( "display", "none" );
@@ -143,8 +143,8 @@ window.onload = function () {
       $('[name="startMatter"]').parent().css( "display", "none" );
       $('[name="startCards"]').parent().css( "display", "none" );
       $('[name="domination"]').parent().css( "display", "none" );
-      $('[name="gene1"]').parent().css( "display", "inline" );
-      $('[name="gene2"]').parent().css( "display", "inline" );
+      $('[name="gene1"]').parent().css( "display", "block" );
+      $('[name="gene2"]').parent().css( "display", "block" );
       $('[name="designer"]').css( "display", "none" );
     }
     if (cardtype.val() == 'Mutation') {
@@ -152,14 +152,14 @@ window.onload = function () {
       $('[name="startMatter"]').parent().css( "display", "none" );
       $('[name="startCards"]').parent().css( "display", "none" );
       $('[name="domination"]').parent().css( "display", "none" );
-      $('[name="gene1"]').parent().css( "display", "inline" );
-      $('[name="gene2"]').parent().css( "display", "inline" );
+      $('[name="gene1"]').parent().css( "display", "block" );
+      $('[name="gene2"]').parent().css( "display", "block" );
       $('[name="designer"]').css( "display", "none" );
     }
     if (cardtype.val() == 'Splicer') {
       $('[name="cost"]').parent().css( "display", "none" );
       $('[name="startMatter"]').parent().css( "display", "none" );
-      $('[name="startCards"]').parent().css( "display", "inline" );
+      $('[name="startCards"]').parent().css( "display", "block" );
       $('[name="domination"]').parent().css( "display", "none" );
       $('[name="gene1"]').parent().css( "display", "none" );
       $('[name="gene2"]').parent().css( "display", "none" );

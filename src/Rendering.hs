@@ -197,23 +197,19 @@ renderSplicer card =
 
 field :: Text -> Text -> Text -> Text -> Text -> Html ()
 field name heading helpText inputType defaultValue =
-  div_ $ do span_ (toHtml heading)
-            i_ (toHtml helpText)
-            br_ []
-            input_ [ type_ inputType
-                   , name_ name
-                   , value_ defaultValue
-                   ]
-
-            br_ []
+  div_ [class_ "inputField"] $ do
+    span_ (toHtml heading)
+    a_ [href_ "#"] (toHtml "?")
+    br_ []
+    input_ [ type_ inputType, name_ name, value_ defaultValue]
 
 textarea :: Text -> Text -> Text -> Text -> Html ()
 textarea name heading helpText defaultValue =
-  div_ $ do span_ (toHtml heading)
-            i_ (toHtml helpText)
-            br_ []
-            textarea_[ name_ name, rows_ "5"] $ do toHtml defaultValue
-            br_ []
+  div_ [class_ "inputField"] $ do
+    span_ (toHtml heading)
+    a_ [href_ "#"] (toHtml "?")
+    br_ []
+    textarea_[ name_ name, rows_ "5"] $ do toHtml defaultValue
 
 
 renderAddCard :: Maybe Deck -> Card -> Text -> Html ()
@@ -221,27 +217,27 @@ renderAddCard activeDeck copiedCard username =
   renderPage activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
-        h1_ (toHtml "Create a card")
+        h1_ [class_ "randomcolor"] (toHtml "Create a card")
         form_ [action_ "/submit-card"] $ do
-          span_ (toHtml "Select a card type: ")
+          div_ [class_ "inputField"] $ do
+            span_ [style_ "white-space: pre;"] (toHtml "Select a card type: ")
 
-          select_ [name_ "cardType"] $ do
-            let cardTypeText = (pack . show . cardType $ copiedCard)
-            option_ [value_ cardTypeText, selected_ "", hidden_ ""] (toHtml cardTypeText)
-            option_ [value_ "Ting"] (toHtml "Ting")
-            option_ [value_ "Biom"] (toHtml "Biom")
-            option_ [value_ "Event"] (toHtml "Event")
-            option_ [value_ "Mutation"] (toHtml "Mutation")
-            option_ [value_ "Splicer"] (toHtml "Splicer")
+            select_ [name_ "cardType"] $ do
+              let cardTypeText = (pack . show . cardType $ copiedCard)
+              option_ [value_ cardTypeText, selected_ "", hidden_ ""] (toHtml cardTypeText)
+              option_ [value_ "Ting"] (toHtml "Ting")
+              option_ [value_ "Biom"] (toHtml "Biom")
+              option_ [value_ "Event"] (toHtml "Event")
+              option_ [value_ "Mutation"] (toHtml "Mutation")
+              option_ [value_ "Splicer"] (toHtml "Splicer")
 
-          br_ []
-          br_ []
           field "title" "Title" "" "text" (title copiedCard)
           field "subType" "Subtype" " (i.e. Animal, Plant...)" "text" (subType copiedCard)
           field "domination" "Dominance" " (0-10)" "number" ((pack . show) (dominance copiedCard))
 
-          div_ [id_ "genes"] $ do
+          div_ [id_ "genes", class_ "inputField"] $ do
             span_ (toHtml "Select genes: ")
+            br_ []
             select_ [name_ "gene1"] $ do
               let geneText = (pack . show . gene1 $ copiedCard)
               option_ [value_ geneText , selected_ "", hidden_ ""] (toHtml geneText)
@@ -268,7 +264,7 @@ renderAddCard activeDeck copiedCard username =
               option_ [value_ "Nautic"] (toHtml "Nautic")
               option_ [value_ "Sinister"] (toHtml "Sinister")
               option_ [value_ "Land"] (toHtml "Land")
-          br_ []
+
           field "startCards" "Cards" " (The number of cards you start with)" "number" ((pack . show . startCards) copiedCard)
           textarea "rules" "Rule text" " (example: @: Roam)" (rules copiedCard)
           textarea "flavor" "Flavour text" "" (flavor copiedCard)
@@ -279,6 +275,9 @@ renderAddCard activeDeck copiedCard username =
       div_ [class_ "preview randomcolor"] $ do
         renderCard NoLink copiedCard
 
+    div_ [class_ "window"] $ do
+      div_ [class_ "content"] $ do
+        a_ [name_ "subtype"] "learn more"
 
 renderSubmittedCard :: Maybe Deck -> Text -> Html ()
 renderSubmittedCard activeDeck title =

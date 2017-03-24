@@ -114,18 +114,47 @@ li {
 }
 /* @end */
 
-form {
-	text-align: right;
-	width: 300px;
+.inputField {
+	padding: 10px 20px;
+	margin: 0 -20px;
+	background-color: white;
+	border-bottom: 1px solid gray;
+	display: block;
 }
 
-form input, form select {
+form {
+	width: 350px;
+}
+
+form input {
 	margin-bottom: 2px;
 	margin-top: 2px;
+	font-size: 1em ;
+	width: 100%;
+	font-family: KarlaRegular;
+	background: none;
+	border-style: none;
+	border-bottom: 2px solid black;
+}
+
+form select {
+	margin: 2px;
+	font-size: 1em ;
+	width: 48%;
+	font-family: KarlaRegular;
+	background: none;
+}
+
+form textarea {
+	font-family: KarlaRegular;
+	border-radius: 5px;
+	font-size: 14px;
+	width: 100%;
 }
 
 form span {
 	float: left;
+	font-family: KarlaBold;
 }
 
 #page {
