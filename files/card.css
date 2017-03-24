@@ -143,6 +143,16 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	transition-duration: 0.5s;
 }
 
+textarea {
+	resize: none;
+	font-family: KarlaRegular;
+	border: none;
+	font-size: 14px;
+	background: none;
+	color: black;
+	margin: 0;
+}
+
 .mutation .title {
 	transform: rotate (90deg);
 	-webkit-transform: rotate(90deg);
@@ -176,6 +186,10 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 .mutation .ability {
 	margin-left: 15px;
 	width: 170px;
+}
+
+.mutation textarea {
+		width: 140px;
 }
 
 .event .title {

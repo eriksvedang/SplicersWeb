@@ -84,7 +84,7 @@ window.onload = function () {
 
   var cardrules = $('[name="rules"]');
   function replaceInlineSymbol () {
-    $(".ability span").each(function () {
+    $(".ability textarea").each(function () {
       if ($(this).children().length == 0) {
         var newHTML = $(this).html()
         newHTML = $(this).html().replace(/\[air]/g , '<img src="/files/gen_air.png" class="inlinesymbol"/>');
@@ -102,8 +102,9 @@ window.onload = function () {
   }
   replaceInlineSymbol( )
 
+  var cardrules = $('[name="rules"]');
   cardrules.bind('input', function() {
-    $(".ability span").html(cardrules.val());
+    $(".rules").html(cardrules.val());
     replaceInlineSymbol( )
   });
 
