@@ -118,7 +118,7 @@ typesDivWithDomination cardType subType dominance = do
               _ -> " - " <> subType
 
 flavorText :: Card -> Html ()
-flavorText card = textarea_ [rows_ "1", readonly_ "", class_ "flavor"] $ toHtml (flavor card)
+flavorText card = span_ [class_ "flavor"] $ toHtml (flavor card)
 
 renderTing :: Card -> Html ()
 renderTing card =
@@ -129,7 +129,8 @@ renderTing card =
        div_ [class_ "ability"] $ do
          div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
          div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
-         textarea_ [rows_ "5", readonly_ "", class_ "rules"] $ toHtml (rules card)
+         span_ [class_ "rules"] $ toHtml (rules card)
+         br_ []
          flavorText card
 
 renderEvent :: Card -> Html ()
@@ -141,7 +142,8 @@ renderEvent card =
        div_ [class_ "ability"] $ do
          div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
          div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
-         textarea_ [rows_ "5", readonly_ "", class_ "rules"] $ toHtml (rules card)
+         span_ [class_ "rules"] $ toHtml (rules card)
+         br_ []
          flavorText card
 
 renderBiom :: Card -> Html ()
@@ -151,7 +153,7 @@ renderBiom card =
        illustrationDiv card
        typesDivWithDomination "biom" (subType card) (dominance card)
        div_ [class_ "ability"] $ do
-         textarea_ [rows_ "2", readonly_ "", class_ "rules"] $ toHtml (rules card)
+         span_ [class_ "rules"] $ toHtml (rules card)
          --flavorText card
 
 renderMutation :: Card -> Html ()
@@ -163,7 +165,8 @@ renderMutation card =
        div_ [class_ "ability"] $ do
          div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
          div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
-         textarea_ [rows_ "5", readonly_ "", class_ "rules"] $ toHtml (rules card)
+         span_ [class_ "rules"] $ toHtml (rules card)
+         br_ []
          flavorText card
 
 renderSplicer :: Card -> Html ()
@@ -175,7 +178,8 @@ renderSplicer card =
        illustrationDiv card
        typesDiv "splicer" (subType card)
        div_ [class_ "ability"] $ do
-         textarea_ [rows_ "5", readonly_ "", class_ "rules"] $ toHtml (rules card)
+         span_ [class_ "rules"] $ toHtml (rules card)
+         br_ []
          flavorText card
 
 field :: Text -> Text -> Text -> Text -> Text -> Html ()
