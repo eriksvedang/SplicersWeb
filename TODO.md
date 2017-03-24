@@ -9,9 +9,20 @@
 - [x] Filter cards-rutan ska vara dold som default
 - [x] Leksidan: Start editing-knapp
 - [x] Spelarsidan: Ta bort edit-knappen
+- [x] inte kunna lägga till kort av samma namn om man inte är den som skapat kortet
+- [x] Konfirmering (i javascript) för att ta bort lek (dialogruta?)
+- [x] Om man tar bort en lek så tas man till spelarsidan, men man måste refresh:a för att leken ska försvinna
+- [x] Delete-knappen på leksidan har ... i titeln men det är ingen konfirmering.
+- [x] editing: <lektitel> gör lekens titel till lowercase, vilket kan vara irriterande om man kallat sin lek något som ser bra ut med uppercase
+- [x] Vit kant ovanför färgsegmentet (med titeln) på leksidan
+- [x] Bioms har 0 i domination.
+- [x] Vill kunna skriva flera rader text (med radbrytning) på regeltexten.
+- [x] När man skapat ett kort vill man kunna skapa ett nytt direkt från nästa sida.
+- [x] Vill kunna göra en ny version av ett existerande kort lätt.
+- [x] Inte kunna skapa en ny version av någon annans kort?
+- [x] Korten hamnar mitt emellan sidor när man skriver ut en hel lek.
 - [ ] comments (på kort?)
 - [ ] kan submitta kort även om man inte är authensierad, /submit-card checkar inte auth
-- [x] inte kunna lägga till kort av samma namn om man inte är den som skapat kortet
 - [ ] expand funktion för keywords
 - [ ] filtrera kort efter ability, gener, typ
 - [ ] Under "add new card"-formuläret: "design guidelines" och svar på vanliga frågor när man designar kort
@@ -20,26 +31,20 @@
 - [ ] Kortsidan: Text med "Select cards for your deck"
 - [ ] Spelarsidan: Snyggare lista med deck och card
 - [ ] Gör delete-knappen för lekar på spelarsidan till ett litet kryss.
-- [x] Konfirmering (i javascript) för att ta bort lek (dialogruta?)
-- [x] Om man tar bort en lek så tas man till spelarsidan, men man måste refresh:a för att leken ska försvinna
-- [x] Delete-knappen på leksidan har ... i titeln men det är ingen konfirmering.
-- [x] editing: <lektitel> gör lekens titel till lowercase, vilket kan vara irriterande om man kallat sin lek något som ser bra ut med uppercase
-- [x] Vit kant ovanför färgsegmentet (med titeln) på leksidan
 - [ ] Mer whitespace i höjdled på "create card"-sidan (svårt att se vilka rubriker som hör till inputfälten)
 - [ ] Borde beskriva alla vanliga subtyper som finns (just nu är det bara två exempel på "create card"-sidan). Med länk till reglerna kring subtypes.
 - [ ] Förslag på subtyper borde ändras när man skapar Biom (och länka till en lista med vanliga subtyper för biom?)
 - [ ] Ta bort menyn från regelsidan när man printar (mindre font också, så att det tar upp färre sidor att skriva ut)
-
-- [x] Bioms har 0 i domination.
-- [x] Vill kunna skriva flera rader text (med radbrytning) på regeltexten.
-- [x] När man skapat ett kort vill man kunna skapa ett nytt direkt från nästa sida.
-- [x] Vill kunna göra en ny version av ett existerande kort lätt.
 - [ ] Filtrera på "mina kort".
 - [ ] Räknare som visar antal kort i leken.
 - [ ] Ska subtyp skrivas ut på Splicers / Events ? Iaf inte om de är tomma.
-- [x] Inte kunna skapa en ny version av någon annans kort?
 - [ ] Kortmängd syns inte på Splicer. —detta är för att exempelkortet saknar carddraw-ruta. likaså har kort som editas enbart de rutor som krävs för den korttypen!
 - [ ] "no deck to edit" borde vara länk till sina lekar
-- [x] Korten hamnar mitt emellan sidor när man skriver ut en hel lek.
 - [ ] Länk tillbaka till login-sidan när man loggats ut.
-- [ ]
+- [ ] En ikon (kvadratisk) till olika situationer när det behövs (twitter, discord, github, etc.)
+- [ ] Visa inte alla versioner av ett kort när man går in på /card
+- [ ] Visa att/vem som är inloggad när man är inloggad?
+- [ ] Vänstermarginal på Player-sidan är för liten (Firefox)
+- [ ] Kort är alldeles för stora på /deck när man tryckt "Edit"!!!
+- [ ] Textfältet för regler på kortet overflowar åt höger istället för att radbryta (Firefox).
+- [ ] 
