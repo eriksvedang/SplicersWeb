@@ -253,7 +253,7 @@ window.onload = function () {
     httpGetAsync('/set-deck-name?deckId='+ deckid +'&deckName='+name);
   });
 
-
+  dynamicForm()
 };
 
 function getCurrentFileName(){
