@@ -25,7 +25,7 @@ b {
 
 .card {
 	font-family: KarlaRegular, sans-serif;
-	width: 224px;
+	width: 220px;
 	height: 308px;
 	background: white;
 	border-radius: 8px;
@@ -145,17 +145,9 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 
 .rules {
 	white-space: pre;
+	word-wrap: break-word;
 }
 
-textarea {
-	resize: none;
-	font-family: KarlaRegular;
-	border: none;
-	font-size: 14px;
-	background: none;
-	color: black;
-	margin: 0;
-}
 
 .mutation .title {
 	transform: rotate (90deg);
@@ -349,7 +341,7 @@ textarea {
 
 
 .biom {
-	height: 224px;
+	height: 220px;
 	width: 308px;
 	text-align: left;
 }
@@ -427,14 +419,15 @@ a {
 			box-shadow: none;
 			page-break-inside: avoid;
 			float: left;
+			position: static;
 		}
 		.biom {
 			transform: rotate(90deg);
 			position: relative;
-			top: 42px;
-			right: 42px;
-			margin-right: -84px;
-			margin-bottom: 80px;
+			top: 44px;
+			right: 44px;
+			margin-right: -88px;
+			margin-bottom: 87px;
 		}
 }
 
