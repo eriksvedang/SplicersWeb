@@ -47,7 +47,7 @@ mkCard title rules dominance cardType subType gene1 gene2 startMatter startCards
   "Biom" -> mkBiom title rules dominance subType flavor designer illustration
   "Mutation" -> mkMutation title rules subType gene1 gene2 flavor designer illustration
   "Splicer" -> mkSplicer title rules subType startMatter startCards flavor designer illustration
-  _ -> error $ unpack ("Unknown card type '" <> cardType <> "'")
+  _ -> error $ unpack ("Error in mkCard, unknown card type '" <> cardType <> "'")
 
 textToGene :: Text -> Gene
 textToGene geneText =

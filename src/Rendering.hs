@@ -227,7 +227,7 @@ renderAddCard activeDeck copiedCard username =
 
           select_ [name_ "cardType"] $ do
             let cardTypeText = (pack . show . cardType $ copiedCard)
-            option_ [value_ cardTypeText, selected_ "", hidden_ "", disabled_ ""] (toHtml cardTypeText)
+            option_ [value_ cardTypeText, selected_ "", hidden_ ""] (toHtml cardTypeText)
             option_ [value_ "Ting"] (toHtml "Ting")
             option_ [value_ "Biom"] (toHtml "Biom")
             option_ [value_ "Event"] (toHtml "Event")
