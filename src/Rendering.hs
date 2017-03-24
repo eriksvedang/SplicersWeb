@@ -69,7 +69,6 @@ renderSingleCardPage activeDeck title cards =
       div_ [class_ "content"] $ do
         h1_ [] (toHtml title)
         span_ [] (toHtml $ "Designed by " <> (designer (head cards)))
-        a_ [href_ "/cards"] "Cards"
         let card = head cards
         a_ [href_ ("/add-card/?title=" <> title
                    <> "&rules=" <> (rules card)
@@ -83,7 +82,7 @@ renderSingleCardPage activeDeck title cards =
                    <> "&rules=" <> (rules card)
                    <> "&flavor=" <> (flavor card)
                    <> "&designer=" <> (designer card)
-                  )] "Edit"
+                  ), class_ "button"] "Edit"
       div_ [class_ "preview randomcolor"] $ do
         mapM_ (\card -> p_ [] (renderCard NoLink card)) cards
 
@@ -225,7 +224,7 @@ renderAddCard activeDeck copiedCard username =
         h1_ (toHtml "Create a card")
         form_ [action_ "/submit-card"] $ do
           span_ (toHtml "Select a card type: ")
-          
+
           select_ [name_ "cardType"] $ do
             let cardTypeText = (pack . show . cardType $ copiedCard)
             option_ [value_ cardTypeText, selected_ "", hidden_ "", disabled_ ""] (toHtml cardTypeText)
@@ -240,7 +239,7 @@ renderAddCard activeDeck copiedCard username =
           field "title" "Title" "" "text" (title copiedCard)
           field "subType" "Subtype" " (i.e. Animal, Plant...)" "text" (subType copiedCard)
           field "domination" "Dominance" " (0-10)" "number" ((pack . show) (dominance copiedCard))
-          
+
           div_ [id_ "genes"] $ do
             span_ (toHtml "Select genes: ")
             select_ [name_ "gene1"] $ do
@@ -269,7 +268,7 @@ renderAddCard activeDeck copiedCard username =
               option_ [value_ "Nautic"] (toHtml "Nautic")
               option_ [value_ "Sinister"] (toHtml "Sinister")
               option_ [value_ "Land"] (toHtml "Land")
-          br_ []         
+          br_ []
           field "startCards" "Cards" " (The number of cards you start with)" "number" ((pack . show . startCards) copiedCard)
           textarea "rules" "Rule text" " (example: @: Roam)" (rules copiedCard)
           textarea "flavor" "Flavour text" "" (flavor copiedCard)
@@ -307,7 +306,7 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
         mapM_ (\(deck) -> li_ $ do a_ [href_ $ pack ("/deck/" ++ show (deckId deck))] (toHtml $ deckName deck)
                                    span_ [] (toHtml " ")
                                    -- a_ [href_ $ T.append "/edit-deck/" ((pack . show . deckId) deck)] (toHtml "Edit")
-                                   a_ [href_ $ T.append "/delete-deck?deckId=" ((pack . show . deckId) deck)] (toHtml "Delete"))
+                                   a_ [ onclick_ ("deleteDeck(" <> (pack . show) (deckId deck) <> ")") ] (toHtml "Delete"))
           myDecks
 
         h3_ "Cards by me"
@@ -326,7 +325,7 @@ renderDeckPage activeDeck deck cards = do
           a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish editing"
           a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit this deck"
           a_ [class_ "button",  href_ $ pack ("/print/" ++ show (deckId deck)), target_ "new"] "Print this deck"
-          a_ [class_ "button",  href_ "#", onclick_ "deleteDeck()"] "Delete..."
+          a_ [class_ "button",   onclick_ ("deleteDeck(" <> ((pack . show . deckId) deck) <> ")")] "Delete..."
           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
 
         input_ [name_ "deckid", style_ "display:none", value_ ((pack . show . deckId) deck), readonly_ ""]

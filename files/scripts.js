@@ -292,11 +292,11 @@ function removeCookie() {
   location.reload();
 }
 
-function deleteDeck() {
-  var deckid = $.cookie("deck");
-  httpGetAsync('/delete-deck?deckId='+ deckid);
-  $.removeCookie('deck', { path: '/' });
-  window.location.href = '/player';
+function deleteDeck(deckid) {
+  if (confirm("Are you sure you want to delete this deck?") == true) {
+    $.removeCookie('deck', { path: '/' });
+    window.location = '/delete-deck?deckId='+ deckid;
+  }
 }
 
 function editDeck() {
