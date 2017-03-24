@@ -89,10 +89,35 @@ singleCardRoute title = do
   activeDeck <- getActiveDeck
   lucidToSpock (renderSingleCardPage activeDeck title cards)
 
+-- This is just for rendering the page for creating cards, NOT adding them to the DB.
 addCardRoute :: Route
 addCardRoute = do
   activeDeck <- getActiveDeck
-  withAuth (renderAddCard activeDeck) "add-card"
+  cardTitle <- paramOrDefault "title" "untitled"
+  rules <- paramOrDefault "rules" ""
+  domination <- paramOrDefault "domination" "0"
+  cardType <- paramOrDefault "cardType" "Ting"
+  subType <- paramOrDefault "subType" ""
+  gene1 <- paramOrDefault "gene1" ""
+  gene2 <- paramOrDefault "gene2" ""
+  startMatter <- paramOrDefault "startMatter" "0"
+  startCards <- paramOrDefault "startCards" "0"
+  flavor <- paramOrDefault "flavor" ""
+  theDesigner <- paramOrDefault "designer" "unknown"
+  illustration <- paramOrDefault "illustration" ""
+  let copiedCard  = mkCard (T.strip cardTitle)
+                         rules
+                         (read domination)
+                         cardType
+                         (T.strip subType)
+                         gene1
+                         gene2
+                         (read startMatter)
+                         (read startCards)
+                         flavor
+                         theDesigner
+                         illustration
+  withAuth (renderAddCard activeDeck copiedCard) "add-card"
 
 paramOrDefault :: (PathPiece p, MonadIO m) => Text -> p -> ActionT m p
 paramOrDefault name defaultValue = do

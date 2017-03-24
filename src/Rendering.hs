@@ -70,7 +70,20 @@ renderSingleCardPage activeDeck title cards =
         h1_ [] (toHtml title)
         span_ [] (toHtml $ "Designed by " <> (designer (head cards)))
         a_ [href_ "/cards"] "Cards"
-        a_ [href_ ("/add-card/" <> title)] "Edit"
+        let card = head cards
+        a_ [href_ ("/add-card/?title=" <> title
+                   <> "&rules=" <> (rules card)
+                   <> "&domination=" <> (pack . show . dominance $ card)
+                   <> "&cardType=" <> (pack . show . cardType $ card)
+                   <> "&subType=" <> (subType card)
+                   <> "&gene1=" <> (pack . show . gene1 $ card)
+                   <> "&gene2=" <> (pack . show . gene2 $ card)
+                   <> "&illustration=" <> (illustration card)
+                   <> "&startCards=" <> (pack . show . startCards $ card)
+                   <> "&rules=" <> (rules card)
+                   <> "&flavor=" <> (flavor card)
+                   <> "&designer=" <> (designer card)
+                  )] "Edit"
       div_ [class_ "preview randomcolor"] $ do
         mapM_ (\card -> p_ [] (renderCard NoLink card)) cards
 
@@ -200,19 +213,22 @@ textarea name heading helpText defaultValue =
   div_ $ do span_ (toHtml heading)
             i_ (toHtml helpText)
             br_ []
-            textarea_[ name_ name, rows_ "5"] $ do toHtml ""
+            textarea_[ name_ name, rows_ "5"] $ do toHtml defaultValue
             br_ []
 
 
-renderAddCard :: Maybe Deck -> Text -> Html ()
-renderAddCard activeDeck username =
+renderAddCard :: Maybe Deck -> Card -> Text -> Html ()
+renderAddCard activeDeck copiedCard username =
   renderPage activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ (toHtml "Create a card")
         form_ [action_ "submit-card"] $ do
           span_ (toHtml "Select a card type: ")
+          
           select_ [name_ "cardType"] $ do
+            let cardTypeText = (pack . show . cardType $ copiedCard)
+            option_ [value_ cardTypeText, selected_ "", hidden_ ""] (toHtml cardTypeText)
             option_ [value_ "Ting"] (toHtml "Ting")
             option_ [value_ "Biom"] (toHtml "Biom")
             option_ [value_ "Event"] (toHtml "Event")
@@ -221,13 +237,15 @@ renderAddCard activeDeck username =
 
           br_ []
           br_ []
-          field "title" "Title" "" "text" ""
-          field "subType" "Subtype" " (i.e. Animal, Plant...)" "text" ""
-          field "domination" "Dominance" " (0-10)" "number" "0"
-          field "cost" "cost" "" "number" "0"
+          field "title" "Title" "" "text" (title copiedCard)
+          field "subType" "Subtype" " (i.e. Animal, Plant...)" "text" (subType copiedCard)
+          field "domination" "Dominance" " (0-10)" "number" ((pack . show) (dominance copiedCard))
+          
           div_ [id_ "genes"] $ do
             span_ (toHtml "Select genes: ")
             select_ [name_ "gene1"] $ do
+              let geneText = (pack . show . gene1 $ copiedCard)
+              option_ [value_ geneText , selected_ "", hidden_ ""] (toHtml geneText)
               option_ [value_ "NoGene"] (toHtml "Empty")
               option_ [value_ "Air"] (toHtml "Air")
               option_ [value_ "Artificial"] (toHtml "Artificial")
@@ -249,17 +267,16 @@ renderAddCard activeDeck username =
               option_ [value_ "Nautic"] (toHtml "Nautic")
               option_ [value_ "Sinister"] (toHtml "Sinister")
               option_ [value_ "Land"] (toHtml "Land")
-          br_ []
-          field "startMatter" """" "number" "4"
-          field "startCards" "Cards" " (The number of cards you start with)" "number" "4"
-          textarea "rules" "Rule text" " (example: @: Roam)" ""
-          textarea "flavor" "Flavour text" "" ""
+          br_ []         
+          field "startCards" "Cards" " (The number of cards you start with)" "number" ((pack . show . startCards) copiedCard)
+          textarea "rules" "Rule text" " (example: @: Roam)" (rules copiedCard)
+          textarea "flavor" "Flavour text" "" (flavor copiedCard)
           input_ [type_ "text", name_ "designer", value_ username, readonly_ ""]
-          field "illustration" "Image" " (URL)" "text" ""
+          field "illustration" "Image" " (URL)" "text" (illustration copiedCard)
           br_ []
           input_ [class_ "button", type_ "submit", value_ "Submit"]
       div_ [class_ "preview randomcolor"] $ do
-        renderCard NoLink (Card "title" "rules" 0 Ting "type" NoGene NoGene 4 4 "" username "")
+        renderCard NoLink copiedCard
 
 
 renderSubmittedCard :: Maybe Deck -> Text -> Html ()
