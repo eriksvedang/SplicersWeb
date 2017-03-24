@@ -41,3 +41,5 @@
 - [ ] Kortmängd syns inte på Splicer.
 - [ ] "no deck to edit" borde vara länk till sina lekar
 - [ ] Korten hamnar mitt emellan sidor när man skriver ut en hel lek.
+- [ ] Länk tillbaka till login-sidan när man loggats ut.
+- [ ] 

@@ -70,6 +70,7 @@ renderSingleCardPage activeDeck title cards =
         h1_ [] (toHtml title)
         span_ [] (toHtml $ "Designed by " <> (designer (head cards)))
         a_ [href_ "/cards"] "Cards"
+        a_ [href_ ("/add-card/" <> title)] "Edit"
       div_ [class_ "preview randomcolor"] $ do
         mapM_ (\card -> p_ [] (renderCard NoLink card)) cards
 
