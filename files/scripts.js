@@ -222,6 +222,7 @@ window.onload = function () {
       if (deckid == currentdeck) {
         $('.notediting').each(function () {$(this).attr("style", "display:none;")})
         $('.whileediting').each(function () {$(this).attr("style", "display:inline;")});
+        $('.deckedit input').attr("id", "decknameEdit");
       } else {
         $('.deckedit input').attr("readonly", "true");
       }

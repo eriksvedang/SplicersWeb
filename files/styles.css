@@ -204,7 +204,6 @@ article {
 	display: inline-block;
 	padding: 5px 10px;
 	text-decoration: none;
-	text-transform: lowercase;
 	transition-duration: 0.2s;
 	position: relative;
 	top: 0;
@@ -229,7 +228,6 @@ article {
 	display: inline-block;
 	padding: 5px 10px;
 	text-decoration: none;
-	text-transform: lowercase;
 	transition-duration: 0.2s;
 	position: relative;
 	bottom: 0;
@@ -250,7 +248,6 @@ article {
 	display: inline-block;
 	padding: 5px 10px;
 	text-decoration: none;
-	text-transform: lowercase;
 	font-family: KarlaBold;
 	background-color: white;
 	z-index: 6;
@@ -413,6 +410,19 @@ font-weight: normal;
  	font-family: KarlaBold, sans-serif;
  	background: none;
 	width: 500px;
+}
+
+#decknameEdit {
+	display: block;
+	font-size: 2em;
+	margin: -10px 0 20px;
+	padding: 20px;
+	border: none;
+		font-family: KarlaBold, sans-serif;
+		background: none;
+	width: 500px;
+	text-decoration: underline;
+	background: white;
 }
 
 .deckedit .button {

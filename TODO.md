@@ -23,8 +23,8 @@
 - [x] Konfirmering (i javascript) för att ta bort lek (dialogruta?)
 - [x] Om man tar bort en lek så tas man till spelarsidan, men man måste refresh:a för att leken ska försvinna
 - [x] Delete-knappen på leksidan har ... i titeln men det är ingen konfirmering.
-- [ ] editing: <lektitel> gör lekens titel till lowercase, vilket kan vara irriterande om man kallat sin lek något som ser bra ut med uppercase
-- [ ] Vit kant ovanför färgsegmentet (med titeln) på leksidan
+- [x] editing: <lektitel> gör lekens titel till lowercase, vilket kan vara irriterande om man kallat sin lek något som ser bra ut med uppercase
+- [x] Vit kant ovanför färgsegmentet (med titeln) på leksidan
 - [ ] Mer whitespace i höjdled på "create card"-sidan (svårt att se vilka rubriker som hör till inputfälten)
 - [ ] Borde beskriva alla vanliga subtyper som finns (just nu är det bara två exempel på "create card"-sidan). Med länk till reglerna kring subtypes.
 - [ ] Förslag på subtyper borde ändras när man skapar Biom (och länka till en lista med vanliga subtyper för biom?)
@@ -38,8 +38,8 @@
 - [ ] Räknare som visar antal kort i leken.
 - [ ] Ska subtyp skrivas ut på Splicers / Events ? Iaf inte om de är tomma.
 - [x] Inte kunna skapa en ny version av någon annans kort?
-- [ ] Kortmängd syns inte på Splicer.
+- [ ] Kortmängd syns inte på Splicer. —detta är för att exempelkortet saknar carddraw-ruta. likaså har kort som editas enbart de rutor som krävs för den korttypen!
 - [ ] "no deck to edit" borde vara länk till sina lekar
 - [x] Korten hamnar mitt emellan sidor när man skriver ut en hel lek.
 - [ ] Länk tillbaka till login-sidan när man loggats ut.
-- [ ] 
+- [ ]

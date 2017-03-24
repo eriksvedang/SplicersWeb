@@ -283,7 +283,7 @@ renderAddCard activeDeck copiedCard username =
 renderSubmittedCard :: Maybe Deck -> Text -> Html ()
 renderSubmittedCard activeDeck title =
   renderPage activeDeck $ do
-    div_ [class_ "window"] $ do 
+    div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         p_ $ span_ [] $ do (toHtml "The card ")
                            a_ [href_ ("/card/" <> title)] (toHtml title)
@@ -300,21 +300,22 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
   renderPage activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
-        h1_ [class_ "randomcolor"] (toHtml username)
 
+        h1_ [class_ "randomcolor"] (toHtml username)
+        a_ [href_ "/new-deck", class_ "button"] "Create a new deck"
+        a_ [href_ "/add-card", class_ "button"] "Create a new card"
+        a_ [href_ "/logout", class_ "button"] "Log out"
         h3_ "Decks by me"
         mapM_ (\(deck) -> li_ $ do a_ [href_ $ pack ("/deck/" ++ show (deckId deck))] (toHtml $ deckName deck)
                                    span_ [] (toHtml " ")
                                    -- a_ [href_ $ T.append "/edit-deck/" ((pack . show . deckId) deck)] (toHtml "Edit")
-                                   a_ [ onclick_ ("deleteDeck(" <> (pack . show) (deckId deck) <> ")") ] (toHtml "Delete"))
+                                   a_ [ href_ "", onclick_ ("deleteDeck(" <> (pack . show) (deckId deck) <> ")"), class_ "button" ] (toHtml "Delete"))
           myDecks
 
         h3_ "Cards by me"
         mapM_ (\cardTitle -> li_ $ a_ [href_ $ pack ("/card/" ++ unpack cardTitle)] (toHtml cardTitle)) myCardTitles
 
-        a_ [href_ "/new-deck", class_ "button"] "Create a new deck"
-        a_ [href_ "/add-card", class_ "button"] "Create a new card"
-        a_ [href_ "/logout", class_ "button"] "Log out"
+
 
 renderDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
 renderDeckPage activeDeck deck cards = do
@@ -322,10 +323,10 @@ renderDeckPage activeDeck deck cards = do
     div_ [class_ "window"] $ do
       div_ [class_ "content deckedit"] $ do
         div_ [class_ "randomcolor", style_ "margin-left: -20px; margin-right: -20px;"] $ do
-          a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish editing"
-          a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit this deck"
-          a_ [class_ "button",  href_ $ pack ("/print/" ++ show (deckId deck)), target_ "new"] "Print this deck"
-          a_ [class_ "button",   onclick_ ("deleteDeck(" <> ((pack . show . deckId) deck) <> ")")] "Delete..."
+          a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish"
+          a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit"
+          a_ [class_ "button",  href_ $ pack ("/print/" ++ show (deckId deck)), target_ "new"] "Print"
+          a_ [class_ "notediting button", href_ "",  onclick_ ("deleteDeck(" <> ((pack . show . deckId) deck) <> ")")] "Delete"
           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
 
         input_ [name_ "deckid", style_ "display:none", value_ ((pack . show . deckId) deck), readonly_ ""]
@@ -345,7 +346,7 @@ renderPrintDeckPage activeDeck deck cards = do
         case activeDeck of
           Just deck -> mapM_ (renderCard NoLink) cards
           Nothing -> mapM_ (renderCard NoLink) cards
-
+        script_ "window.print();"
 renderNoSuchDeckPage :: Maybe Deck -> Html ()
 renderNoSuchDeckPage activeDeck = do
   renderPage activeDeck $ do
