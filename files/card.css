@@ -143,6 +143,10 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	transition-duration: 0.5s;
 }
 
+.rules {
+	white-space: pre;
+}
+
 textarea {
 	resize: none;
 	font-family: KarlaRegular;
@@ -383,6 +387,7 @@ textarea {
 .flavor {
     font-family: KarlaItalic;
     color: #bbb;
+    white-space: pre;
 }
 
 a {
