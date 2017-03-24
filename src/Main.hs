@@ -104,7 +104,7 @@ paramOrDefault name defaultValue = do
 submitCardRoute :: Route
 submitCardRoute = withAuthImproved "/add-card" $ do
   activeDeck <- getActiveDeck
-  title <- paramOrDefault "title" "untitled"
+  cardTitle <- paramOrDefault "title" "untitled"
   rules <- paramOrDefault "rules" ""
   domination <- paramOrDefault "domination" "0"
   cardType <- paramOrDefault "cardType" ""
@@ -114,24 +114,31 @@ submitCardRoute = withAuthImproved "/add-card" $ do
   startMatter <- paramOrDefault "startMatter" "0"
   startCards <- paramOrDefault "startCards" "0"
   flavor <- paramOrDefault "flavor" ""
-  designer <- paramOrDefault "designer" "unknown"
+  theDesigner <- paramOrDefault "designer" "unknown"
   illustration <- paramOrDefault "illustration" ""
-  let card = mkCard (T.strip title)
-                    rules
-                    (read domination)
-                    cardType
-                    (T.strip subType)
-                    gene1
-                    gene2
-                    (read startMatter)
-                    (read startCards)
-                    flavor
-                    designer
-                    illustration
-  case verifyCard card of
-    Left msg -> lucidToSpock (renderError activeDeck msg)
-    Right _  -> do liftIO (addCard card)
-                   lucidToSpock (renderSubmittedCard activeDeck title)
+
+  previousVersions <- liftIO (getCardsWithTitle cardTitle)
+  let someoneElseOwnsThisCard = 0 < (length (filter (/= theDesigner) (map designer previousVersions)))
+
+  if someoneElseOwnsThisCard then
+    lucidToSpock (renderError activeDeck "Someone else owns this card (try using another title).")
+  else do
+    let card = mkCard (T.strip cardTitle)
+                      rules
+                      (read domination)
+                      cardType
+                      (T.strip subType)
+                      gene1
+                      gene2
+                      (read startMatter)
+                      (read startCards)
+                      flavor
+                      theDesigner
+                      illustration
+    case verifyCard card of
+      Left msg -> lucidToSpock (renderError activeDeck msg)
+      Right _  -> do liftIO (addCard card)
+                     lucidToSpock (renderSubmittedCard activeDeck cardTitle)
 
 addFakeDataRoute :: Route
 addFakeDataRoute = do
