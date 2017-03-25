@@ -48,4 +48,4 @@
 - [ ] Kort är alldeles för stora på /deck när man tryckt "Edit"!!!
 - [ ] Textfältet för regler på kortet overflowar åt höger istället för att radbryta (Firefox).
 - [ ] Kort "hoppar runt" när man drar musen över dem (Firefox)
-- [ ] 
+- [ ] Varje version av ett kort listas på /player -sidan
