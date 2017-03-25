@@ -22,6 +22,7 @@ allCSS = do (css "/files/styles.css")
 
 renderPage :: Maybe Deck -> Html () -> Html ()
 renderPage activeDeck body = do head_ $ do
+                                  (link_ [rel_ "icon", type_ "image/png", href_ "/files/favicon.png"])
                                   (script_ [src_ "/files/jquery.min.js"] "")
                                   (script_ [src_ "/files/scripts.js"] "")
                                   (script_ [src_ "https://cdn.rawgit.com/showdownjs/showdown/1.5.1/dist/showdown.min.js"] "")
@@ -30,7 +31,6 @@ renderPage activeDeck body = do head_ $ do
                                 body_ $ do
                                   renderSmallMenu activeDeck
                                   body
-
 
 renderFrontPage :: Maybe Deck -> Html ()
 renderFrontPage activeDeck = renderPage activeDeck $
