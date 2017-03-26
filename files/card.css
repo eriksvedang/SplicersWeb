@@ -19,8 +19,10 @@ body {
 	background-size: 1000px;
 }
 
-b {
+b, strong {
 	font-family: KarlaBold;
+	font-weight: normal;
+	font-style: normal;
 }
 
 .card {
@@ -141,11 +143,14 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	z-index: -10;
 	font-size: 14px;
 	transition-duration: 0.5s;
+	line-height: 15px;
 }
 
 .rules {
-	white-space: pre;
+	white-space: pre-wrap;
+	hyphens: auto;
 	word-wrap: break-word;
+
 }
 
 
@@ -379,7 +384,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 .flavor {
     font-family: KarlaItalic;
     color: #bbb;
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 a {

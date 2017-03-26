@@ -88,8 +88,6 @@ li {
 .window .card {
 	float: none;
 	text-align: left;
-	transform: scale(1.5);
-	margin: 65px;
 }
 
 .window .biom .gene1,.window .biom .gene2 {
@@ -433,6 +431,7 @@ h1 {
 h3 {
 	margin-bottom: 3px;
 font-weight: normal;
+font-family: KarlaBold;
 }
 
 #deckname {
