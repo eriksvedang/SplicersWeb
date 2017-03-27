@@ -451,7 +451,7 @@ renderMenu :: Html ()
 renderMenu = do
       div_ [id_ "logo", class_ "randomcolor"] $ do
         img_ [src_ "/files/logo.png", id_ "logobg"]
-        img_ [src_ "/files/logo_star.png", id_ "star"]
+        img_ [src_ "/files/logo_card.png", id_ "spinner"]
       h2_ [class_ "randomcolor"] "An open source collectible card game"
       div_ [id_ "menu"] $ do
         renderMenuItems

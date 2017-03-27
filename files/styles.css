@@ -188,7 +188,7 @@ form span {
 	from {transform: rotateY(0deg);}
 	to {transform: rotateY(359deg);}
 }
-#star {
+#spinner {
 	animation-name: spinning;
 	animation-duration: 20s;
 	animation-iteration-count: infinite;
@@ -197,9 +197,9 @@ form span {
 	position: relative;
 	height: auto;
 	float: right;
-	width: 9%;
-	right: 313px;
-	bottom: 129px;
+	width: 59px;
+	right: 308px;
+	bottom: 102px;
 	margin: 0;
 }
 
@@ -223,8 +223,8 @@ article {
 	width: -webkit-calc(100% - 40px);
 	width: -moz-calc(100% - 40px);
 	width: calc(100% - 40px);
-	background: url(logo_star.png) 7px 2px no-repeat black;
-	background-size: 25px;
+	background: url(logo_card.png) 10px 1px no-repeat black;
+	background-size: 20px;
 	-moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.23);
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.23);
 	z-index: 5;
