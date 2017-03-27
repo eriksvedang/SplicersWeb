@@ -16,7 +16,7 @@ src: url('Karla-Bold.ttf');
 body {
 	background: url(logobg.png) fixed #dadada;
 	background-position: center;
-	background-size: 1000px;
+	background-size: 200px;
 }
 
 b, strong {
