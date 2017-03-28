@@ -29,11 +29,11 @@
 ---
 
 ### Game Objective
-_add presentation text here_
+In this game you compete with another "Splicer" for control over a weird and ever-changing universe. By creating "Tings" - different life forms and other objects - you try to dominate bioms and thereby win the game. As an additional power you can also combine genes of your tings to get access to exactly the cards needed at the moment.
 
 #### End of game
 The game ends when a player dominates at least 3 biom cards at the end of a round.
-Alternitavely, if a player cannot draw a card at the start of a round, that round is the last one. At the end of the round, the player with the most dominated biom cards win the game. In case of a tie, the player with biggest sum of printed dominance value on dominated biom cards win the game.
+Alternatively, if a player cannot draw a card at the start of a round, that round is the last one. At the end of the final round, the player with the most dominated biom cards win the game. In case of a tie, the player with biggest sum of printed dominance value on dominated biom cards win the game.
 
 ### Set-up
 Each player does the following:
@@ -72,7 +72,7 @@ Tings represent different entities that inhabit the different Bioms. Tings have 
 - genes
 - ability text
 
-When playing ting cards, they are first placed face down. While a ting is face down, it is called a **seed**. A seed can later be turned face up, this is called “evolving”. While a ting is face up, it's dominance value is counted your total dominance value in that biom. Another way to bring a ting into play is to “splice” two tings, combining their genes to instantly play and evolve a ting from your deck.
+When playing ting cards, they are first placed face down. While a ting is face down, it is called a **seed**. A seed can later be turned face up, this is called “evolving”. While a ting is face up, it's dominance value is counted your total dominance value in that biom. Another way to bring a ting into play is to “splice” two tings, combining their genes to search for a card in your deck and put it into your hand.
 
 #### Mutation
 Mutations are cards that can be hosted on tings to alter them in different ways. Mutations have 4 areas:
@@ -137,8 +137,7 @@ Typically, the ability cost of cards are "@" which means that the card must be e
 #### Genes & Splicing
 Splicing is a way to bring cards into play without having them in your hand! Tings, mutations and events have gene-symbols that are used when splicing.
 
-To splice, choose two of your unexhausted tings in play and exhaust them. You may now search your deck for any card that share at least one gene symbol from each ting you exhausted. If you find such a card, you may play it immediately. If it is a ting, it is played already evolved but exhausted. If it is an event, you must show it to the opponent before playing it. Note: Normal event rules apply, meaning that when playing an event card you also pass and your turn immediately ends.
-When the splice action is done, shuffle your deck.
+To splice, choose two of your unexhausted tings in play and exhaust them. You may now search your deck for any card that share at least one gene symbol from each ting you exhausted. If you find such a card, you may put it into your hand immediately. When the splice action is done, shuffle your deck.
 
 #### Requirements
 Some tings and bioms have a requirement keyword (**req. [gene] / [type]**). If they do, the indicated requirement must be fulfilled for a ting to be in its biom. If the requirement is not fulfilled, the ting must be devolved. When a ting uses the roam ability, it may not move to a biom where a requirment isn't met. Tings may only require types (bioms have no genes) and bioms may only require genes.
