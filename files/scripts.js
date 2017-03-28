@@ -117,7 +117,7 @@ window.onload = function () {
       $(".flavor").html(cardflavor.val())
     });
 
-    var carddom = $('[name="domination"]');
+    var carddom = $('[name="dominance"]');
     carddom.bind('input', function() {
       $(".dominance span").html(carddom.val())
     });
@@ -125,50 +125,40 @@ window.onload = function () {
     var cardtype = $('[name="cardType"]');
     function dynamicForm () {
       if (cardtype.val() == 'Ting') {
-        $('[name="cost"]').parent().css( "display", "none" );
-        $('[name="startMatter"]').parent().css( "display", "none" );
-        $('[name="startCards"]').parent().css( "display", "none" );
-        $('[name="domination"]').parent().css( "display", "block" );
+        $('[name="startcards"]').parent().css( "display", "none" );
+        $('[name="dominance"]').parent().css( "display", "block" );
         $('[name="gene1"]').parent().css( "display", "block" );
         $('[name="gene2"]').parent().css( "display", "block" );
         $('[name="designer"]').css( "display", "none" );
         $('.carddraw').css("display", "none" );
       }
       if (cardtype.val() == 'Biom') {
-        $('[name="cost"]').parent().css( "display", "none" );
-        $('[name="startMatter"]').parent().css( "display", "none" );
-        $('[name="startCards"]').parent().css( "display", "none" );
-        $('[name="domination"]').parent().css( "display", "block" );
+        $('[name="startcards"]').parent().css( "display", "none" );
+        $('[name="dominance"]').parent().css( "display", "block" );
         $('[name="gene1"]').parent().css( "display", "none" );
         $('[name="gene2"]').parent().css( "display", "none" );
         $('[name="designer"]').css( "display", "none" );
         $('.carddraw').css("display", "none" );
       }
       if (cardtype.val() == 'Event') {
-        $('[name="cost"]').parent().css( "display", "none" );
-        $('[name="startMatter"]').parent().css( "display", "none" );
-        $('[name="startCards"]').parent().css( "display", "none" );
-        $('[name="domination"]').parent().css( "display", "none" );
+        $('[name="startcards"]').parent().css( "display", "none" );
+        $('[name="dominance"]').parent().css( "display", "none" );
         $('[name="gene1"]').parent().css( "display", "block" );
         $('[name="gene2"]').parent().css( "display", "block" );
         $('[name="designer"]').css( "display", "none" );
         $('.carddraw').css("display", "none" );
       }
       if (cardtype.val() == 'Mutation') {
-        $('[name="cost"]').parent().css( "display", "none" );
-        $('[name="startMatter"]').parent().css( "display", "none" );
-        $('[name="startCards"]').parent().css( "display", "none" );
-        $('[name="domination"]').parent().css( "display", "none" );
+        $('[name="startcards"]').parent().css( "display", "none" );
+        $('[name="dominance"]').parent().css( "display", "none" );
         $('[name="gene1"]').parent().css( "display", "block" );
         $('[name="gene2"]').parent().css( "display", "block" );
         $('[name="designer"]').css( "display", "none" );
         $('.carddraw').css("display", "none" );
       }
       if (cardtype.val() == 'Splicer') {
-        $('[name="cost"]').parent().css( "display", "none" );
-        $('[name="startMatter"]').parent().css( "display", "none" );
-        $('[name="startCards"]').parent().css( "display", "block" );
-        $('[name="domination"]').parent().css( "display", "none" );
+        $('[name="startcards"]').parent().css( "display", "block" );
+        $('[name="dominance"]').parent().css( "display", "none" );
         $('[name="gene1"]').parent().css( "display", "none" );
         $('[name="gene2"]').parent().css( "display", "none" );
         $('[name="designer"]').css( "display", "none" );
@@ -188,7 +178,7 @@ window.onload = function () {
       $(".card").attr("class","card " + cardtype.val())
     });
 
-    var cardsubtype = $('[name="subType"]');
+    var cardsubtype = $('[name="subtype"]');
     cardsubtype.bind('input', function() {
       $(".types span").html(cardtype.val() + " - " + cardsubtype.val())
       $(".dominance span").html(carddom.val())

@@ -263,7 +263,7 @@ field :: Text -> Text -> Text -> Text -> Text -> Html ()
 field name heading helpText inputType defaultValue =
   div_ [class_ "inputField"] $ do
     span_ (toHtml (heading <> " "))
-    a_ [href_ ("#" <> heading)] (toHtml "?")
+    a_ [href_ ("#" <> name)] (toHtml "?")
     br_ []
     input_ [ type_ inputType, name_ name, value_ defaultValue]
 
@@ -271,13 +271,13 @@ textarea :: Text -> Text -> Text -> Text -> Html ()
 textarea name heading helpText defaultValue =
   div_ [class_ "inputField"] $ do
     span_ (toHtml (heading <> " "))
-    a_ [href_ ("#" <> heading)] (toHtml "?")
+    a_ [href_ ("#" <> name)] (toHtml "?")
     br_ []
     textarea_[ name_ name, rows_ "5"] $ do toHtml defaultValue
 
 
 renderAddCard :: Maybe Deck -> Card -> Text -> Text -> Html ()
-renderAddCard activeDeck copiedCard username designGuidelines =
+renderAddCard activeDeck copiedCard designGuidelines username  =
   renderPage "Add Card" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
@@ -294,14 +294,14 @@ renderAddCard activeDeck copiedCard username designGuidelines =
               option_ [value_ "Event"] (toHtml "Event")
               option_ [value_ "Mutation"] (toHtml "Mutation")
               option_ [value_ "Splicer"] (toHtml "Splicer")
-            a_ [href_ "#CardTypes"] (toHtml "?")
+            a_ [href_ "#cardtypes"] (toHtml "?")
           field "title" "Title" "" "text" (title copiedCard)
-          field "subType" "Subtype" " (i.e. Animal, Plant...)" "text" (subType copiedCard)
-          field "domination" "Dominance" " (0-10)" "number" ((pack . show) (dominance copiedCard))
+          field "subtype" "Subtype" " (i.e. Animal, Plant...)" "text" (subType copiedCard)
+          field "dominance" "Dominance" " (0-10)" "number" ((pack . show) (dominance copiedCard))
 
           div_ [id_ "genes", class_ "inputField"] $ do
             span_ (toHtml "Select genes: ")
-            a_ [href_ "#CardTypes"] (toHtml "?")
+            a_ [href_ "#genes"] (toHtml "?")
             br_ []
             select_ [name_ "gene1"] $ do
               let geneText = (pack . show . gene1 $ copiedCard)
@@ -330,16 +330,16 @@ renderAddCard activeDeck copiedCard username designGuidelines =
               option_ [value_ "Sinister"] (toHtml "Sinister")
               option_ [value_ "Land"] (toHtml "Land")
 
-          field "startCards" "Cards" " (The number of cards you start with)" "number" ((pack . show . startCards) copiedCard)
-          textarea "rules" "Rule text" " (example: @: Roam)" (rules copiedCard)
+          field "startcards" "Start cards" " (The number of cards you start with)" "number" ((pack . show . startCards) copiedCard)
+          textarea "rules" "Ability text" " (example: @: Roam)" (rules copiedCard)
           textarea "flavor" "Flavour text" "" (flavor copiedCard)
           input_ [type_ "text", name_ "designer", value_ username, readonly_ ""]
-          field "illustration" "Image" " (URL)" "text" (illustration copiedCard)
+          field "illustration" "Illustration" " (URL)" "text" (illustration copiedCard)
           br_ []
           input_ [class_ "button", type_ "submit", value_ "Submit"]
       div_ [class_ "preview randomcolor"] $ do
         renderCard UnderConstruction (copiedCard { designer = username })
-
+    br_ []
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         article_ [class_ "markdown"] (toHtml designGuidelines)
