@@ -96,12 +96,9 @@ renderSingleCardPage activeDeck title cards =
       div_ [class_ "content"] $ do
         h1_ [] (toHtml title)
         span_ [] (toHtml $ "Designed by " <> (designer (head cards)))
-<<<<<<< HEAD
         br_ []
         a_ [href_ ("/add-card/?title=" <> title
-=======
         p_ $ a_ [href_ ("/add-card/?title=" <> title
->>>>>>> origin/master
                    <> "&rules=" <> (rules card)
                    <> "&domination=" <> (pack . show . dominance $ card)
                    <> "&cardType=" <> (pack . show . cardType $ card)
@@ -413,7 +410,7 @@ renderPrintDeckPage activeDeck deck cards = do
           Just deck -> mapM_ (renderCard NoLink) cards
           Nothing -> mapM_ (renderCard NoLink) cards
         script_ "window.print();"
-        
+
 renderNoSuchDeckPage :: Maybe Deck -> Html ()
 renderNoSuchDeckPage activeDeck = do
   renderPage "No such deck" activeDeck $ do
