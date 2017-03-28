@@ -14,6 +14,8 @@ import qualified Data.ByteString.Char8 as BS
 import Control.Monad (forM_)
 import System.Environment (lookupEnv)
 import Data.Text.Encoding
+import Crypto.BCrypt
+import Data.Monoid ((<>))
 
 import Card
 import Player
@@ -52,7 +54,7 @@ migrate = do
   cards <- getCards
   if (length cards) == 0 then addFakeData else return ()
 
-  execute_ conn "CREATE TABLE IF NOT EXISTS player (name VARCHAR(128) PRIMARY KEY, email VARCHAR(256), password VARCHAR(128));"
+  execute_ conn "CREATE TABLE IF NOT EXISTS player (name VARCHAR(128) PRIMARY KEY, email VARCHAR(256), password VARCHAR(128), salt VARCHAR(128));"
 
   players <- getPlayers
   if (length players) == 0 then addAdminPlayers else return ()
@@ -144,7 +146,7 @@ authorize :: Text -> Text -> IO (Maybe Text)
 authorize username password = do
   player <- getPlayer username
   case player of
-    Just player -> if playerPassword player == password then
+    Just player -> if verifyPassword password (playerSalt player) (playerPassword player) then
                      return $ Just "kanelbulle"
                    else
                      return Nothing
@@ -160,25 +162,37 @@ getSecret name = do
 -- Player
 
 instance FromRow Player where
-  fromRow = Player <$> field <*> field <*> field
+  fromRow = Player <$> field <*> field <*> field <*> field
 
 instance ToRow Player where
   toRow player = [ toField (playerName player)
                  , toField (playerEmail player)
-                 , toField (playerPassword player) ]
+                 , toField (playerPassword player)
+                 , toField (playerSalt player)]
 
 getPlayers :: IO [Player]
 getPlayers = do
   conn <- getConnection
-  players <- query_ conn "SELECT name, email, password FROM player;"
+  players <- query_ conn "SELECT name, email, password, salt FROM player;"
   return players
 
 getPlayer :: Text -> IO (Maybe Player)
 getPlayer name = do
   conn <- getConnection
-  players <- query conn "SELECT name, email, password FROM player WHERE name = ?;" (Only name)
+  players <- query conn "SELECT name, email, password, salt FROM player WHERE name = ?;" (Only name)
   if length players > 0 then return $ Just (head players)
   else return Nothing
+
+hashPlainPassword :: Text -> Text -> IO Text
+hashPlainPassword plainTextPass salt = do
+  x <- hashPasswordUsingPolicy fastBcryptHashingPolicy (encodeUtf8 (plainTextPass <> salt))
+  case x of
+    Just encrypted -> return (decodeUtf8 encrypted)
+    Nothing -> error "Failed to encrypt password."
+
+verifyPassword :: Text -> Text -> Text -> Bool
+verifyPassword plainTextPass salt passwordHash =
+  validatePassword (encodeUtf8 passwordHash) (encodeUtf8 (plainTextPass <> salt))
 
 addPlayer :: Player -> IO Bool
 addPlayer player = do
@@ -186,13 +200,13 @@ addPlayer player = do
   case existing of
     Just x -> return False
     Nothing -> do conn <- getConnection
-                  execute conn "INSERT INTO player VALUES (?, ?, ?)" player
+                  execute conn "INSERT INTO player VALUES (?, ?, ?, ?)" player
                   return True
 
 addAdminPlayers :: IO ()
 addAdminPlayers = do
-  addPlayer (Player "erik" "erik.svedang@gmail.com" "kaka")
-  addPlayer (Player "catnipped" "ossianboren@gmail.com" "hihi")
+  addPlayer (Player "erik" "erik.svedang@gmail.com" "kaka" "")
+  addPlayer (Player "catnipped" "ossianboren@gmail.com" "hihi" "")
   return ()
 
 

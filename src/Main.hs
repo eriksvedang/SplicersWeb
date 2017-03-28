@@ -11,6 +11,7 @@ import System.Environment (lookupEnv)
 import Data.Text (unpack, pack)
 import qualified Data.Text as T
 import Data.Text.Internal (Text)
+import Data.Text.Encoding 
 import Data.Text.Lazy (toStrict)
 import Data.Monoid ((<>))
 import Database
@@ -19,6 +20,7 @@ import Rendering
 import Lucid
 import Player
 import Deck
+import qualified Crypto.BCrypt as BC
 
 type Route = ActionT IO ()
 
@@ -181,7 +183,9 @@ submitSignupRoute = do
   Just username <- param "username"
   Just email    <- param "email"
   Just password <- param "password"
-  success <- liftIO $ addPlayer (Player username email password)
+  Just salt <- liftIO $ BC.genSaltUsingPolicy BC.fastBcryptHashingPolicy
+  hashed <- liftIO $ hashPlainPassword password (decodeUtf8 salt)
+  success <- liftIO $ addPlayer (Player username email hashed (decodeUtf8 salt))
   if success then do
     setCookie "username" username defaultCookieSettings
     redirect "/user"
@@ -209,7 +213,8 @@ submitLoginRoute = do
       setCookie "secret" secret defaultCookieSettings
       maybeNextPage <- param "next"
       case maybeNextPage of
-        Just nextPage -> redirect $ "" <> nextPage
+        Just nextPage | not ("" == nextPage) -> redirect $ nextPage
+                      | otherwise -> lucidToSpock $ renderSucceededToLogin activeDeck
         Nothing -> lucidToSpock $ renderSucceededToLogin activeDeck
     Nothing -> do
       lucidToSpock $ renderFailedToLogin activeDeck
