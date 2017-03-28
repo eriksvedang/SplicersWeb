@@ -99,7 +99,7 @@ renderSingleCardPage activeDeck title cards =
       let card = head cards
       div_ [class_ "content"] $ do
         h1_ [] (toHtml title)
-        span_ [] (toHtml $ "Designed by " <> (designer (head cards)))
+        span_ [] (toHtml $ "✏️  " <> (designer (head cards)))
         br_ []
         a_ [href_ ("/add-card/?title=" <> title
                    <> "&rules=" <> (rules card)
@@ -181,7 +181,7 @@ renderCardUnderConstruction card =
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
-       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "designer"] $ toHtml ("✏️ " <> (designer card))
        span_ [class_ "cardType"] (toHtml "ting")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 
@@ -197,7 +197,7 @@ renderTing card =
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
-       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "designer"] $ toHtml ("✏️ " <> (designer card))
        span_ [class_ "cardType"] (toHtml "ting")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 
@@ -213,7 +213,7 @@ renderEvent card =
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
-       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "designer"] $ toHtml ("✏️  " <> (designer card))
        span_ [class_ "cardType"] (toHtml "event")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 renderBiom :: Card -> Html ()
@@ -225,7 +225,7 @@ renderBiom card =
        div_ [class_ "ability"] $ do
          span_ [class_ "rules"] $ toHtml (rules card)
          --flavorText card
-       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "designer"] $ toHtml ("✏️  " <> (designer card))
        span_ [class_ "cardType"] (toHtml "biom")
 
 renderMutation :: Card -> Html ()
@@ -240,7 +240,7 @@ renderMutation card =
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
-       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "designer"] $ toHtml ("✏️  " <> (designer card))
        span_ [class_ "cardType"] (toHtml "mutation")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 
@@ -256,7 +256,7 @@ renderSplicer card =
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
-       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "designer"] $ toHtml ("✏️  " <> (designer card))
        span_ [class_ "cardType"] (toHtml "splicer")
 
 field :: Text -> Text -> Text -> Text -> Text -> Html ()

@@ -52,12 +52,12 @@ b, strong {
 
 .designer {
 	position: absolute;
-	color: rgb(255, 255, 255);
+	color: black;
 	font-size: 10px;
 	bottom: 0;
 	font-family: KarlaBold;
 	right: 0;
-	background-color: rgba(0, 0, 0, 0.19);
+	background-color: #dadada;
 	padding: 2px 6px 3px;
 	border-radius: 5px 0 0 0;
 }
