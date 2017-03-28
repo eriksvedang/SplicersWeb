@@ -53,7 +53,7 @@ renderFrontPage activeDeck = renderPage "Splicers" activeDeck $
              span_ " so you can play the game!"
            p_ $ do
              span_ "You can also check out our "
-             a_ [href_ "https://github.com/eriksvedang/splicers"] (toHtml " GitHub repository")
+             a_ [href_ "https://github.com/eriksvedang/SplicersWeb"] (toHtml " GitHub repository")
              span_ " with all the code for this website, or join the "
              a_ [href_ "https://discord.gg/jjmZCEJ"] (toHtml "#Splicers Discord channel")
              span_ "."
