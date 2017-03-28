@@ -23,6 +23,8 @@
 - [x] Korten hamnar mitt emellan sidor när man skriver ut en hel lek.
 - [x] Mer whitespace i höjdled på "create card"-sidan (svårt att se vilka rubriker som hör till inputfälten)
 - [x] Spelarsidan: Snyggare lista med deck och card
+- [x] kryptera lösenord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+- [x] Visa inte alla versioner av ett kort när man går in på /card
 - [ ] comments (på kort?)
 - [ ] kan submitta kort även om man inte är authensierad, /submit-card checkar inte auth
 - [ ] expand funktion för keywords
@@ -45,7 +47,4 @@
 - [ ] Kort är alldeles för stora på /deck när man tryckt "Edit"!!!
 - [ ] Textfältet för regler på kortet overflowar åt höger istället för att radbryta (Firefox).
 - [ ] Kort "hoppar runt" när man drar musen över dem (Firefox)
-
-- [ ] kryptera lösenord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 - [ ] Länk tillbaka till login-sidan när man loggats ut.
-- [ ] Visa inte alla versioner av ett kort när man går in på /card

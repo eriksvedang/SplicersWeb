@@ -21,6 +21,7 @@ import Lucid
 import Player
 import Deck
 import qualified Crypto.BCrypt as BC
+import Data.List (nub)
 
 type Route = ActionT IO ()
 
@@ -233,7 +234,7 @@ userPageRoute = do
   myCards <- liftIO $ getCardsByDesigner name
   myDecks <- liftIO $ getDecks name
   activeDeck <- getActiveDeck
-  withAuth (\username -> renderPlayerPage activeDeck username (fmap title myCards) myDecks) "user"
+  withAuth (\username -> renderPlayerPage activeDeck username (nub (fmap title myCards)) myDecks) "user"
 
 deckRoute :: Text -> Route
 deckRoute deckId = do
