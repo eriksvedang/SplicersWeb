@@ -29,16 +29,16 @@ Now, in turn order starting with the first player, each player may perform a mul
 
 ---
 
-### Ability text
+### Rules
 
 ---
 
-### Image
+### Flavor
 
 ---
 
-### Flavour
+### Illustration
 
 ---
 
-### Cards
+### Start Cards

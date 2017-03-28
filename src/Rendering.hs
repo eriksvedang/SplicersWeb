@@ -67,7 +67,7 @@ cornerWidget deckToEdit = do
       option_ [ value_ "cardType" ] (toHtml "Card Type")
       option_ [ value_ "types" ] (toHtml "Subtype")
       option_ [ value_ "genes" ] (toHtml "Genes")
-      option_ [ value_ "ability" ] (toHtml "Ability Text")
+      option_ [ value_ "ability" ] (toHtml "Rules")
       option_ [ value_ "designer" ] (toHtml "Designer")
     span_ [] (toHtml "→")
     input_ [ type_ "text", name_ "filter"]
@@ -331,8 +331,8 @@ renderAddCard activeDeck copiedCard designGuidelines username  =
               option_ [value_ "Land"] (toHtml "Land")
 
           field "startcards" "Start cards" " (The number of cards you start with)" "number" ((pack . show . startCards) copiedCard)
-          textarea "rules" "Ability text" " (example: @: Roam)" (rules copiedCard)
-          textarea "flavor" "Flavour text" "" (flavor copiedCard)
+          textarea "rules" "Rules" " (example: @: Roam)" (rules copiedCard)
+          textarea "flavor" "Flavor" "" (flavor copiedCard)
           input_ [type_ "text", name_ "designer", value_ username, readonly_ ""]
           field "illustration" "Illustration" " (URL)" "text" (illustration copiedCard)
           br_ []
