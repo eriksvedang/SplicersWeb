@@ -368,7 +368,7 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
         mapM_ (\(deck) -> li_ $ do a_ [href_ $ pack ("/deck/" ++ show (deckId deck))] (toHtml $ deckName deck)
                                    span_ [] (toHtml " ")
                                    let onClickCode = "deleteDeck(" <> (pack . show) (deckId deck) <> ")"
-                                   a_ [href_ "", onclick_ onClickCode, class_ "subtle-button"] (toHtml "✖"))
+                                   a_ [onclick_ onClickCode, class_ "subtle-button"] (toHtml "✖"))
           myDecks
 
         h3_ "Cards by me"
@@ -385,7 +385,7 @@ renderDeckPage activeDeck deck cards = do
           a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish"
           a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit"
           a_ [class_ "button",  href_ $ pack ("/print/" ++ show (deckId deck)), target_ "new"] "Print"
-          a_ [class_ "notediting button", href_ "",  onclick_ ("deleteDeck(" <> ((pack . show . deckId) deck) <> ")")] "Delete"
+          a_ [class_ "notediting button", onclick_ ("deleteDeck(" <> ((pack . show . deckId) deck) <> ")")] "Delete"
           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
         div_ [ class_ "deckstatus randomcolor"] $ do
           span_ [class_ "deckcounter"] (toHtml "number of cards in deck")
