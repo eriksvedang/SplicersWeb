@@ -237,11 +237,13 @@ window.onload = function () {
     // title search
   $('[name="filter"]').change( function () {
     var filter = $(this).val();
-    $('div').find(".title").parent().css( "display", "inline-block" );
+    var type = $('[name="filterType"]').val();
+    $(".card").css("display", "inline-block");
     if (filter) {
-      $('div').find(".title:not(:Contains(" + filter + "))").parent().css( "display", "none" );
-      $('div').find(".title:Contains(" + filter + ")").parent().css( "padding", "inline-block" );
+      $("."+ type +":not(:Contains(" + filter + "))").parent(".card").css( "display", "none" );
+      $("."+ type +":Contains(" + filter + ")").parent(".card").css( "display", "inline-block" );
     }
+
     return false;
   })
   .keyup( function () {

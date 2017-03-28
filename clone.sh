@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATABASE=splicers
-USER=erik
+# USER=erik
 
 curl -o latest.dump `heroku pg:backups public-url`
 
