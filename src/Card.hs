@@ -43,7 +43,7 @@ mkCard ::  Text -> Text -> Int -> Text -> Text -> Text -> Text -> Int -> Int -> 
 mkCard title rules dominance cardType subType gene1 gene2 startMatter startCards flavor designer illustration =
   case cardType of
   "Ting" -> mkTing title rules dominance subType gene1 gene2 flavor designer illustration
-  "Event" -> mkEvent title rules subType flavor designer illustration
+  "Event" -> mkEvent title rules subType gene1 gene2 flavor designer illustration
   "Biom" -> mkBiom title rules dominance subType flavor designer illustration
   "Mutation" -> mkMutation title rules subType gene1 gene2 flavor designer illustration
   "Splicer" -> mkSplicer title rules subType startMatter startCards flavor designer illustration
@@ -93,14 +93,14 @@ mkTing title rules dominance subType gene1 gene2 flavor designer illustration =
        , illustration = illustration
        }
 
-mkEvent title rules subType flavor designer illustration =
+mkEvent title rules subType gene1 gene2 flavor designer illustration =
   Card { title = title
        , rules = rules
        , dominance = 0
        , cardType = Event
        , subType = subType
-       , gene1 = NoGene
-       , gene2 = NoGene
+       , gene1 = textToGene gene1
+       , gene2 = textToGene gene2
        , startMatter = 0
        , startCards = 0
        , flavor = flavor
