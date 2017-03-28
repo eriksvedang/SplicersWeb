@@ -98,7 +98,6 @@ renderSingleCardPage activeDeck title cards =
         span_ [] (toHtml $ "Designed by " <> (designer (head cards)))
         br_ []
         a_ [href_ ("/add-card/?title=" <> title
-        p_ $ a_ [href_ ("/add-card/?title=" <> title
                    <> "&rules=" <> (rules card)
                    <> "&domination=" <> (pack . show . dominance $ card)
                    <> "&cardType=" <> (pack . show . cardType $ card)
