@@ -69,7 +69,7 @@ renderCards cards activeDeck cardsInDeck = renderPage activeDeck $
      mapM_ (\card -> renderCard (if ((title card) `elem` (map title cardsInDeck)) then InDeckSelection else AsLink) card) cards
 
 
-data RenderCardMode = AsLink | NoLink | InDeckSelection
+data RenderCardMode = AsLink | NoLink | InDeckSelection | UnderConstruction
 
 renderSingleCardPage :: Maybe Deck -> Text -> [Card] -> Html ()
 renderSingleCardPage activeDeck title cards =
@@ -108,6 +108,8 @@ renderCard cardMode card =
       p_ [] renderedCard
     InDeckSelection -> do
       a_ [class_ "cardLink selected", href_ $ "#" <> (title card)] renderedCard
+    UnderConstruction -> do
+      p_ [] (renderCardUnderConstruction card)
   where
     renderedCard =
       case (cardType card) of
@@ -142,6 +144,24 @@ typesDivWithDomination cardType subType dominance = do
 
 flavorText :: Card -> Html ()
 flavorText card = span_ [class_ "flavor"] $ toHtml (flavor card)
+
+renderCardUnderConstruction :: Card -> Html ()
+renderCardUnderConstruction card =
+  do div_ [class_ "card ting"] $ do
+       div_ [class_ "carddraw"] $ do
+         span_ $ toHtml (show (startCards card))
+       div_ [class_ "title"] $ toHtml (title card)
+       illustrationDiv card
+       typesDivWithDomination "ting" (subType card) (dominance card)
+       div_ [class_ "ability"] $ do
+         div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
+         div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
+         span_ [class_ "rules"] $ toHtml (rules card)
+         br_ []
+         flavorText card
+       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "cardType"] (toHtml "ting")
+       span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 
 renderTing :: Card -> Html ()
 renderTing card =
@@ -185,6 +205,7 @@ renderBiom card =
          --flavorText card
        span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
        span_ [class_ "cardType"] (toHtml "biom")
+       
 renderMutation :: Card -> Html ()
 renderMutation card =
   do div_ [class_ "card mutation"] $ do
@@ -200,6 +221,7 @@ renderMutation card =
        span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
        span_ [class_ "cardType"] (toHtml "mutation")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
+       
 renderSplicer :: Card -> Html ()
 renderSplicer card =
   do div_ [class_ "card splicer"] $ do
@@ -214,6 +236,7 @@ renderSplicer card =
          flavorText card
        span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
        span_ [class_ "cardType"] (toHtml "splicer")
+       
 field :: Text -> Text -> Text -> Text -> Text -> Html ()
 field name heading helpText inputType defaultValue =
   div_ [class_ "inputField"] $ do
@@ -292,7 +315,7 @@ renderAddCard activeDeck copiedCard username =
           br_ []
           input_ [class_ "button", type_ "submit", value_ "Submit"]
       div_ [class_ "preview randomcolor"] $ do
-        renderCard NoLink copiedCard
+        renderCard UnderConstruction copiedCard
 
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
