@@ -37,6 +37,7 @@ window.onload = function () {
           });
           element.removeClass("selectable");
           element.addClass("selected");
+          deckStatus()
       } else if (element.hasClass("selected")) {
           console.log("SELECTED");
           element.click(function() {
@@ -45,6 +46,7 @@ window.onload = function () {
           })
           element.removeClass("selected");
           element.addClass("selectable");
+          deckStatus()
       } else {
           console.log("Failed to match class!");
       }
@@ -234,6 +236,9 @@ window.onload = function () {
         $('.notediting').each(function () {$(this).attr("style", "display:none;")})
         $('.whileediting').each(function () {$(this).attr("style", "display:inline;")});
         $('.deckedit input').attr("id", "decknameEdit");
+      } else if ($(document).find("title").text() == "Splicers - Cards") {
+        $('.notediting').each(function () {$(this).attr("style", "display:none;")})
+        $('.whileediting').each(function () {$(this).attr("style", "display:block;")});
       } else {
         $('.deckedit input').attr("readonly", "true");
       }
@@ -242,39 +247,72 @@ window.onload = function () {
     }
 
     //deck status (count cards etc)
-    var cardsInDeck = 0;
-    $(".card").each( function () {
-      cardsInDeck += 1;
-    });
-    var splicerInDeck = 0;
-    $(".splicer").each( function () {
-      splicerInDeck += 1;
-    });
-    var biomsInDeck = 0;
-    $(".biom").each( function () {
-      biomsInDeck += 1;
-    });
-    var tingsInDeck = 0;
-    $(".ting").each( function () {
-      tingsInDeck += 1;
-    });
-    var eventsInDeck = 0;
-    $(".event").each( function () {
-      eventsInDeck += 1;
-    });
-    var mutationsInDeck = 0;
-    $(".mutation").each( function () {
-      mutationsInDeck += 1;
-    });
-    console.log(cardsInDeck)
-    console.log(splicerInDeck)
-    console.log(biomsInDeck)
-    console.log(tingsInDeck)
-    console.log(eventsInDeck)
-    console.log(mutationsInDeck)
+    function deckStatus () {
+      console.log("!")
+      if (document.cookie.indexOf("deck") >= 0) {
+        var cardsInDeck = 0;
+        $(".selected").each( function () {
+          cardsInDeck += 1;
+        });
+        var splicerInDeck = 0;
+        $(".selected").children(".splicer").each( function () {
+          splicerInDeck += 1;
+        });
+        var biomsInDeck = 0;
+        $(".selected").children(".biom").each( function () {
+          biomsInDeck += 1;
+        });
+        var tingsInDeck = 0;
+        $(".selected").children(".ting").each( function () {
+          tingsInDeck += 1;
+        });
+        var eventsInDeck = 0;
+        $(".selected").children(".event").each( function () {
+          eventsInDeck += 1;
+        });
+        var mutationsInDeck = 0;
+        $(".selected").children(".mutation").each( function () {
+          mutationsInDeck += 1;
+        });
 
-    var counter = ("Cards: <b>"+cardsInDeck+"</b>/18+   Splicer: <b>"+splicerInDeck+"</b>/1   Biom: <b>"+biomsInDeck+"</b>/2   Ting: <b>"+tingsInDeck+"</b>   Event: <b>" +eventsInDeck+ "</b>   Mutation: <b>" + mutationsInDeck + "</b> <br/>")
-    $(".deckcounter").html(counter);
+        var counter = ("Cards: <b>"+cardsInDeck+"</b>/18+   Splicer: <b>"+splicerInDeck+"</b>/1   Biom: <b>"+biomsInDeck+"</b>/2   Ting: <b>"+tingsInDeck+"</b>   Event: <b>" +eventsInDeck+ "</b>   Mutation: <b>" + mutationsInDeck + "</b> <br/>")
+        $(".deckcounter").html(counter);
+      }else{
+        // hide statusbar in /cards
+        if ($(document).find("title").text() == "Splicers - Cards") {
+          $(".deckstatus").css("display", "none");
+        };
+        var cardsInDeck = 0;
+        $(".card").each( function () {
+          cardsInDeck += 1;
+        });
+        var splicerInDeck = 0;
+        $(".splicer").each( function () {
+          splicerInDeck += 1;
+        });
+        var biomsInDeck = 0;
+        $(".biom").each( function () {
+          biomsInDeck += 1;
+        });
+        var tingsInDeck = 0;
+        $(".ting").each( function () {
+          tingsInDeck += 1;
+        });
+        var eventsInDeck = 0;
+        $(".event").each( function () {
+          eventsInDeck += 1;
+        });
+        var mutationsInDeck = 0;
+        $(".mutation").each( function () {
+          mutationsInDeck += 1;
+        });
+
+        var counter = ("Cards: <b>"+cardsInDeck+"</b>/18+   Splicer: <b>"+splicerInDeck+"</b>/1   Biom: <b>"+biomsInDeck+"</b>/2   Ting: <b>"+tingsInDeck+"</b>   Event: <b>" +eventsInDeck+ "</b>   Mutation: <b>" + mutationsInDeck + "</b> <br/>")
+        $(".deckcounter").html(counter);
+      };
+    };
+    deckStatus()
+
   };
 
 

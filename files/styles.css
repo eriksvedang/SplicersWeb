@@ -1,12 +1,16 @@
 
 
 body { font-family: KarlaRegular, sans-serif;
-	padding-top: 40px;
+	padding-top: 48px;
 	margin-top: 0;
 	margin-right: 0;
 	margin-left: 0;
 	padding-bottom: 40px;
 	text-align: center;
+}
+
+a:hover {
+	cursor: pointer;
 }
 
 li {

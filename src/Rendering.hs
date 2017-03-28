@@ -80,8 +80,9 @@ cornerWidget deckToEdit = do
 renderCards :: [Card] -> Maybe Deck -> [Card] -> Html ()
 renderCards cards activeDeck cardsInDeck = renderPage "Cards" activeDeck $ do
   div_ [ class_ "deckstatus randomcolor"] $ do
-    span_ [class_ "whileediting deckcounter"] (toHtml "blurgh")
-    span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing.  Click a card to remove it from your deck.")
+    span_ [class_ "whileediting deckcounter", style_ "display:none;"] (toHtml "blurgh")
+    br_ [class_ "whileediting", style_ "display:none;"]
+    span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Click a card to add or remove it from your deck.")
 
   a_ [ href_ "add-card"] $ do
        div_ [class_ "add"] $ do
