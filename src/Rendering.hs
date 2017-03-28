@@ -262,16 +262,16 @@ renderSplicer card =
 field :: Text -> Text -> Text -> Text -> Text -> Html ()
 field name heading helpText inputType defaultValue =
   div_ [class_ "inputField"] $ do
-    span_ (toHtml heading)
-    a_ [href_ "#"] (toHtml "?")
+    span_ (toHtml (heading <> " "))
+    a_ [href_ ("#" <> heading)] (toHtml "?")
     br_ []
     input_ [ type_ inputType, name_ name, value_ defaultValue]
 
 textarea :: Text -> Text -> Text -> Text -> Html ()
 textarea name heading helpText defaultValue =
   div_ [class_ "inputField"] $ do
-    span_ (toHtml heading)
-    a_ [href_ "#"] (toHtml "?")
+    span_ (toHtml (heading <> " "))
+    a_ [href_ ("#" <> heading)] (toHtml "?")
     br_ []
     textarea_[ name_ name, rows_ "5"] $ do toHtml defaultValue
 
@@ -294,13 +294,14 @@ renderAddCard activeDeck copiedCard username =
               option_ [value_ "Event"] (toHtml "Event")
               option_ [value_ "Mutation"] (toHtml "Mutation")
               option_ [value_ "Splicer"] (toHtml "Splicer")
-
+            a_ [href_ "#CardTypes"] (toHtml "?")
           field "title" "Title" "" "text" (title copiedCard)
           field "subType" "Subtype" " (i.e. Animal, Plant...)" "text" (subType copiedCard)
           field "domination" "Dominance" " (0-10)" "number" ((pack . show) (dominance copiedCard))
 
           div_ [id_ "genes", class_ "inputField"] $ do
             span_ (toHtml "Select genes: ")
+            a_ [href_ "#CardTypes"] (toHtml "?")
             br_ []
             select_ [name_ "gene1"] $ do
               let geneText = (pack . show . gene1 $ copiedCard)
@@ -341,7 +342,7 @@ renderAddCard activeDeck copiedCard username =
 
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
-        a_ [name_ "subtype"] "learn more"
+        article_ [class_ "markdown"] (toHtml designGuidelines)
 
 
 renderSubmittedCard :: Maybe Deck -> Text -> Html ()

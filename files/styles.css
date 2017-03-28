@@ -121,6 +121,18 @@ li {
 	margin: 0 -20px;
 	border-bottom: 1px solid gray;
 	display: block;
+	white-space: pre;
+}
+
+.inputField a {
+	transition-duration: 0.2s;
+	float: right;
+	text-decoration: none;
+}
+
+.inputField a:hover {
+	-moz-text-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
+	text-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 }
 
 .inputField:hover {
