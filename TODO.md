@@ -21,17 +21,16 @@
 - [x] Vill kunna göra en ny version av ett existerande kort lätt.
 - [x] Inte kunna skapa en ny version av någon annans kort?
 - [x] Korten hamnar mitt emellan sidor när man skriver ut en hel lek.
+- [x] Mer whitespace i höjdled på "create card"-sidan (svårt att se vilka rubriker som hör till inputfälten)
+- [x] Spelarsidan: Snyggare lista med deck och card
 - [ ] comments (på kort?)
 - [ ] kan submitta kort även om man inte är authensierad, /submit-card checkar inte auth
 - [ ] expand funktion för keywords
 - [ ] filtrera kort efter ability, gener, typ
 - [ ] Under "add new card"-formuläret: "design guidelines" och svar på vanliga frågor när man designar kort
 - [ ] Objectives i rules
-- [ ] Glitch med kort (är denna löst?)
 - [ ] Kortsidan: Text med "Select cards for your deck"
-- [ ] Spelarsidan: Snyggare lista med deck och card
 - [ ] Gör delete-knappen för lekar på spelarsidan till ett litet kryss.
-- [ ] Mer whitespace i höjdled på "create card"-sidan (svårt att se vilka rubriker som hör till inputfälten)
 - [ ] Borde beskriva alla vanliga subtyper som finns (just nu är det bara två exempel på "create card"-sidan). Med länk till reglerna kring subtypes.
 - [ ] Förslag på subtyper borde ändras när man skapar Biom (och länka till en lista med vanliga subtyper för biom?)
 - [ ] Ta bort menyn från regelsidan när man printar (mindre font också, så att det tar upp färre sidor att skriva ut)
@@ -40,13 +39,13 @@
 - [ ] Ska subtyp skrivas ut på Splicers / Events ? Iaf inte om de är tomma.
 - [ ] Kortmängd syns inte på Splicer. —detta är för att exempelkortet saknar carddraw-ruta. likaså har kort som editas enbart de rutor som krävs för den korttypen!
 - [ ] "no deck to edit" borde vara länk till sina lekar
-- [ ] Länk tillbaka till login-sidan när man loggats ut.
 - [ ] En ikon (kvadratisk) till olika situationer när det behövs (twitter, discord, github, etc.)
-- [ ] Visa inte alla versioner av ett kort när man går in på /card
 - [ ] Visa att/vem som är inloggad när man är inloggad?
 - [ ] Vänstermarginal på Player-sidan är för liten (Firefox)
 - [ ] Kort är alldeles för stora på /deck när man tryckt "Edit"!!!
 - [ ] Textfältet för regler på kortet overflowar åt höger istället för att radbryta (Firefox).
 - [ ] Kort "hoppar runt" när man drar musen över dem (Firefox)
-- [ ] Varje version av ett kort listas på /player -sidan
+
 - [ ] kryptera lösenord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+- [ ] Länk tillbaka till login-sidan när man loggats ut.
+- [ ] Visa inte alla versioner av ett kort när man går in på /card
