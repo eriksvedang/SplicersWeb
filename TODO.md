@@ -50,6 +50,8 @@
 - [ ] Räknare som visar antal kort i leken.
 - [ ] Ska subtyp skrivas ut på Splicers / Events ? Iaf inte om de är tomma.
 - [ ] Kortmängd syns inte på Splicer. —detta är för att exempelkortet saknar carddraw-ruta. likaså har kort som editas enbart de rutor som krävs för den korttypen!
+- [ ] Det står "Designed by Unknown" på Create Card-sidan, borde gå att veta vad man heter redan där
+- [ ] Länk till Discord-kanalen
 
 # Firefox
 - [ ] Textfältet för regler på kortet overflowar åt höger istället för att radbryta (Firefox).
