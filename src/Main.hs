@@ -299,6 +299,7 @@ deleteDeckRoute :: Route
 deleteDeckRoute = withAuthImproved "/player" $ do
   username <- cookie "username"
   activeDeck <- getActiveDeck
+  deleteCookie "deck"
   case username of
     Just name -> do deckIdStr <- param "deckId"
                     case deckIdStr of
