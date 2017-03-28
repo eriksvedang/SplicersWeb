@@ -63,7 +63,7 @@ b, strong {
 }
 
 .cardType, .genes {
-	display: none;
+	display: none !important;
 }
 
 .title {

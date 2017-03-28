@@ -128,6 +128,7 @@ window.onload = function () {
       $('[name="gene1"]').parent().css( "display", "block" );
       $('[name="gene2"]').parent().css( "display", "block" );
       $('[name="designer"]').css( "display", "none" );
+      $('.carddraw').css("display", "none" );
     }
     if (cardtype.val() == 'Biom') {
       $('[name="cost"]').parent().css( "display", "none" );
@@ -137,6 +138,8 @@ window.onload = function () {
       $('[name="gene1"]').parent().css( "display", "none" );
       $('[name="gene2"]').parent().css( "display", "none" );
       $('[name="designer"]').css( "display", "none" );
+      $('.carddraw').css("display", "none" );
+      $('.flavor').css("display", "none" );
     }
     if (cardtype.val() == 'Event') {
       $('[name="cost"]').parent().css( "display", "none" );
@@ -146,6 +149,7 @@ window.onload = function () {
       $('[name="gene1"]').parent().css( "display", "block" );
       $('[name="gene2"]').parent().css( "display", "block" );
       $('[name="designer"]').css( "display", "none" );
+      $('.carddraw').css("display", "none" );
     }
     if (cardtype.val() == 'Mutation') {
       $('[name="cost"]').parent().css( "display", "none" );
@@ -155,6 +159,7 @@ window.onload = function () {
       $('[name="gene1"]').parent().css( "display", "block" );
       $('[name="gene2"]').parent().css( "display", "block" );
       $('[name="designer"]').css( "display", "none" );
+      $('.carddraw').css("display", "none" );
     }
     if (cardtype.val() == 'Splicer') {
       $('[name="cost"]').parent().css( "display", "none" );
@@ -230,8 +235,41 @@ window.onload = function () {
       $('.deckedit input').attr("readonly", "true");
     }
 
-  };
+    //deck status (count cards etc)
+    var cardsInDeck = 0;
+    $(".card").each( function () {
+      cardsInDeck += 1;
+    });
+    var splicerInDeck = 0;
+    $(".splicer").each( function () {
+      splicerInDeck += 1;
+    });
+    var biomsInDeck = 0;
+    $(".biom").each( function () {
+      biomsInDeck += 1;
+    });
+    var tingsInDeck = 0;
+    $(".ting").each( function () {
+      tingsInDeck += 1;
+    });
+    var eventsInDeck = 0;
+    $(".event").each( function () {
+      eventsInDeck += 1;
+    });
+    var mutationsInDeck = 0;
+    $(".mutation").each( function () {
+      mutationsInDeck += 1;
+    });
+    console.log(cardsInDeck)
+    console.log(splicerInDeck)
+    console.log(biomsInDeck)
+    console.log(tingsInDeck)
+    console.log(eventsInDeck)
+    console.log(mutationsInDeck)
 
+    var counter = ("Cards: <b>"+cardsInDeck+"</b>/18+   Splicer: <b>"+splicerInDeck+"</b>/1   Biom: <b>"+biomsInDeck+"</b>/2   Ting: <b>"+tingsInDeck+"</b>   Event: <b>" +eventsInDeck+ "</b>   Mutation: <b>" + mutationsInDeck + "</b>")
+    $(".deckcounter").html(counter);
+  };
 
 
     // title search

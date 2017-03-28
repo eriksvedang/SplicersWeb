@@ -357,6 +357,21 @@ article {
 	border-color: black;
 }
 
+.deckstatus {
+	margin-left: -20px;
+	margin-right: -20px;
+	margin-top: -20px;
+	padding: 10px 20px;
+	text-align: center;
+	color: rgba(0, 0, 0, 0.51);
+	font-size: 13px;
+	white-space: pre;
+}
+
+.deckcounter {
+	color: black;
+}
+
 .deckedit .selectable .card {
 	!important;
 	opacity: 0.3;

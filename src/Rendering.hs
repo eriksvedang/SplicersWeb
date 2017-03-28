@@ -45,8 +45,8 @@ renderFrontPage activeDeck = renderPage activeDeck $
 cornerWidget :: Maybe Deck -> Html ()
 cornerWidget deckToEdit = do
   div_ [id_ "filter", class_ "randomcolor", style_ "display: none;"] $ do
-    span_ [] (toHtml "Filter cards →")
     select_ [ type_ "text", name_ "filterType"] $ do
+      option_ [ value_ "title", selected_ "", hidden_ ""] (toHtml "Filter by...")
       option_ [ value_ "title" ] (toHtml "Title")
       option_ [ value_ "cardType" ] (toHtml "Card Type")
       option_ [ value_ "types" ] (toHtml "Subtype")
@@ -369,9 +369,11 @@ renderDeckPage activeDeck deck cards = do
           a_ [class_ "button",  href_ $ pack ("/print/" ++ show (deckId deck)), target_ "new"] "Print"
           a_ [class_ "notediting button", href_ "",  onclick_ ("deleteDeck(" <> ((pack . show . deckId) deck) <> ")")] "Delete"
           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
-
+        div_ [ class_ "deckstatus randomcolor"] $ do
+          span_ [class_ "deckcounter"] (toHtml "number of cards in deck")
+          span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing. Click a card to remove it from your deck. Click the title to change it. ")
         input_ [name_ "deckid", style_ "display:none", value_ ((pack . show . deckId) deck), readonly_ ""]
-        span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing. Click a card to remove it from your deck. Click the title to change it. ")
+
 
         a_ [class_ "whileediting", style_ "display:none;", href_ "/cards"] $ do
                                                                      div_ [class_ "add"] $ do
