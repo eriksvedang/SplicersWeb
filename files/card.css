@@ -62,6 +62,12 @@ b, strong {
 	border-radius: 5px 0 0 0;
 }
 
+.biom .designer {
+	top: 0;
+	bottom: auto;
+	border-radius: 0 0 0 5px;
+}
+
 .cardType, .genes {
 	display: none !important;
 }
@@ -332,13 +338,11 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	background: none;
 	display: block;
 	text-align: center;
-	margin: 8px auto -27px;
+	margin: 8px auto -10px;
 	border-style: none;
 	text-indent: 0;
 	box-shadow: none;
 	-moz-box-shadow:none;
-	position: relative;
-	top: 70px;
 }
 .splicer .ability {
 	height: 65px;

@@ -27,6 +27,7 @@ renderPage activeDeck body = do head_ $ do
                                   (script_ [src_ "/files/scripts.js"] "")
                                   (script_ [src_ "https://cdn.rawgit.com/showdownjs/showdown/1.5.1/dist/showdown.min.js"] "")
                                   (script_ [src_ "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"] "")
+                                  (script_ [src_ "/files/addcard.js"] "")
                                   allCSS
                                 body_ $ do
                                   renderSmallMenu activeDeck
@@ -219,7 +220,7 @@ renderBiom card =
          --flavorText card
        span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
        span_ [class_ "cardType"] (toHtml "biom")
-       
+
 renderMutation :: Card -> Html ()
 renderMutation card =
   do div_ [class_ "card mutation"] $ do
@@ -235,7 +236,7 @@ renderMutation card =
        span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
        span_ [class_ "cardType"] (toHtml "mutation")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
-       
+
 renderSplicer :: Card -> Html ()
 renderSplicer card =
   do div_ [class_ "card splicer"] $ do
@@ -250,7 +251,7 @@ renderSplicer card =
          flavorText card
        span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
        span_ [class_ "cardType"] (toHtml "splicer")
-       
+
 field :: Text -> Text -> Text -> Text -> Text -> Html ()
 field name heading helpText inputType defaultValue =
   div_ [class_ "inputField"] $ do
@@ -335,6 +336,7 @@ renderAddCard activeDeck copiedCard username =
       div_ [class_ "content"] $ do
         a_ [name_ "subtype"] "learn more"
 
+
 renderSubmittedCard :: Maybe Deck -> Text -> Html ()
 renderSubmittedCard activeDeck title =
   renderPage activeDeck $ do
@@ -385,7 +387,7 @@ renderDeckPage activeDeck deck cards = do
           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
         div_ [ class_ "deckstatus randomcolor"] $ do
           span_ [class_ "deckcounter"] (toHtml "number of cards in deck")
-          span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing. Click a card to remove it from your deck. Click the title to change it. ")
+          span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing.  Click a card to remove it from your deck.")
         input_ [name_ "deckid", style_ "display:none", value_ ((pack . show . deckId) deck), readonly_ ""]
 
 
