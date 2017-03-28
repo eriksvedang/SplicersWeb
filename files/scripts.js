@@ -142,7 +142,7 @@ window.onload = function () {
     console.log(eventsInDeck)
     console.log(mutationsInDeck)
 
-    var counter = ("Cards: <b>"+cardsInDeck+"</b>/18+   Splicer: <b>"+splicerInDeck+"</b>/1   Biom: <b>"+biomsInDeck+"</b>/2   Ting: <b>"+tingsInDeck+"</b>   Event: <b>" +eventsInDeck+ "</b>   Mutation: <b>" + mutationsInDeck + "</b>")
+    var counter = ("Cards: <b>"+cardsInDeck+"</b>/18+   Splicer: <b>"+splicerInDeck+"</b>/1   Biom: <b>"+biomsInDeck+"</b>/2   Ting: <b>"+tingsInDeck+"</b>   Event: <b>" +eventsInDeck+ "</b>   Mutation: <b>" + mutationsInDeck + "</b> <br/>")
     $(".deckcounter").html(counter);
   };
 

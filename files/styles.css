@@ -42,14 +42,8 @@ li {
 }
 
 .content li a:hover {
-	-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
-	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
-	padding: 1px 4px 2px;
-	
-	border-radius: 8px;
-	background-color: white;
-	border: 2px solid gray;
-	text-decoration: none;
+	-moz-text-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
+	text-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 }
 
 .button {
@@ -70,9 +64,7 @@ li {
 	background-color: white;
 }
 
-.content span {
-	display: block;
-}
+
 
 
 .preview {
