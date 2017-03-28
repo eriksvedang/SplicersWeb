@@ -41,6 +41,19 @@ renderFrontPage activeDeck = renderPage activeDeck $
            img_ [src_ "/files/splash.jpg", class_ "splash"]
            p_ "Have you ever played a collectible card game, like Magic the Gathering or Pokémon? They're awesome but they have two big flaws (if you ask us!). First of all they cost a lot of money to play, since all the cards have to be bought in small booster packs or from people who have made it their business to trade these cards. Secondly these games are made by a small group of people who curates the pool of cards. This is obviously great for the quality of the game - they work with this all day long after all - but it also means that a lot of creativity is wasted. YOUR creativity that is."
            p_ "This is where Splicers comes in! It is a collectible card game where everyone is allowed to contribute their ideas for cards. Anything goes, although there are also guidelines to keep the game somewhat cohesive and understandable. If you don't want to come up with cards, that's cool too. You can just create decks with the existing cards and play against others. This website makes it super easy to manage your deck designs and print them out. You'll have to do some cutting but that's it (and the decks are really small)."
+           h2_ "Where to go next?"
+           p_ $ do
+             span_ "You should definitely check out the "
+             a_ [href_ "/cards"] "cards"
+             span_ " that people have made. Hopefully that makes you wanna read the "
+             a_ [href_ "/rules"] "rules"
+             span_ " so you can play the game!"
+           p_ $ do
+             span_ "You can also check out our "
+             a_ [href_ "https://github.com/eriksvedang/splicers"] (toHtml " GitHub repository")
+             span_ " with all the code for this website, or join the "
+             a_ [href_ "https://discord.gg/jjmZCEJ"] (toHtml "#Splicers Discord channel")
+             span_ "."
 
 cornerWidget :: Maybe Deck -> Html ()
 cornerWidget deckToEdit = do
