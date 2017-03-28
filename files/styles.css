@@ -11,6 +11,7 @@ body { font-family: KarlaRegular, sans-serif;
 
 li {
 	list-style: circle;
+    margin: 10px;
 }
 
 .illustration { overflow: hidden; }
@@ -58,12 +59,17 @@ li {
 	margin-right: 10px;
 }
 
+.subtle-button {
+    text-decoration: none;
+    border: none;
+    display: inline;
+}
+
 .button:hover {
 	-moz-box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	box-shadow: 2px 2px 3px rgba(6, 6, 6, 0.38);
 	background-color: white;
 }
-
 
 
 

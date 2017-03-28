@@ -20,21 +20,23 @@ allCSS :: Html ()
 allCSS = do (css "/files/styles.css")
             (css "/files/card.css")
 
-renderPage :: Maybe Deck -> Html () -> Html ()
-renderPage activeDeck body = do head_ $ do
-                                  (link_ [rel_ "icon", type_ "image/png", href_ "/files/favicon.png"])
-                                  (script_ [src_ "/files/jquery.min.js"] "")
-                                  (script_ [src_ "/files/scripts.js"] "")
-                                  (script_ [src_ "https://cdn.rawgit.com/showdownjs/showdown/1.5.1/dist/showdown.min.js"] "")
-                                  (script_ [src_ "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"] "")
-                                  (script_ [src_ "/files/addcard.js"] "")
-                                  allCSS
-                                body_ $ do
-                                  renderSmallMenu activeDeck
-                                  body
+renderPage :: Text -> Maybe Deck -> Html () -> Html ()
+renderPage pageTitle activeDeck body =
+  do head_ $ do
+       (link_ [rel_ "icon", type_ "image/png", href_ "/files/favicon.png"])
+       (title_ (toHtml $ "Splicers - " <> pageTitle))
+       (script_ [src_ "/files/jquery.min.js"] "")
+       (script_ [src_ "/files/scripts.js"] "")
+       (script_ [src_ "https://cdn.rawgit.com/showdownjs/showdown/1.5.1/dist/showdown.min.js"] "")
+       (script_ [src_ "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"] "")
+       (script_ [src_ "/files/addcard.js"] "")
+       allCSS
+     body_ $ do
+       renderSmallMenu activeDeck
+       body
 
 renderFrontPage :: Maybe Deck -> Html ()
-renderFrontPage activeDeck = renderPage activeDeck $
+renderFrontPage activeDeck = renderPage "Splicers" activeDeck $
   do div_ [id_ "page"] $ do
        renderMenu
        div_ [] $ do
@@ -77,7 +79,7 @@ cornerWidget deckToEdit = do
 
 
 renderCards :: [Card] -> Maybe Deck -> [Card] -> Html ()
-renderCards cards activeDeck cardsInDeck = renderPage activeDeck $
+renderCards cards activeDeck cardsInDeck = renderPage "Cards" activeDeck $
   do a_ [ href_ "add-card"] $ do
        div_ [class_ "add"] $ do
          span_ [] (toHtml "+ Create a card")
@@ -88,14 +90,18 @@ data RenderCardMode = AsLink | NoLink | InDeckSelection | UnderConstruction
 
 renderSingleCardPage :: Maybe Deck -> Text -> [Card] -> Html ()
 renderSingleCardPage activeDeck title cards =
-  renderPage activeDeck $ do
+  renderPage title activeDeck $ do
     div_ [class_ "window"] $ do
       let card = head cards
       div_ [class_ "content"] $ do
         h1_ [] (toHtml title)
         span_ [] (toHtml $ "Designed by " <> (designer (head cards)))
+<<<<<<< HEAD
         br_ []
         a_ [href_ ("/add-card/?title=" <> title
+=======
+        p_ $ a_ [href_ ("/add-card/?title=" <> title
+>>>>>>> origin/master
                    <> "&rules=" <> (rules card)
                    <> "&domination=" <> (pack . show . dominance $ card)
                    <> "&cardType=" <> (pack . show . cardType $ card)
@@ -272,7 +278,7 @@ textarea name heading helpText defaultValue =
 
 renderAddCard :: Maybe Deck -> Card -> Text -> Html ()
 renderAddCard activeDeck copiedCard username =
-  renderPage activeDeck $ do
+  renderPage "Add Card" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ [class_ "randomcolor"] (toHtml "Create a card")
@@ -340,7 +346,7 @@ renderAddCard activeDeck copiedCard username =
 
 renderSubmittedCard :: Maybe Deck -> Text -> Html ()
 renderSubmittedCard activeDeck title =
-  renderPage activeDeck $ do
+  renderPage title activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         p_ $ span_ [] $ do (toHtml "The card ")
@@ -351,11 +357,11 @@ renderSubmittedCard activeDeck title =
 
 renderAddFakeData :: Maybe Deck -> Html ()
 renderAddFakeData activeDeck = do
-  renderPage activeDeck $ p_ "Added fake data!"
+  renderPage "Fake" activeDeck $ p_ "Added fake data!"
 
 renderPlayerPage :: Maybe Deck -> Text -> [Text] -> [Deck] -> Html ()
 renderPlayerPage activeDeck username myCardTitles myDecks = do
-  renderPage activeDeck $ do
+  renderPage username activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
 
@@ -366,8 +372,8 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
         h3_ "Decks by me"
         mapM_ (\(deck) -> li_ $ do a_ [href_ $ pack ("/deck/" ++ show (deckId deck))] (toHtml $ deckName deck)
                                    span_ [] (toHtml " ")
-                                   -- a_ [href_ $ T.append "/edit-deck/" ((pack . show . deckId) deck)] (toHtml "Edit")
-                                   a_ [ href_ "", onclick_ ("deleteDeck(" <> (pack . show) (deckId deck) <> ")"), class_ "button" ] (toHtml "Delete"))
+                                   let onClickCode = "deleteDeck(" <> (pack . show) (deckId deck) <> ")"
+                                   a_ [href_ "", onclick_ onClickCode, class_ "subtle-button"] (toHtml "✖"))
           myDecks
 
         h3_ "Cards by me"
@@ -377,7 +383,7 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
 
 renderDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
 renderDeckPage activeDeck deck cards = do
-  renderPage activeDeck $ do
+  renderPage "Deck" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content deckedit"] $ do
         div_ [class_ "randomcolor", style_ "margin-left: -20px; margin-right: -20px;"] $ do
@@ -401,22 +407,23 @@ renderDeckPage activeDeck deck cards = do
 
 renderPrintDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
 renderPrintDeckPage activeDeck deck cards = do
-  renderPage activeDeck $ do
+  renderPage "Print Deck" activeDeck $ do
         script_ "document.getElementsByTagName('link')[0].disabled = true; $('.randomcolor').css('background-color', 'none');"
         case activeDeck of
           Just deck -> mapM_ (renderCard NoLink) cards
           Nothing -> mapM_ (renderCard NoLink) cards
         script_ "window.print();"
+        
 renderNoSuchDeckPage :: Maybe Deck -> Html ()
 renderNoSuchDeckPage activeDeck = do
-  renderPage activeDeck $ do
+  renderPage "No such deck" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         p_ (toHtml "No deck with that id was found.")
 
 renderSignupForm :: Maybe Deck -> Html ()
 renderSignupForm activeDeck = do
-  renderPage activeDeck $ do
+  renderPage "Sign Up" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         form_ [action_ "submit-signup"] $ do
@@ -435,7 +442,7 @@ renderSignupForm activeDeck = do
 
 renderFailSignup :: Maybe Deck -> Html ()
 renderFailSignup activeDeck = do
-  renderPage activeDeck $ do
+  renderPage "Failed to sign up" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         h1_ "Failed to sign up"
@@ -443,7 +450,7 @@ renderFailSignup activeDeck = do
 
 renderLoginFormFull :: Text -> Maybe Deck -> Html ()
 renderLoginFormFull nextPage activeDeck = do
-  renderPage activeDeck $ do
+  renderPage "Login" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
           renderLoginForm nextPage
@@ -462,7 +469,7 @@ renderLoginForm nextPage = do
 
 renderMustLogIn :: Maybe Deck -> Text -> Text -> Html ()
 renderMustLogIn activeDeck helpText nextPage = do
-  renderPage activeDeck $ do
+  renderPage "Must Login" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         p_ (toHtml helpText)
@@ -472,21 +479,21 @@ renderMustLogIn activeDeck helpText nextPage = do
 
 renderSucceededToLogin :: Maybe Deck -> Html ()
 renderSucceededToLogin activeDeck = do
-  renderPage activeDeck $ do
+  renderPage "Logged in!" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
           p_ "You are logged in!"
 
 renderFailedToLogin :: Maybe Deck -> Html ()
 renderFailedToLogin activeDeck = do
-  renderPage activeDeck $ do
+  renderPage "Failed to log in..." activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
           p_ "Failed to login, invalid password or username."
 
 renderLogout :: Maybe Deck -> Html ()
 renderLogout activeDeck = do
-  renderPage activeDeck $ do
+  renderPage "Logged out" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
           p_ "You have been logged out."
@@ -494,7 +501,7 @@ renderLogout activeDeck = do
 
 renderKeywordPage :: Maybe Deck -> [Keyword] -> Html ()
 renderKeywordPage activeDeck keywords = do
-  renderPage activeDeck $ do
+  renderPage "Keywords" activeDeck $ do
     mapM_ renderKeyword keywords
 
 renderKeyword :: Keyword -> Html ()
@@ -503,7 +510,7 @@ renderKeyword kw = do h2_ (toHtml (keywordName kw))
 
 renderRulesDocument :: Maybe Deck -> Text -> Html ()
 renderRulesDocument activeDeck rulesText = do
-  renderPage activeDeck $ do
+  renderPage "Rules" activeDeck $ do
     div_ [id_ "page"] $ do
       renderMenu
       div_ [] $ do
@@ -534,7 +541,7 @@ renderMenuItems = do
 
 renderError :: Maybe Deck -> Text -> Html ()
 renderError activeDeck message = do
-  renderPage activeDeck $ do
+  renderPage "Error" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
         p_ (toHtml message)
