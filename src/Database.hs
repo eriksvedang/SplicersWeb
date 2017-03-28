@@ -91,7 +91,8 @@ instance FromField CardType where
 getCards :: IO [Card]
 getCards = do
   conn <- getConnection
-  cards <- query_ conn "SELECT DISTINCT ON (title) title, rules, dominance, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM card ORDER BY title, key desc;"
+  --cards <- query_ conn "SELECT DISTINCT ON (title) title, rules, dominance, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM card ORDER BY title, key DESC;"
+  cards <- query_ conn "SELECT title, rules, dominance, cardType, subType, gene1, gene2, startMatter, startCards, flavor, designer, illustration FROM (SELECT DISTINCT ON (title) * FROM (SELECT * FROM card ORDER BY key) p) q ORDER BY key DESC;"
   return cards
 
 getCardsWithTitle :: Text -> IO [Card]
