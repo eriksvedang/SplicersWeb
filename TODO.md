@@ -52,6 +52,7 @@
 - [ ] Förslag på subtyper borde ändras när man skapar Biom (och länka till en lista med vanliga subtyper för biom?)
 - [ ] Ska subtyp skrivas ut på Splicers / Events ? Iaf inte om de är tomma.
 - [ ] Det står "Designed by Unknown" på Create Card-sidan, borde gå att veta vad man heter redan där
+- [ ] Mindre padding på textfältet där man ändrar lekens namn.
 
 # Firefox
 - [ ] Textfältet för regler på kortet overflowar åt höger istället för att radbryta (Firefox).
