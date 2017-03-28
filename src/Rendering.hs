@@ -78,11 +78,15 @@ cornerWidget deckToEdit = do
 
 
 renderCards :: [Card] -> Maybe Deck -> [Card] -> Html ()
-renderCards cards activeDeck cardsInDeck = renderPage "Cards" activeDeck $
-  do a_ [ href_ "add-card"] $ do
+renderCards cards activeDeck cardsInDeck = renderPage "Cards" activeDeck $ do
+  div_ [ class_ "deckstatus randomcolor"] $ do
+    span_ [class_ "whileediting deckcounter"] (toHtml "blurgh")
+    span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing.  Click a card to remove it from your deck.")
+
+  a_ [ href_ "add-card"] $ do
        div_ [class_ "add"] $ do
          span_ [] (toHtml "+ Create a card")
-     mapM_ (\card -> renderCard (if ((title card) `elem` (map title cardsInDeck)) then InDeckSelection else AsLink) card) cards
+  mapM_ (\card -> renderCard (if ((title card) `elem` (map title cardsInDeck)) then InDeckSelection else AsLink) card) cards
 
 
 data RenderCardMode = AsLink | NoLink | InDeckSelection | UnderConstruction
