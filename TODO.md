@@ -35,6 +35,10 @@
 - [x] Länk till Discord-kanalen
 - [x] Objectives i rules
 - [x] Gör delete-knappen för lekar på spelarsidan till ett litet kryss.
+- [x] Räknare som visar antal kort i leken.
+- [x] Kortsidan: Text med "Select cards for your deck"
+- [x] Kortmängd syns inte på Splicer. —detta är för att exempelkortet saknar carddraw-ruta. likaså har kort som editas enbart de rutor som krävs för den korttypen!
+- [x] Det står "Designed by Unknown" på Create Card-sidan, borde gå att veta vad man heter redan där
 
 # Wishlist
 - [ ] comments (på kort?)
@@ -48,15 +52,9 @@
 # UI / UX
 - [ ] Expand funktion för keywords
 - [ ] Under "add new card"-formuläret: "design guidelines" och svar på vanliga frågor när man designar kort
-- [ ] Kortsidan: Text med "Select cards for your deck"
 - [ ] Borde beskriva alla vanliga subtyper som finns (just nu är det bara två exempel på "create card"-sidan). Med länk till reglerna kring subtypes.
 - [ ] Förslag på subtyper borde ändras när man skapar Biom (och länka till en lista med vanliga subtyper för biom?)
-- [ ] Räknare som visar antal kort i leken.
 - [ ] Ska subtyp skrivas ut på Splicers / Events ? Iaf inte om de är tomma.
-- [ ] Kortmängd syns inte på Splicer. —detta är för att exempelkortet saknar carddraw-ruta. likaså har kort som editas enbart de rutor som krävs för den korttypen!
-- [ ] Det står "Designed by Unknown" på Create Card-sidan, borde gå att veta vad man heter redan där
-- [ ] Mindre padding på textfältet där man ändrar lekens namn.
-- [ ] Länk till Discord-kanalen
 
 # Firefox
 - [ ] Textfältet för regler på kortet overflowar åt höger istället för att radbryta (Firefox).

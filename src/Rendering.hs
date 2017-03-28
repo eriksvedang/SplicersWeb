@@ -337,7 +337,7 @@ renderAddCard activeDeck copiedCard username =
           br_ []
           input_ [class_ "button", type_ "submit", value_ "Submit"]
       div_ [class_ "preview randomcolor"] $ do
-        renderCard UnderConstruction copiedCard
+        renderCard UnderConstruction (copiedCard { designer = username })
 
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
