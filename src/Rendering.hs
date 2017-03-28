@@ -44,7 +44,15 @@ renderFrontPage activeDeck = renderPage activeDeck $
 cornerWidget :: Maybe Deck -> Html ()
 cornerWidget deckToEdit = do
   div_ [id_ "filter", class_ "randomcolor", style_ "display: none;"] $ do
-    span_ [] (toHtml "filter cards →")
+    span_ [] (toHtml "Filter cards →")
+    select_ [ type_ "text", name_ "filterType"] $ do
+      option_ [ value_ "title" ] (toHtml "Title")
+      option_ [ value_ "cardType" ] (toHtml "Card Type")
+      option_ [ value_ "types" ] (toHtml "Subtype")
+      option_ [ value_ "genes" ] (toHtml "Genes")
+      option_ [ value_ "ability" ] (toHtml "Ability Text")
+      option_ [ value_ "designer" ] (toHtml "Designer")
+    span_ [] (toHtml "→")
     input_ [ type_ "text", name_ "filter"]
   case deckToEdit of
     Just deck -> a_ [class_ "editing randomcolor", href_ (T.append "/deck/" ((pack . show . deckId) deck))]
@@ -145,6 +153,9 @@ renderTing card =
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
+       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "cardType"] (toHtml "ting")
+       span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 
 renderEvent :: Card -> Html ()
 renderEvent card =
@@ -158,7 +169,9 @@ renderEvent card =
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
-
+       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "cardType"] (toHtml "event")
+       span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 renderBiom :: Card -> Html ()
 renderBiom card =
   do div_ [class_ "card biom"] $ do
@@ -168,7 +181,8 @@ renderBiom card =
        div_ [class_ "ability"] $ do
          span_ [class_ "rules"] $ toHtml (rules card)
          --flavorText card
-
+       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "cardType"] (toHtml "biom")
 renderMutation :: Card -> Html ()
 renderMutation card =
   do div_ [class_ "card mutation"] $ do
@@ -181,7 +195,9 @@ renderMutation card =
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
-
+       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "cardType"] (toHtml "mutation")
+       span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 renderSplicer :: Card -> Html ()
 renderSplicer card =
   do div_ [class_ "card splicer"] $ do
@@ -194,7 +210,8 @@ renderSplicer card =
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
-
+       span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
+       span_ [class_ "cardType"] (toHtml "splicer")
 field :: Text -> Text -> Text -> Text -> Text -> Html ()
 field name heading helpText inputType defaultValue =
   div_ [class_ "inputField"] $ do

@@ -300,6 +300,21 @@ article {
 	z-index: 6;
 	display: inline-block;
 	float: right;
+	height: 21px;
+}
+
+#filter select {
+	font-family: KarlaRegular;
+	font-size: 14px;
+	background: none;
+	color: black;
+	margin: 0 5px 0 5px ;
+	border: 1px solid black;
+	border-radius: 5px;
+	width:100px;
+	height: 21px;
+	position: relative;
+	bottom: 1px;
 }
 
 #filter input {
