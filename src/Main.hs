@@ -135,13 +135,13 @@ submitCardRoute = withAuthImproved "/add-card" $ do
   activeDeck <- getActiveDeck
   cardTitle <- paramOrDefault "title" "untitled"
   rules <- paramOrDefault "rules" ""
-  domination <- paramOrDefault "domination" "0"
+  dominance <- paramOrDefault "dominance" "0"
   cardType <- paramOrDefault "cardType" ""
-  subType <- paramOrDefault "subType" ""
+  subType <- paramOrDefault "subtype" ""
   gene1 <- paramOrDefault "gene1" "NoGene"
   gene2 <- paramOrDefault "gene2" "NoGene"
   startMatter <- paramOrDefault "startMatter" "0"
-  startCards <- paramOrDefault "startCards" "0"
+  startCards <- paramOrDefault "startcards" "0"
   flavor <- paramOrDefault "flavor" ""
   theDesigner <- paramOrDefault "designer" "unknown"
   illustration <- paramOrDefault "illustration" ""
@@ -154,7 +154,7 @@ submitCardRoute = withAuthImproved "/add-card" $ do
   else do
     let card = mkCard (T.strip cardTitle)
                       rules
-                      (read domination)
+                      (read dominance)
                       cardType
                       (T.strip subType)
                       gene1
