@@ -33,6 +33,7 @@
 - [x] Räknare som visar antal kort i leken.
 - [x] Kortmängd syns inte på Splicer. —detta är för att exempelkortet saknar carddraw-ruta. likaså har kort som editas enbart de rutor som krävs för den korttypen!
 - [x] Länk till Discord-kanalen
+- [x] Objectives i rules
 
 # Wishlist
 - [ ] comments (på kort?)
@@ -41,7 +42,6 @@
 - [ ] kan submitta kort även om man inte är authensierad, /submit-card checkar inte auth
 
 # Rules document
-- [ ] Objectives i rules
 - [ ] Ta bort menyn från regelsidan när man printar (mindre font också, så att det tar upp färre sidor att skriva ut)
 
 # UI / UX
