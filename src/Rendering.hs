@@ -171,6 +171,7 @@ renderEvent card =
          flavorText card
        span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
        span_ [class_ "cardType"] (toHtml "event")
+       span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 renderBiom :: Card -> Html ()
 renderBiom card =
   do div_ [class_ "card biom"] $ do
@@ -196,6 +197,7 @@ renderMutation card =
          flavorText card
        span_ [class_ "designer"] $ toHtml ("designed by " <> (designer card))
        span_ [class_ "cardType"] (toHtml "mutation")
+       span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 renderSplicer :: Card -> Html ()
 renderSplicer card =
   do div_ [class_ "card splicer"] $ do
