@@ -35,7 +35,7 @@ renderPage pageTitle activeDeck body =
        body
 
 renderFrontPage :: Maybe Deck -> Html ()
-renderFrontPage activeDeck = renderPage "Splicers" activeDeck $
+renderFrontPage activeDeck = renderPage "Welcome" activeDeck $
   do div_ [id_ "page"] $ do
        renderMenu
        div_ [] $ do
