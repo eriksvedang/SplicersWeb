@@ -189,7 +189,7 @@ submitSignupRoute = do
   success <- liftIO $ addPlayer (Player username email hashed (decodeUtf8 salt))
   if success then do
     setCookie "username" username defaultCookieSettings
-    redirect "/user"
+    redirect "/player"
   else
     redirect "/fail-signup"
 
@@ -201,7 +201,11 @@ failSignupRoute = do
 loginRoute :: Route
 loginRoute = do
   activeDeck <- getActiveDeck
-  lucidToSpock $ renderLoginFormFull activeDeck
+  maybeNextPage <- param "next"
+  let nextPage = case maybeNextPage of
+                   Just x -> x
+                   Nothing -> ""
+  lucidToSpock $ renderLoginFormFull nextPage activeDeck
 
 submitLoginRoute = do
   activeDeck <- getActiveDeck
@@ -234,7 +238,7 @@ userPageRoute = do
   myCards <- liftIO $ getCardsByDesigner name
   myDecks <- liftIO $ getDecks name
   activeDeck <- getActiveDeck
-  withAuth (\username -> renderPlayerPage activeDeck username (nub (fmap title myCards)) myDecks) "user"
+  withAuth (\username -> renderPlayerPage activeDeck username (nub (fmap title myCards)) myDecks) "player"
 
 deckRoute :: Text -> Route
 deckRoute deckId = do

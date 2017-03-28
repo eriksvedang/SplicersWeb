@@ -399,12 +399,12 @@ renderFailSignup activeDeck = do
         h1_ "Failed to sign up"
         p_ "Perhaps that username is taken."
 
-renderLoginFormFull :: Maybe Deck -> Html ()
-renderLoginFormFull activeDeck = do
+renderLoginFormFull :: Text -> Maybe Deck -> Html ()
+renderLoginFormFull nextPage activeDeck = do
   renderPage activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
-          renderLoginForm ""
+          renderLoginForm nextPage
 
 renderLoginForm :: Text -> Html ()
 renderLoginForm nextPage = do
@@ -448,6 +448,7 @@ renderLogout activeDeck = do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
           p_ "You have been logged out."
+          a_ [href_ "/login?next=player", class_ "button"] "Login"
 
 renderKeywordPage :: Maybe Deck -> [Keyword] -> Html ()
 renderKeywordPage activeDeck keywords = do
