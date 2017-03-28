@@ -276,8 +276,8 @@ textarea name heading helpText defaultValue =
     textarea_[ name_ name, rows_ "5"] $ do toHtml defaultValue
 
 
-renderAddCard :: Maybe Deck -> Card -> Text -> Html ()
-renderAddCard activeDeck copiedCard username =
+renderAddCard :: Maybe Deck -> Card -> Text -> Text -> Html ()
+renderAddCard activeDeck copiedCard username designGuidelines =
   renderPage "Add Card" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do

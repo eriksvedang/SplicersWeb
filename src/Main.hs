@@ -108,6 +108,7 @@ addCardRoute = do
   flavor <- paramOrDefault "flavor" ""
   theDesigner <- paramOrDefault "designer" "unknown"
   illustration <- paramOrDefault "illustration" ""
+  designGuidelines <- liftIO $ readFile "./files/designGuidelines.md"
   let copiedCard  = mkCard (T.strip cardTitle)
                          rules
                          (read domination)
@@ -120,7 +121,7 @@ addCardRoute = do
                          flavor
                          theDesigner
                          illustration
-  withAuth (renderAddCard activeDeck copiedCard) "add-card"
+  withAuth (renderAddCard activeDeck copiedCard (pack designGuidelines)) "add-card"
 
 paramOrDefault :: (PathPiece p, MonadIO m) => Text -> p -> ActionT m p
 paramOrDefault name defaultValue = do
