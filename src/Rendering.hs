@@ -176,12 +176,12 @@ renderCardUnderConstruction card =
        illustrationDiv card
        typesDivWithDomination "ting" (subType card) (dominance card)
        div_ [class_ "ability"] $ do
-         div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
-         div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
        span_ [class_ "designer"] $ toHtml ("✏️ " <> (designer card))
+       div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
+       div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
        span_ [class_ "cardType"] (toHtml "ting")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 
@@ -192,12 +192,12 @@ renderTing card =
        illustrationDiv card
        typesDivWithDomination "ting" (subType card) (dominance card)
        div_ [class_ "ability"] $ do
-         div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
-         div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
        span_ [class_ "designer"] $ toHtml ("✏️ " <> (designer card))
+       div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
+       div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
        span_ [class_ "cardType"] (toHtml "ting")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 
@@ -208,12 +208,12 @@ renderEvent card =
        illustrationDiv card
        typesDiv "event" (subType card)
        div_ [class_ "ability"] $ do
-         div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
-         div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
        span_ [class_ "designer"] $ toHtml ("✏️  " <> (designer card))
+       div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
+       div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
        span_ [class_ "cardType"] (toHtml "event")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 renderBiom :: Card -> Html ()
@@ -235,12 +235,12 @@ renderMutation card =
        typesDiv "mutation" (subType card)
        div_ [class_ "title"] $ toHtml (title card)
        div_ [class_ "ability"] $ do
-         div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
-         div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
          span_ [class_ "rules"] $ toHtml (rules card)
          br_ []
          flavorText card
        span_ [class_ "designer"] $ toHtml ("✏️  " <> (designer card))
+       div_ [class_ (T.append "gene2 " (pack (show (gene2 card))))] $ return ()
+       div_ [class_ (T.append "gene1 " (pack (show (gene1 card))))] $ return ()
        span_ [class_ "cardType"] (toHtml "mutation")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
 

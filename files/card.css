@@ -51,27 +51,29 @@ b, strong {
 }
 
 .designer {
-	position: absolute;
 	color: black;
 	font-size: 11px;
-	bottom: 5px;
 	font-family: KarlaRegular;
 	background-color: #dadada;
-	padding: 0px 6px 4px;
+	padding-right: 6px;
+	padding-left: 6px;
+	padding-bottom: 2px;
 	border-radius: 0 5px 5px 0;
 	white-space: pre;
 	left: 0px;
-	height: 15px;
+	position: relative;
+	float: left;
+	top: 4px;
 }
 
 .biom .designer {
-	top: 0;
 	left: auto;
-	right: 10px;
-	bottom: auto;
+	top: auto;
+	right: 15px;
+	bottom: 215px;
 	border-radius: 0  0 5px 5px;
+	float: right;
 }
-
 
 .cardType, .genes {
 	display: none !important;
@@ -83,9 +85,9 @@ b, strong {
 	margin-left: 13px;
 	margin-bottom: 4px;
 	margin-top: 8px;
-	max-width: 170px;
 	display: inline-block;
 	transition-duration: 0.5s;
+	white-space: nowrap;
 }
 .dominance {
 	background: #dadada;
@@ -162,7 +164,6 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 
 .ability {
 	width: 200px;
-	height: 100px;
 	margin-top: 10px;
 	margin-right: auto;
 	margin-left: auto;
@@ -170,6 +171,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	font-size: 14px;
 	transition-duration: 0.5s;
 	line-height: 15px;
+	height: 85px;
 }
 
 .rules {
@@ -216,7 +218,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 }
 
 .mutation .gene1 {
-	right: 60px;
+	right: 36px;
 }
 
 .mutation .gene2 {
@@ -231,7 +233,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 }
 
 .event .ability {
-	height: 90px;
+	height: 70px;
 }
 
 .event .illustration {
@@ -258,10 +260,8 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	height: 20px;
 	padding: 2px;
 	display: inline;
-	clear: both;
-	position: absolute;
-	right: 36px;
-	bottom: 5px;
+	position: relative;
+	right: 7px;
 }
 
 .gene2 {
@@ -271,12 +271,10 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	padding: 2px;
 	border-radius: 5px;
 	float: right;
-	clear: right;
 	margin-bottom: 60pxpx;
 	display: inline;
-	position: absolute;
-	right: 10px;
-	bottom: 5px;
+	position: relative;
+	right: 5px;
 }
 
 /* @group gene types */
