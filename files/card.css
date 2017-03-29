@@ -53,20 +53,25 @@ b, strong {
 .designer {
 	position: absolute;
 	color: black;
-	font-size: 10px;
-	bottom: 0;
-	font-family: KarlaBold;
-	right: 0;
+	font-size: 11px;
+	bottom: 5px;
+	font-family: KarlaRegular;
 	background-color: #dadada;
-	padding: 2px 6px 3px;
-	border-radius: 5px 0 0 0;
+	padding: 0px 6px 4px;
+	border-radius: 0 5px 5px 0;
+	white-space: pre;
+	left: 0px;
+	height: 15px;
 }
 
 .biom .designer {
 	top: 0;
+	left: auto;
+	right: 10px;
 	bottom: auto;
-	border-radius: 0 0 0 5px;
+	border-radius: 0  0 5px 5px;
 }
+
 
 .cardType, .genes {
 	display: none !important;
@@ -188,7 +193,7 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	overflow: hidden;
   transform-origin: 100% 0%;
 	margin: 0 0 -25px;
-	left: -7px;
+	left: -6px;
 	top: 130px;
 }
 
@@ -210,8 +215,12 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	width: 170px;
 }
 
-.mutation textarea {
-		width: 140px;
+.mutation .gene1 {
+	right: 60px;
+}
+
+.mutation .gene2 {
+	right: 34px;
 }
 
 .event .title {
@@ -245,12 +254,14 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	background: #dadada;
 	border-radius: 5px;
 	float: right;
-	margin-bottom: 5px;
 	width: 20px;
 	height: 20px;
 	padding: 2px;
 	display: inline;
 	clear: both;
+	position: absolute;
+	right: 36px;
+	bottom: 5px;
 }
 
 .gene2 {
@@ -263,6 +274,9 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 	clear: right;
 	margin-bottom: 60pxpx;
 	display: inline;
+	position: absolute;
+	right: 10px;
+	bottom: 5px;
 }
 
 /* @group gene types */
@@ -331,14 +345,14 @@ box-shadow: 2px 2px 0 rgba(6, 6, 6, 0.38);
 .splicer .illustration {
 	border-radius: 50%;
 	width: 135px;
-	height: 170px;
+	height: 157px;
 	margin-bottom: 0;
 }
 .splicer .types {
 	background: none;
 	display: block;
 	text-align: center;
-	margin: 8px auto -10px;
+	margin: 5px auto -10px;
 	border-style: none;
 	text-indent: 0;
 	box-shadow: none;

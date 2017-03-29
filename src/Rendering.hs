@@ -86,7 +86,7 @@ renderCards cards activeDeck cardsInDeck = renderPage "Cards" activeDeck $ do
 
   a_ [ href_ "add-card"] $ do
        div_ [class_ "add"] $ do
-         span_ [] (toHtml "+ Create a card")
+         span_ [] (toHtml "Create a card")
   mapM_ (\card -> renderCard (if ((title card) `elem` (map title cardsInDeck)) then InDeckSelection else AsLink) card) cards
 
 
