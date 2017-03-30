@@ -42,6 +42,7 @@
 
 # Wishlist
 - [ ] comments (på kort?)
+- [ ] pagination på /cards
 
 # Security
 - [ ] kan submitta kort även om man inte är authensierad, /submit-card checkar inte auth

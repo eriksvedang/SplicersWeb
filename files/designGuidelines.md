@@ -1,23 +1,32 @@
 # Guidelines
-Each player does the following:
-1. Prepare your deck by shuffling your cards (except your splicer and biom cards) and place them face down in front of you. Make room for a "discard pile" to place discarded cards.
-2. Place the splicer card face up next to the deck and the biom cards face up in a row between the players.
-3. Draw a number of cards (indicated on your splicer card) to form a hand of cards.
-4. Randomly determine first player.
-
-Now, in turn order starting with the first player, each player may perform a mulligan. The game then starts with the first round, skipping the start of round phase (see turn structure below).
 
 ---
 
 ### Card Types
+There are 5 card types: Tings, Mutations, Events, Bioms and Splicers. A Splicers deck consists of at least 18 cards including 1 Splicer card and 2 Bioms. Read up on card types in the [official rules document.](/rules)
 
 ---
 
 ### Title
+Note that you cannot make cards with the same title as another already existing card.
 
 ---
 
 ### Subtype
+A card usually has one "subtype" that works mostly as flavour but can be targeted by other card. For example, the **hunt** keyword only works on cards with the "animal" type. It's totally fine to just leave the subtype blank.
+
+Below are the most commonly used, however you can come up with whatever subtypes you want.
+[nautic]
+Tings:
+- Animal
+- Plant
+- Artificial
+- Fungi
+
+Bioms:
+- Terran
+- Aquatic
+- Elevated
 
 ---
 
@@ -26,6 +35,17 @@ Now, in turn order starting with the first player, each player may perform a mul
 ---
 
 ### Genes
+
+![Air](/files/gen_air.png)
+![Artificial](/files/gen_artificial.png)
+![Bug](/files/gen_bug.png)
+![Fungi](/files/gen_fungi.png)
+![Land](/files/gen_land.png)
+![Mini](/files/gen_mini.png)
+![Nautic](/files/gen_nautic.png)
+![Plant](/files/gen_plant.png)
+![Sinister](/files/gen_sinister.png)
+
 
 ---
 
