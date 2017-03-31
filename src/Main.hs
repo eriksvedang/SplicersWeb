@@ -8,28 +8,26 @@ import Web.PathPieces (PathPiece)
 import Control.Monad.IO.Class (MonadIO, liftIO)
 import System.Environment (getArgs)
 import System.Environment (lookupEnv)
-import Data.Text (unpack, pack)
-import qualified Data.Text as T
-import Data.Text.Internal (Text)
-import Data.Text.Encoding 
+import Data.Text (unpack, pack, strip, append, Text)
+import Data.Text.Encoding (decodeUtf8)
 import Data.Text.Lazy (toStrict)
 import Data.Monoid ((<>))
+import Data.List (nub)
+import qualified Crypto.BCrypt as BC
 import Database
 import Card
 import Rendering
 import Lucid
 import Player
 import Deck
-import qualified Crypto.BCrypt as BC
-import Data.List (nub)
 
 type Route = ActionT IO ()
 
 main :: IO ()
 main = do
   migrate
-  port <- getPort
-  runSpock (read port) $ spockT id $ do
+  port <- fmap read getPort
+  runSpock port $ spockT id $ do
     get root $                     frontPageRoute
     get "cards" $                  cardsRoute
     get ("card" <//> var) $        singleCardRoute
@@ -109,11 +107,11 @@ addCardRoute = do
   theDesigner <- paramOrDefault "designer" "unknown"
   illustration <- paramOrDefault "illustration" ""
   designGuidelines <- liftIO $ readFile "./files/designGuidelines.md"
-  let copiedCard  = mkCard (T.strip cardTitle)
+  let copiedCard  = mkCard (strip cardTitle)
                          rules
                          (read domination)
                          cardType
-                         (T.strip subType)
+                         (strip subType)
                          gene1
                          gene2
                          (read startMatter)
@@ -152,11 +150,11 @@ submitCardRoute = withAuthImproved "/add-card" $ do
   if someoneElseOwnsThisCard then
     lucidToSpock (renderError activeDeck "Someone else owns this card (try using another title).")
   else do
-    let card = mkCard (T.strip cardTitle)
+    let card = mkCard (strip cardTitle)
                       rules
                       (read dominance)
                       cardType
-                      (T.strip subType)
+                      (strip subType)
                       gene1
                       gene2
                       (read startMatter)
@@ -267,7 +265,7 @@ printDeckRoute deckId = do
 editDeckRoute :: Text -> Route
 editDeckRoute deckId = do
   setCookie "deck" deckId defaultCookieSettings
-  let page = (T.append "/deck/" deckId)
+  let page = (append "/deck/" deckId)
   --liftIO $ putStrLn (unpack page)
   redirect page
 
