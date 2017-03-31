@@ -8,6 +8,7 @@ import Data.Text.Internal (Text)
 import Data.Text (unpack, pack)
 import qualified Data.Text as T
 import Data.Monoid ((<>))
+import Debug.Trace (trace)
 import Card
 import Keyword
 import Lucid
@@ -377,7 +378,9 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
         mapM_ (\cardTitle -> li_ $ a_ [href_ $ pack ("/card/" ++ unpack cardTitle)] (toHtml cardTitle)) myCardTitles
 
 
-
+-- There is a reason for the two deck arguments!
+-- 'activeDeck' is the deck that the player is currently editing, its ID is stored in a cookie for the session
+-- 'deck' is the deck at the page that the player has navigated to, i.e. /decks/123
 renderDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
 renderDeckPage activeDeck deck cards = do
   renderPage "Deck" activeDeck $ do
@@ -394,21 +397,23 @@ renderDeckPage activeDeck deck cards = do
           span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing.  Click a card to remove it from your deck.")
         input_ [name_ "deckid", style_ "display:none", value_ ((pack . show . deckId) deck), readonly_ ""]
 
-
         a_ [class_ "whileediting", style_ "display:none;", href_ "/cards"] $ do
                                                                      div_ [class_ "add"] $ do
                                                                        span_ [] (toHtml "Add more cards to deck")
-        case activeDeck of
-          Just deck -> mapM_ (renderCard InDeckSelection) cards
-          Nothing -> mapM_ (renderCard AsLink) cards
+        inDeckSelection <- case activeDeck of
+                             Just d -> return ((deckId d) == (deckId deck))
+                             Nothing -> return False
+
+        if inDeckSelection then do
+          mapM_ (renderCard InDeckSelection) cards
+        else
+          mapM_ (renderCard AsLink) cards
 
 renderPrintDeckPage :: Maybe Deck -> Deck -> [Card] -> Html ()
-renderPrintDeckPage activeDeck deck cards = do
-  renderPage "Print Deck" activeDeck $ do
+renderPrintDeckPage _ deck cards = do
+  renderPage "Print Deck" (Just deck) $ do
         script_ "document.getElementsByTagName('link')[0].disabled = true; $('.randomcolor').css('background-color', 'none');"
-        case activeDeck of
-          Just deck -> mapM_ (renderCard NoLink) cards
-          Nothing -> mapM_ (renderCard NoLink) cards
+        mapM_ (renderCard NoLink) cards
         script_ "window.print();"
 
 renderNoSuchDeckPage :: Maybe Deck -> Html ()
