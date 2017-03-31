@@ -242,27 +242,23 @@ userPageRoute = do
   activeDeck <- getActiveDeck
   withAuth (\username -> renderPlayerPage activeDeck username (nub (fmap title myCards)) myDecks) "player"
 
-deckRoute :: Text -> Route
-deckRoute deckId = do
-  let deckIdAsInt = ((read . unpack) deckId)
-  deck <- liftIO $ getDeck deckIdAsInt
-  cardTitles <- liftIO $ getCardsInDeck deckIdAsInt
-  cards <- liftIO $ mapM getNewestCardWithTitle cardTitles
-  activeDeck <- getActiveDeck
-  case deck of
-    (Just deck) -> lucidToSpock $ renderDeckPage activeDeck deck cards
-    Nothing -> lucidToSpock $ renderNoSuchDeckPage activeDeck
+type DeckRenderer = Maybe Deck -> Deck -> [Card] -> Html ()
 
--- TODO: clean up this, it's just a copy of 'deckRoute' with one change!
+deckRoute :: Text -> Route
+deckRoute deckId = generalizedDeckRenderingRoute renderDeckPage deckId
+
 printDeckRoute :: Text -> Route
-printDeckRoute deckId = do
-  let deckIdAsInt = ((read . unpack) deckId)
+printDeckRoute deckId = generalizedDeckRenderingRoute renderPrintDeckPage deckId
+
+generalizedDeckRenderingRoute :: DeckRenderer -> Text -> Route
+generalizedDeckRenderingRoute renderer deckId = do
+  let deckIdAsInt = (read . unpack) deckId
   deck <- liftIO $ getDeck deckIdAsInt
   cardTitles <- liftIO $ getCardsInDeck deckIdAsInt
   cards <- liftIO $ mapM getNewestCardWithTitle cardTitles
   activeDeck <- getActiveDeck
   case deck of
-    (Just deck) -> lucidToSpock $ renderPrintDeckPage activeDeck deck cards
+    (Just deck) -> lucidToSpock $ renderer activeDeck deck cards
     Nothing -> lucidToSpock $ renderNoSuchDeckPage activeDeck
 
 editDeckRoute :: Text -> Route
