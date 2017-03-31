@@ -13,6 +13,7 @@ import Card
 import Keyword
 import Lucid
 import Deck
+import Util
 
 css :: Text -> Html ()
 css name = link_ [rel_ "stylesheet", type_ "text/css", href_ name]
@@ -73,7 +74,7 @@ cornerWidget deckToEdit = do
     span_ [] (toHtml "→")
     input_ [ type_ "text", name_ "filter"]
   case deckToEdit of
-    Just deck -> a_ [class_ "editing randomcolor", href_ (T.append "/deck/" ((pack . show . deckId) deck))]
+    Just deck -> a_ [class_ "editing randomcolor", href_ (T.append "/deck/" ((showAsText . deckId) deck))]
                  (toHtml (T.append "Editing: " (deckName deck)))
     Nothing -> a_ [class_ "editing", href_ "/player"] "No deck to edit"
 
@@ -104,13 +105,13 @@ renderSingleCardPage activeDeck title cards =
         br_ []
         a_ [href_ ("/add-card/?title=" <> title
                    <> "&rules=" <> (rules card)
-                   <> "&domination=" <> (pack . show . dominance $ card)
-                   <> "&cardType=" <> (pack . show . cardType $ card)
+                   <> "&domination=" <> (showAsText . dominance $ card)
+                   <> "&cardType=" <> (showAsText . cardType $ card)
                    <> "&subType=" <> (subType card)
-                   <> "&gene1=" <> (pack . show . gene1 $ card)
-                   <> "&gene2=" <> (pack . show . gene2 $ card)
+                   <> "&gene1=" <> (showAsText . gene1 $ card)
+                   <> "&gene2=" <> (showAsText . gene2 $ card)
                    <> "&illustration=" <> (illustration card)
-                   <> "&startCards=" <> (pack . show . startCards $ card)
+                   <> "&startCards=" <> (showAsText . startCards $ card)
                    <> "&rules=" <> (rules card)
                    <> "&flavor=" <> (flavor card)
                    <> "&designer=" <> (designer card)
@@ -288,7 +289,7 @@ renderCardDesigner activeDeck copiedCard designGuidelines username  =
             span_ [style_ "white-space: pre;"] (toHtml "Select a card type: ")
 
             select_ [name_ "cardType"] $ do
-              let cardTypeText = (pack . show . cardType $ copiedCard)
+              let cardTypeText = (showAsText . cardType $ copiedCard)
               option_ [value_ cardTypeText, selected_ "", hidden_ ""] (toHtml cardTypeText)
               option_ [value_ "Ting"] (toHtml "Ting")
               option_ [value_ "Biom"] (toHtml "Biom")
@@ -298,14 +299,14 @@ renderCardDesigner activeDeck copiedCard designGuidelines username  =
             a_ [href_ "#cardtypes"] (toHtml "?")
           field "title" "Title" "" "text" (title copiedCard)
           field "subtype" "Subtype" " (i.e. Animal, Plant...)" "text" (subType copiedCard)
-          field "dominance" "Dominance" " (0-10)" "number" ((pack . show) (dominance copiedCard))
+          field "dominance" "Dominance" " (0-10)" "number" ((showAsText) (dominance copiedCard))
 
           div_ [id_ "genes", class_ "inputField"] $ do
             span_ (toHtml "Select genes: ")
             a_ [href_ "#genes"] (toHtml "?")
             br_ []
             select_ [name_ "gene1"] $ do
-              let geneText = (pack . show . gene1 $ copiedCard)
+              let geneText = (showAsText . gene1 $ copiedCard)
               option_ [value_ geneText , selected_ "", hidden_ ""] (toHtml geneText)
               option_ [value_ "NoGene"] (toHtml "NoGene")
               option_ [value_ "Air"] (toHtml "Air")
@@ -318,7 +319,7 @@ renderCardDesigner activeDeck copiedCard designGuidelines username  =
               option_ [value_ "Sinister"] (toHtml "Sinister")
               option_ [value_ "Land"] (toHtml "Land")
             select_ [name_ "gene2"] $ do
-              let geneText = (pack . show . gene2 $ copiedCard)
+              let geneText = (showAsText . gene2 $ copiedCard)
               option_ [value_ geneText , selected_ "", hidden_ ""] (toHtml geneText)
               option_ [value_ "NoGene"] (toHtml "NoGene")
               option_ [value_ "Air"] (toHtml "Air")
@@ -331,7 +332,7 @@ renderCardDesigner activeDeck copiedCard designGuidelines username  =
               option_ [value_ "Sinister"] (toHtml "Sinister")
               option_ [value_ "Land"] (toHtml "Land")
 
-          field "startcards" "Start cards" " (The number of cards you start with)" "number" ((pack . show . startCards) copiedCard)
+          field "startcards" "Start cards" " (The number of cards you start with)" "number" ((showAsText . startCards) copiedCard)
           textarea "rules" "Rules" " (example: @: Roam)" (rules copiedCard)
           textarea "flavor" "Flavor" "" (flavor copiedCard)
           input_ [type_ "text", name_ "designer", value_ username, readonly_ ""]
@@ -370,7 +371,7 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
         h3_ "Decks by me"
         mapM_ (\(deck) -> li_ $ do a_ [href_ $ pack ("/deck/" ++ show (deckId deck))] (toHtml $ deckName deck)
                                    span_ [] (toHtml " ")
-                                   let onClickCode = "deleteDeck(" <> (pack . show) (deckId deck) <> ")"
+                                   let onClickCode = "deleteDeck(" <> (showAsText) (deckId deck) <> ")"
                                    a_ [onclick_ onClickCode, class_ "subtle-button"] (toHtml "✖"))
           myDecks
 
@@ -390,12 +391,12 @@ renderDeckPage activeDeck deck cards = do
           a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish"
           a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit"
           a_ [class_ "button",  href_ $ pack ("/print/" ++ show (deckId deck)), target_ "new"] "Print"
-          a_ [class_ "notediting button", onclick_ ("deleteDeck(" <> ((pack . show . deckId) deck) <> ")")] "Delete"
+          a_ [class_ "notediting button", onclick_ ("deleteDeck(" <> ((showAsText . deckId) deck) <> ")")] "Delete"
           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
         div_ [ class_ "deckstatus randomcolor"] $ do
           span_ [class_ "deckcounter"] (toHtml "number of cards in deck")
           span_ [class_ "whileediting", style_ "display:none;"] (toHtml "Currently editing.  Click a card to remove it from your deck.")
-        input_ [name_ "deckid", style_ "display:none", value_ ((pack . show . deckId) deck), readonly_ ""]
+        input_ [name_ "deckid", style_ "display:none", value_ ((showAsText . deckId) deck), readonly_ ""]
 
         a_ [class_ "whileediting", style_ "display:none;", href_ "/cards"] $ do
                                                                      div_ [class_ "add"] $ do
