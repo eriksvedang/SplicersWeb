@@ -13,7 +13,7 @@ import Data.Text.Encoding (decodeUtf8)
 import Data.Text.Lazy (toStrict)
 import Data.Monoid ((<>))
 import Data.List (nub)
-import Data.Maybe (maybe)
+import Data.Maybe (maybe, isJust)
 import qualified Crypto.BCrypt as BC
 import Database
 import Card
@@ -21,6 +21,7 @@ import Rendering
 import Lucid
 import Player
 import Deck
+import Util
 
 type Route = ActionT IO ()
 
@@ -244,14 +245,12 @@ userPageRoute = do
 
 type DeckRenderer = Maybe Deck -> Deck -> [Card] -> Html ()
 
+-- TODO: pointfree style
 deckRoute :: Text -> Route
 deckRoute deckId = generalizedDeckRenderingRoute renderDeckPage deckId
 
 printDeckRoute :: Text -> Route
 printDeckRoute deckId = generalizedDeckRenderingRoute renderPrintDeckPage deckId
-
-readText :: Read a => Text -> a
-readText = read . unpack
 
 generalizedDeckRenderingRoute :: DeckRenderer -> Text -> Route
 generalizedDeckRenderingRoute renderer deckId = do
@@ -274,8 +273,7 @@ setDeckNameRoute :: Route
 setDeckNameRoute = withAuthImproved "/player" $ do
   Just deckIdStr <- param "deckId"
   Just deckName <- param "deckName"
-  let deckId :: Int
-      deckId = ((read . unpack) deckIdStr)
+  let deckId = readText deckIdStr
   deck <- liftIO $ getDeck deckId
   activeDeck <- getActiveDeck
   case deck of
@@ -290,7 +288,7 @@ newDeckRoute = withAuthImproved "/new-deck" $ do
   username <- cookie "username"
   case username of
     Just name -> do newDeckId <- liftIO $ addDeck (Deck 0 "Awesome New Deck" name)
-                    setCookie "deck" ((pack . show) newDeckId) defaultCookieSettings
+                    setCookie "deck" (showAsText newDeckId) defaultCookieSettings
                     redirect "/cards"
     Nothing -> error "Can't create deck when not logged in."
 
@@ -302,7 +300,7 @@ deleteDeckRoute = withAuthImproved "/player" $ do
   case username of
     Just name -> do deckIdStr <- param "deckId"
                     case deckIdStr of
-                      Just s  -> do liftIO $ deleteDeck ((read . unpack) s)
+                      Just s  -> do liftIO $ deleteDeck (readText s)
                                     setCookie "deck" "" defaultCookieSettings
                                     redirect "/player"
                       Nothing -> lucidToSpock $ renderError activeDeck "Missing parameter: 'deckId'"
@@ -312,14 +310,14 @@ addCardToDeckRoute :: Route
 addCardToDeckRoute = withAuthImproved "/" $ do
   Just deckId <- param "deckId"
   Just cardTitle <- param "cardTitle"
-  liftIO $ addCardToDeck ((read . unpack) deckId) cardTitle
+  liftIO $ addCardToDeck (readText deckId) cardTitle
   lucidToSpock (p_ [] "Card added.")
 
 removeCardFromDeckRoute :: Route
 removeCardFromDeckRoute = withAuthImproved "/" $ do
   Just deckId <- param "deckId"
   Just cardTitle <- param "cardTitle"
-  liftIO $ removeCardFromDeck ((read . unpack) deckId) cardTitle
+  liftIO $ removeCardFromDeck (readText deckId) cardTitle
   lucidToSpock (p_ [] "Card removed.")
 
 listKeywordsRoute :: Route
@@ -353,11 +351,7 @@ getPort = do
       return defaultPort
 
 isAuthorized :: ActionT IO Bool
-isAuthorized = do
-  maybeUsername <- cookie "username"
-  case maybeUsername of
-    Just username -> return True
-    Nothing -> return False
+isAuthorized = fmap isJust (cookie "username")
 
 -- TODO: Just use one of the withAuth functions!
 
