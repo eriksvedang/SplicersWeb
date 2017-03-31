@@ -8,13 +8,13 @@ import Database.PostgreSQL.Simple.FromField
 import Database.PostgreSQL.Simple.ToRow
 import Database.PostgreSQL.Simple.ToField
 import Database.PostgreSQL.Simple.Internal (Connection)
-import Control.Applicative ((<*>), (<$>))
-import Data.Text (Text(..), pack, unpack)
+import qualified Crypto.BCrypt as BC
 import qualified Data.ByteString.Char8 as BS
+import Data.Text (Text, pack, unpack)
+import Data.Text.Encoding (encodeUtf8, decodeUtf8)
+import Control.Applicative ((<*>), (<$>))
 import Control.Monad (forM_)
 import System.Environment (lookupEnv)
-import Data.Text.Encoding
-import Crypto.BCrypt
 import Data.Monoid ((<>))
 
 import Card
@@ -186,14 +186,14 @@ getPlayer name = do
 
 hashPlainPassword :: Text -> Text -> IO Text
 hashPlainPassword plainTextPass salt = do
-  x <- hashPasswordUsingPolicy fastBcryptHashingPolicy (encodeUtf8 (plainTextPass <> salt))
+  x <- BC.hashPasswordUsingPolicy BC.fastBcryptHashingPolicy (encodeUtf8 (plainTextPass <> salt))
   case x of
     Just encrypted -> return (decodeUtf8 encrypted)
     Nothing -> error "Failed to encrypt password."
 
 verifyPassword :: Text -> Text -> Text -> Bool
 verifyPassword plainTextPass salt passwordHash =
-  validatePassword (encodeUtf8 passwordHash) (encodeUtf8 (plainTextPass <> salt))
+  BC.validatePassword (encodeUtf8 passwordHash) (encodeUtf8 (plainTextPass <> salt))
 
 addPlayer :: Player -> IO Bool
 addPlayer player = do
