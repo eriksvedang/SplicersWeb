@@ -33,7 +33,6 @@ main = do
     get ("card" <//> var) $        singleCardRoute
     get "add-card" $               addCardRoute
     get "submit-card" $            submitCardRoute
-    get "add-fake-data" $          addFakeDataRoute
     get "signup" $                 signupRoute
     get "submit-signup" $          submitSignupRoute
     get "fail-signup" $            failSignupRoute
@@ -166,12 +165,6 @@ submitCardRoute = withAuthImproved "/add-card" $ do
       Left msg -> lucidToSpock (renderError activeDeck msg)
       Right _  -> do liftIO (addCard card)
                      lucidToSpock (renderSubmittedCard activeDeck cardTitle)
-
-addFakeDataRoute :: Route
-addFakeDataRoute = do
-  liftIO addFakeData
-  activeDeck <- getActiveDeck
-  lucidToSpock (renderAddFakeData activeDeck)
 
 signupRoute :: Route
 signupRoute = do

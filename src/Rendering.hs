@@ -356,10 +356,6 @@ renderSubmittedCard activeDeck title =
         a_ [href_ "/cards", class_ "button"] "See all cards"
         a_ [href_ "/add-card", class_ "button"] "Add another card"
 
-renderAddFakeData :: Maybe Deck -> Html ()
-renderAddFakeData activeDeck = do
-  renderPage "Fake" activeDeck $ p_ "Added fake data!"
-
 renderPlayerPage :: Maybe Deck -> Text -> [Text] -> [Deck] -> Html ()
 renderPlayerPage activeDeck username myCardTitles myDecks = do
   renderPage username activeDeck $ do
