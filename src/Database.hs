@@ -52,7 +52,7 @@ migrate = do
                \);"
 
   cards <- getCards
-  if (length cards) == 0 then addFakeData else return ()
+  if (length cards) == 0 then addDefaultCard else return ()
 
   execute_ conn "CREATE TABLE IF NOT EXISTS player (name VARCHAR(128) PRIMARY KEY, email VARCHAR(256), password VARCHAR(128), salt VARCHAR(128));"
 
@@ -69,8 +69,8 @@ migrate = do
   
   return ()
 
-addFakeData :: IO ()
-addFakeData = do
+addDefaultCard :: IO ()
+addDefaultCard = do
   conn <- getConnection
   execute_ conn "INSERT INTO card VALUES ('Crown', '+1', 0, 'Mutation', '', '', '', 0, 0, 'You will be the queen', 'Erik', '');"
   return ()
