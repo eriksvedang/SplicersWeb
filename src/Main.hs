@@ -129,7 +129,7 @@ cardDesignerRoute = do
                          flavor
                          theDesigner
                          illustration
-  withAuth (renderCardDesignForm activeDeck copiedCard (pack designGuidelines)) "add-card"
+  renderHTMLwithAuth "add-card" (renderCardDesignForm activeDeck copiedCard (pack designGuidelines))
 
 paramOrDefault :: (PathPiece p, MonadIO m) => Text -> p -> ActionT m p
 paramOrDefault name defaultValue = do
@@ -139,7 +139,7 @@ paramOrDefault name defaultValue = do
     Nothing -> return defaultValue
 
 submitCardRoute :: Route
-submitCardRoute = withAuthImproved "/add-card" $ do
+submitCardRoute = authorizedRoute "/add-card" $ do
   activeDeck <- getActiveDeck
   cardTitle <- paramOrDefault "title" "untitled"
   rules <- paramOrDefault "rules" ""
@@ -241,7 +241,7 @@ userPageRoute = do
   myCards <- liftIO $ getCardsByDesigner name
   myDecks <- liftIO $ getDecks name
   activeDeck <- getActiveDeck
-  withAuth (\username -> renderPlayerPage activeDeck username (nub (fmap title myCards)) myDecks) "player"
+  renderHTMLwithAuth "player" (\username -> renderPlayerPage activeDeck username (nub (fmap title myCards)) myDecks)
 
 type DeckRenderer = Maybe Deck -> Deck -> [Card] -> Html ()
 
@@ -270,7 +270,7 @@ editDeckRoute deckId = do
   redirect page
 
 setDeckNameRoute :: Route
-setDeckNameRoute = withAuthImproved "/player" $ do
+setDeckNameRoute = authorizedRoute "/player" $ do
   Just deckIdStr <- param "deckId"
   Just deckName <- param "deckName"
   let deckId = readText deckIdStr
@@ -284,7 +284,7 @@ setDeckNameRoute = withAuthImproved "/player" $ do
                       else lucidToSpock (renderError activeDeck "Can't set deck name of someone else's deck.")    
 
 newDeckRoute :: Route
-newDeckRoute = withAuthImproved "/new-deck" $ do
+newDeckRoute = authorizedRoute "/new-deck" $ do
   username <- cookie "username"
   case username of
     Just name -> do newDeckId <- liftIO $ addDeck (Deck 0 "Awesome New Deck" name)
@@ -293,7 +293,7 @@ newDeckRoute = withAuthImproved "/new-deck" $ do
     Nothing -> error "Can't create deck when not logged in."
 
 deleteDeckRoute :: Route
-deleteDeckRoute = withAuthImproved "/player" $ do
+deleteDeckRoute = authorizedRoute "/player" $ do
   username <- cookie "username"
   activeDeck <- getActiveDeck
   deleteCookie "deck"
@@ -307,14 +307,14 @@ deleteDeckRoute = withAuthImproved "/player" $ do
     Nothing -> error "Can't delete deck when not logged in."
 
 addCardToDeckRoute :: Route
-addCardToDeckRoute = withAuthImproved "/" $ do
+addCardToDeckRoute = authorizedRoute "/" $ do
   Just deckId <- param "deckId"
   Just cardTitle <- param "cardTitle"
   liftIO $ addCardToDeck (readText deckId) cardTitle
   lucidToSpock (p_ [] "Card added.")
 
 removeCardFromDeckRoute :: Route
-removeCardFromDeckRoute = withAuthImproved "/" $ do
+removeCardFromDeckRoute = authorizedRoute "/" $ do
   Just deckId <- param "deckId"
   Just cardTitle <- param "cardTitle"
   liftIO $ removeCardFromDeck (readText deckId) cardTitle
@@ -353,20 +353,19 @@ getPort = do
 isAuthorized :: ActionT IO Bool
 isAuthorized = fmap isJust (cookie "username")
 
--- TODO: Just use one of the withAuth functions!
-
-withAuth :: (Text -> Html ()) -> Text -> ActionT IO ()
-withAuth authenticatedRoute goHereAfterLogin = do
+renderHTMLwithAuth :: Text -> (Text -> Html ()) -> Route
+renderHTMLwithAuth goHereAfterLogin authenticatedRoute  = do
   maybeUsername <- cookie "username"
   activeDeck <- getActiveDeck
   case maybeUsername of
     Just username -> lucidToSpock (authenticatedRoute username)
     Nothing -> lucidToSpock $ renderMustLogIn activeDeck "Please log in first." goHereAfterLogin
 
-withAuthImproved :: Text -> Route ->  ActionT IO ()
-withAuthImproved goHereAfterLogin authenticatedRoute = do
+authorizedRoute :: Text -> Route -> Route
+authorizedRoute goHereAfterLogin authenticatedRoute = do
   maybeUsername <- cookie "username"
   activeDeck <- getActiveDeck
   case maybeUsername of
     Just username -> authenticatedRoute
     Nothing -> lucidToSpock $ renderMustLogIn activeDeck "Please log in first." goHereAfterLogin
+

@@ -46,6 +46,7 @@
 
 # Security
 - [ ] kan submitta kort även om man inte är authensierad, /submit-card checkar inte auth
+- [ ] kan gå in på deck-sidor utan att vara inloggad, får upp knappar för att ändra..?!
 
 # Rules document
 - [ ] Ta bort menyn från regelsidan när man printar (mindre font också, så att det tar upp färre sidor att skriva ut)
