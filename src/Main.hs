@@ -250,9 +250,12 @@ deckRoute deckId = generalizedDeckRenderingRoute renderDeckPage deckId
 printDeckRoute :: Text -> Route
 printDeckRoute deckId = generalizedDeckRenderingRoute renderPrintDeckPage deckId
 
+readText :: Read a => Text -> a
+readText = read . unpack
+
 generalizedDeckRenderingRoute :: DeckRenderer -> Text -> Route
 generalizedDeckRenderingRoute renderer deckId = do
-  let deckIdAsInt = (read . unpack) deckId
+  let deckIdAsInt = readText deckId
   deck <- liftIO $ getDeck deckIdAsInt
   cardTitles <- liftIO $ getCardsInDeck deckIdAsInt
   cards <- liftIO $ mapM getNewestCardWithTitle cardTitles
