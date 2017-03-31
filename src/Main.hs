@@ -129,7 +129,7 @@ cardDesignerRoute = do
                          flavor
                          theDesigner
                          illustration
-  withAuth (renderCardDesigner activeDeck copiedCard (pack designGuidelines)) "add-card"
+  withAuth (renderCardDesignForm activeDeck copiedCard (pack designGuidelines)) "add-card"
 
 paramOrDefault :: (PathPiece p, MonadIO m) => Text -> p -> ActionT m p
 paramOrDefault name defaultValue = do

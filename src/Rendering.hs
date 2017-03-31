@@ -78,7 +78,6 @@ cornerWidget deckToEdit = do
                  (toHtml ("Editing: " <> (deckName deck)))
     Nothing -> a_ [class_ "editing", href_ "/player"] "No deck to edit"
 
-
 renderCards :: [Card] -> Maybe Deck -> [Card] -> Html ()
 renderCards cards activeDeck cardsInDeck = renderPage "Cards" activeDeck $ do
   div_ [ class_ "deckstatus randomcolor"] $ do
@@ -90,7 +89,6 @@ renderCards cards activeDeck cardsInDeck = renderPage "Cards" activeDeck $ do
        div_ [class_ "add"] $ do
          span_ [] (toHtml "Create a card")
   mapM_ (\card -> renderCard (if ((title card) `elem` (map title cardsInDeck)) then InDeckSelection else AsLink) card) cards
-
 
 data RenderCardMode = AsLink | NoLink | InDeckSelection | UnderConstruction
 
@@ -277,9 +275,8 @@ textarea name heading helpText defaultValue =
     br_ []
     textarea_[ name_ name, rows_ "5"] $ do toHtml defaultValue
 
-
-renderCardDesigner :: Maybe Deck -> Card -> Text -> Text -> Html ()
-renderCardDesigner activeDeck copiedCard designGuidelines username  =
+renderCardDesignForm :: Maybe Deck -> Card -> Text -> Text -> Html ()
+renderCardDesignForm activeDeck copiedCard designGuidelines username  =
   renderPage "Add Card" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content"] $ do
@@ -346,7 +343,6 @@ renderCardDesigner activeDeck copiedCard designGuidelines username  =
       div_ [class_ "content"] $ do
         article_ [class_ "markdown"] (toHtml designGuidelines)
 
-
 renderSubmittedCard :: Maybe Deck -> Text -> Html ()
 renderSubmittedCard activeDeck title =
   renderPage title activeDeck $ do
@@ -378,7 +374,6 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
         h3_ "Cards by me"
         mapM_ (\cardTitle -> li_ $ a_ [href_ $ pack ("/card/" ++ unpack cardTitle)] (toHtml cardTitle)) myCardTitles
 
-
 -- There is a reason for the two deck arguments!
 -- 'activeDeck' is the deck that the player is currently editing, its ID is stored in a cookie for the session
 -- 'deck' is the deck at the page that the player has navigated to, i.e. /decks/123
@@ -387,6 +382,7 @@ renderDeckPage activeDeck deck cards = do
   renderPage "Deck" activeDeck $ do
     div_ [class_ "window"] $ do
       div_ [class_ "content deckedit"] $ do
+        -- TODO: Move this CSS to the stylesheets?
         div_ [class_ "randomcolor", style_ "margin-left: -20px; margin-right: -20px;"] $ do
           a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish"
           a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit"
@@ -527,7 +523,6 @@ renderMenu = do
       h2_ [class_ "randomcolor"] "An open source collectible card game"
       div_ [id_ "menu"] $ do
         renderMenuItems
-
 
 renderSmallMenu :: Maybe Deck -> Html ()
 renderSmallMenu activeDeck = do
