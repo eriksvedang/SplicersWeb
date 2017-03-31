@@ -218,6 +218,7 @@ renderEvent card =
        div_ [class_ ("gene1 " <> (showAsText . gene1) card)] $ return ()
        span_ [class_ "cardType"] (toHtml "event")
        span_ [class_ "genes"] (toHtml (pack (show (gene1 card)) <> " " <> pack (show (gene2 card))))
+       
 renderBiom :: Card -> Html ()
 renderBiom card =
   do div_ [class_ "card biom"] $ do
@@ -226,7 +227,6 @@ renderBiom card =
        typesDivWithDomination "biom" (subType card) (dominance card)
        div_ [class_ "ability"] $ do
          span_ [class_ "rules"] $ toHtml (rules card)
-         --flavorText card
        span_ [class_ "designer"] $ toHtml ("✏️  " <> (designer card))
        span_ [class_ "cardType"] (toHtml "biom")
 
@@ -369,7 +369,7 @@ renderPlayerPage activeDeck username myCardTitles myDecks = do
         a_ [href_ "/add-card", class_ "button"] "Create a new card"
         a_ [href_ "/logout", class_ "button"] "Log out"
         h3_ "Decks by me"
-        mapM_ (\(deck) -> li_ $ do a_ [href_ $ pack ("/deck/" ++ show (deckId deck))] (toHtml $ deckName deck)
+        mapM_ (\(deck) -> li_ $ do a_ [href_ ("/deck/" <> (showAsText . deckId) deck)] (toHtml $ deckName deck)
                                    span_ [] (toHtml " ")
                                    let onClickCode = "deleteDeck(" <> (showAsText) (deckId deck) <> ")"
                                    a_ [onclick_ onClickCode, class_ "subtle-button"] (toHtml "✖"))
@@ -390,7 +390,7 @@ renderDeckPage activeDeck deck cards = do
         div_ [class_ "randomcolor", style_ "margin-left: -20px; margin-right: -20px;"] $ do
           a_ [class_ "whileediting button", style_ "display:none;",  href_ "#", onclick_ "removeCookie()"] "Finish"
           a_ [class_ "notediting button",  href_ "#", onclick_ "editDeck()"] "Edit"
-          a_ [class_ "button",  href_ $ pack ("/print/" ++ show (deckId deck)), target_ "new"] "Print"
+          a_ [class_ "button",  href_ ("/print/" <> (showAsText . deckId) deck), target_ "new"] "Print"
           a_ [class_ "notediting button", onclick_ ("deleteDeck(" <> ((showAsText . deckId) deck) <> ")")] "Delete"
           input_ [id_ "deckname", value_ (deckName deck), name_ "deckname"]
         div_ [ class_ "deckstatus randomcolor"] $ do
