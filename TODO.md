@@ -56,9 +56,16 @@
 - [ ] Borde beskriva alla vanliga subtyper som finns (just nu är det bara två exempel på "create card"-sidan). Med länk till reglerna kring subtypes.
 - [ ] Förslag på subtyper borde ändras när man skapar Biom (och länka till en lista med vanliga subtyper för biom?)
 - [ ] Ska subtyp skrivas ut på Splicers / Events ? Iaf inte om de är tomma.
+- [ ] Ibland blir det bara 6 kort på en sida när man printar
+- [ ] Om man går in på en annan lek medans man valt 'edit' på en tidigare lek så tror sidan att man ska kunna ta bort kort ur den andra leken.
 
 # Firefox
 - [ ] Textfältet för regler på kortet overflowar åt höger istället för att radbryta (Firefox).
 - [ ] Vänstermarginal på Player-sidan är för liten (Firefox)
 - [ ] Kort "hoppar runt" när man drar musen över dem (Firefox)
 - [ ] Kort är alldeles för stora på /deck när man tryckt "Edit"!!!
+
+# Refactorings
+- A type for DeckID:s
+- A type for Hashed password / salt
+- 
