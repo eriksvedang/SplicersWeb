@@ -58,6 +58,7 @@
 - [ ] Ska subtyp skrivas ut på Splicers / Events ? Iaf inte om de är tomma.
 - [ ] Ibland blir det bara 6 kort på en sida när man printar
 - [ ] Om man går in på en annan lek medans man valt 'edit' på en tidigare lek så tror sidan att man ska kunna ta bort kort ur den andra leken.
+- [ ] Verkar som att den senaste versionen av kort inte alltid är den som visas på /cards ??!
 
 # Firefox
 - [ ] Textfältet för regler på kortet overflowar åt höger istället för att radbryta (Firefox).
