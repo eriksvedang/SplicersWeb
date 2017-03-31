@@ -13,6 +13,7 @@ import Data.Text.Encoding (decodeUtf8)
 import Data.Text.Lazy (toStrict)
 import Data.Monoid ((<>))
 import Data.List (nub)
+import Data.Maybe (maybe)
 import qualified Crypto.BCrypt as BC
 import Database
 import Card
@@ -28,11 +29,12 @@ main = do
   migrate
   port <- fmap read getPort
   runSpock port $ spockT id $ do
+    -- Main routes
     get root $                     frontPageRoute
-    get "cards" $                  cardsRoute
-    get ("card" <//> var) $        singleCardRoute
-    get "add-card" $               addCardRoute
-    get "submit-card" $            submitCardRoute
+    get "rules" $                  rulesDocumentRoute
+    get ("files" <//> var)         getFile
+
+    -- Player routes
     get "signup" $                 signupRoute
     get "submit-signup" $          submitSignupRoute
     get "fail-signup" $            failSignupRoute
@@ -40,7 +42,15 @@ main = do
     get "submit-login" $           submitLoginRoute
     get "logout" $                 logoutRoute
     get "player" $                 userPageRoute
-    get "user" $                   userPageRoute
+    get "user" $                   userPageRoute -- alias for /player
+
+    -- Card routes
+    get "cards" $                  cardsRoute
+    get ("card" <//> var) $        singleCardRoute
+    get "add-card" $               cardDesignerRoute
+    get "submit-card" $            submitCardRoute
+
+    -- Deck routes
     get ("deck" <//> var) $        deckRoute
     get ("print" <//> var) $       printDeckRoute
     get ("edit-deck" <//> var) $   editDeckRoute
@@ -49,9 +59,9 @@ main = do
     get "delete-deck" $            deleteDeckRoute
     get "add-card-to-deck" $       addCardToDeckRoute
     get "remove-card-from-deck" $  removeCardFromDeckRoute
+
+    -- Keyword routes
     get "keywords" $               listKeywordsRoute
-    get "rules" $                  rulesDocumentRoute
-    get ("files" <//> var)         getFile
 
 frontPageRoute :: Route
 frontPageRoute = do
@@ -60,7 +70,7 @@ frontPageRoute = do
 
 getDeckId :: ActionT IO Int
 getDeckId = do
-  deckIdAsText <- (cookie "deck")
+  deckIdAsText <- cookie "deck"
   let deckIdAsInt = case deckIdAsText of
                       (Just deckId) -> case reads (unpack deckId) of
                                          [] -> 0
@@ -89,9 +99,9 @@ singleCardRoute title = do
   activeDeck <- getActiveDeck
   lucidToSpock (renderSingleCardPage activeDeck title cards)
 
--- This is just for rendering the page for creating cards, NOT adding them to the DB.
-addCardRoute :: Route
-addCardRoute = do
+-- This is just for rendering the page for designing cards, NOT adding them to the DB.
+cardDesignerRoute :: Route
+cardDesignerRoute = do
   activeDeck <- getActiveDeck
   cardTitle <- paramOrDefault "title" "untitled"
   rules <- paramOrDefault "rules" ""
@@ -118,12 +128,12 @@ addCardRoute = do
                          flavor
                          theDesigner
                          illustration
-  withAuth (renderAddCard activeDeck copiedCard (pack designGuidelines)) "add-card"
+  withAuth (renderCardDesigner activeDeck copiedCard (pack designGuidelines)) "add-card"
 
 paramOrDefault :: (PathPiece p, MonadIO m) => Text -> p -> ActionT m p
 paramOrDefault name defaultValue = do
   maybeValue <- param name
-  case maybeValue of
+  case maybeValue of -- TODO: Use Data.Maybe.maybe here
     Just value -> return value
     Nothing -> return defaultValue
 
@@ -168,8 +178,7 @@ submitCardRoute = withAuthImproved "/add-card" $ do
 
 signupRoute :: Route
 signupRoute = do
-  activeDeck <- getActiveDeck
-  lucidToSpock (renderSignupForm activeDeck)
+  lucidToSpock (renderSignupForm Nothing)
 
 submitSignupRoute :: Route
 submitSignupRoute = do
@@ -178,7 +187,10 @@ submitSignupRoute = do
   Just password <- param "password"
   Just salt <- liftIO $ BC.genSaltUsingPolicy BC.fastBcryptHashingPolicy
   hashed <- liftIO $ hashPlainPassword password (decodeUtf8 salt)
-  success <- liftIO $ addPlayer (Player username email hashed (decodeUtf8 salt))
+  success <- liftIO $ addPlayer (Player { playerName = username,
+                                          playerEmail = email,
+                                          playerPassword = hashed,
+                                          playerSalt = (decodeUtf8 salt) })
   if success then do
     setCookie "username" username defaultCookieSettings
     redirect "/player"
@@ -187,20 +199,17 @@ submitSignupRoute = do
 
 failSignupRoute :: Route
 failSignupRoute = do
-  activeDeck <- getActiveDeck
-  lucidToSpock $ renderFailSignup activeDeck
+  lucidToSpock $ renderFailSignup Nothing
 
 loginRoute :: Route
 loginRoute = do
-  activeDeck <- getActiveDeck
   maybeNextPage <- param "next"
   let nextPage = case maybeNextPage of
                    Just x -> x
                    Nothing -> ""
-  lucidToSpock $ renderLoginFormFull nextPage activeDeck
+  lucidToSpock $ renderLoginFormFull nextPage Nothing
 
 submitLoginRoute = do
-  activeDeck <- getActiveDeck
   Just username <- param "username"
   Just password <- param "password"
   maybeSecret <- liftIO $ authorize username password
@@ -211,14 +220,15 @@ submitLoginRoute = do
       maybeNextPage <- param "next"
       case maybeNextPage of
         Just nextPage | not ("" == nextPage) -> redirect $ nextPage
-                      | otherwise -> lucidToSpock $ renderSucceededToLogin activeDeck
-        Nothing -> lucidToSpock $ renderSucceededToLogin activeDeck
+                      | otherwise -> lucidToSpock $ renderSucceededToLogin Nothing
+        Nothing -> lucidToSpock $ renderSucceededToLogin Nothing
     Nothing -> do
-      lucidToSpock $ renderFailedToLogin activeDeck
+      lucidToSpock $ renderFailedToLogin Nothing
 
 logoutRoute = do
   deleteCookie "username"
   deleteCookie "secret"
+  deleteCookie "deck"
   lucidToSpock $ renderLogout Nothing
 
 userPageRoute :: Route
@@ -259,7 +269,6 @@ editDeckRoute :: Text -> Route
 editDeckRoute deckId = do
   setCookie "deck" deckId defaultCookieSettings
   let page = (append "/deck/" deckId)
-  --liftIO $ putStrLn (unpack page)
   redirect page
 
 setDeckNameRoute :: Route
@@ -338,12 +347,11 @@ defaultPort = "8080"
 getPort :: IO String
 getPort = do
   maybePort <- lookupEnv "PORT"
-  port <- case maybePort of
+  case maybePort of
     (Just port) -> return port
     Nothing -> do
       putStrLn $ "No PORT string found in environment, using default (" ++ defaultPort ++ ")."
       return defaultPort
-  return port
 
 isAuthorized :: ActionT IO Bool
 isAuthorized = do
@@ -351,6 +359,8 @@ isAuthorized = do
   case maybeUsername of
     Just username -> return True
     Nothing -> return False
+
+-- TODO: Just use one of the withAuth functions!
 
 withAuth :: (Text -> Html ()) -> Text -> ActionT IO ()
 withAuth authenticatedRoute goHereAfterLogin = do
