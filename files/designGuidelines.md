@@ -40,16 +40,16 @@ Bioms:
 
 To make a card balanced and fun it's important to get its dominance value right. You're free to set any dominance you'd like but here's an easy way of calculating it based on the other stats of the card:
 
-If it's an animal, start with a dominance of 3 - otherwise start with 2.
-If it can hunt, subtract 1.
-If it can graze, subtract ½.
-If it has a requirement, add 1.
-If it's expensive, add 1.
-If it has other costs, add 1 per extra cost.
-All other rules should add/remove about ½ - 1 point depending on how good or bad they are for the Ting.
-Round to the closest whole number.
+1. If it's an animal, start with a dominance of 3 - otherwise start with 2.
+1. If it can hunt, subtract 1.
+1. If it can graze, subtract ½.
+1. If it has a requirement, add 1.
+1. If it's expensive, add 1.
+1. If it has other costs, add 1 per extra cost.
+1. All other rules should add/remove about ½ - 1 point depending on how good or bad they are for the Ting.
+1. Round to the closest whole number.
 
-Voila - you have a pretty good dominance value! Now playtest the card and see if you need to adjust something.
+Voila - now you have a pretty good dominance value! Playtest the card and see if you need to adjust something. Making a great card often takes several iterations.
 
 ---
 
