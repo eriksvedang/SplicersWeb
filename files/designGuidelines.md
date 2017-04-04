@@ -57,21 +57,29 @@ Voila - you have a pretty good dominance value! Now playtest the card and see if
 
 You can use any combination of genes for a card. Genes are used when splicing, as requirements from bioms, and as targets by rule text on other cards. A card can also use other genes that you come up with, or it can be missing one or both genes.
 
-![Air](/files/gen_air.png)
-![Artificial](/files/gen_artificial.png)
-![Bug](/files/gen_bug.png)
-![Fungi](/files/gen_fungi.png)
-![Land](/files/gen_land.png)
-![Mini](/files/gen_mini.png)
-![Nautic](/files/gen_nautic.png)
-![Plant](/files/gen_plant.png)
-![Sinister](/files/gen_sinister.png)
+![Air](/files/gen_air.png) Air
+
+![Artificial](/files/gen_artificial.png) Artificial
+
+![Bug](/files/gen_bug.png) Bug
+
+![Fungi](/files/gen_fungi.png) Fungi
+
+![Land](/files/gen_land.png) Land
+
+![Mini](/files/gen_mini.png) Mini
+
+![Nautic](/files/gen_nautic.png) Nautic
+
+![Plant](/files/gen_plant.png) Plant
+
+![Sinister](/files/gen_sinister.png) Sinister
 
 ---
 
 ### Rules
 
-Try to read through a few other cards before writing the rules on your card, that will make your rules follow the same pattern and way of expression which makes them easier to understand.
+Try to read through a few other cards before writing the rules on your card. By making your rules follow the same pattern and way of expression they will be a lot easier for other players to understand!
 
 ---
 
