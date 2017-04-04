@@ -64,7 +64,7 @@ renderFrontPage activeDeck = renderPage "Welcome" activeDeck $
              a_ [href_ "https://github.com/eriksvedang/SplicersWeb"] (toHtml " GitHub repository")
              span_ " with all the code for this website, or join the "
              a_ [href_ "https://discord.gg/jjmZCEJ"] (toHtml "Discord channel")
-             span_ "where we discuss the development of the game."
+             span_ " where we discuss the development of the game."
 
            h2_ "Made by"
            p_ "The Splicers project (including the rules and this website) was started in the summer of 2015 by Ossian Borén and Erik Svedäng, two game designers from Gothenburg, Sweden."
