@@ -62,6 +62,11 @@
 - [ ] Verkar som att den senaste versionen av kort inte alltid är den som visas på /cards ??!
 - [ ] Behöver en proffsigare bild på framsidan
 
+# PR
+- [ ] Klistermärken?!
+- [ ] Releasefest
+- [ ] Blogpost
+
 # Firefox
 - [ ] Textfältet för regler på kortet overflowar åt höger istället för att radbryta (Firefox).
 - [ ] Vänstermarginal på Player-sidan är för liten (Firefox)
